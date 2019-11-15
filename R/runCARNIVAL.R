@@ -3,7 +3,7 @@
 #'Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL built-in examples
 #'Note: The pipeline requires either all required user-defined input variables (netFile and measFile) are set to NULL or CARNIVAL_example is set to NULL to execute
 #'
-#'@param solverPath Path to executable cplex file - always required
+#'@param CplexPath Path to executable cplex file - always required
 #'@param netFile Filename of the prior knowledge network - always required or set as NULL to run CARNIVAL built-in example
 #'@param measFile Filename of the measurement file (here DoRothEA normalised enrichment scores) - always required or set as NULL to run CARNIVAL built-in example
 #'@param inputFile Filename of the list for target of perturbation - optional or set as NULL to run CARNIVAL built-in example
@@ -34,7 +34,7 @@
 #'
 #'@export
 
-runCARNIVAL <- function(solverPath=NULL,
+runCARNIVAL <- function(CplexPath=NULL,
                         netFile=NULL,
                         measFile=NULL,
                         inputFile=NULL,
@@ -57,8 +57,7 @@ runCARNIVAL <- function(solverPath=NULL,
                         poolIntensity=4,
                         poolReplace=2,
                         alphaWeight=1,
-                        betaWeight=0.2, 
-                        solver = "cplex")
+                        betaWeight=0.2)
 {
 
   # @param parallelCR Execute the parallelised version of CARNIVAL pipeline (logical T/F)
@@ -68,7 +67,6 @@ runCARNIVAL <- function(solverPath=NULL,
   # if(length(dev.list())>0){dev.off()} # clean figure
 
   # library(devtools);load_all()
-  library(readr)
 
   # print("-----------")
   # print(parallelIdx1)
@@ -77,7 +75,7 @@ runCARNIVAL <- function(solverPath=NULL,
   # print("-----------")
   
   # QC step of provided inputs
-  if (!file.exists(solverPath)) {stop("Please provide a valid path to interactive cplex.")}
+  if (!file.exists(CplexPath)) {stop("Please provide a valid path to interactive cplex.")}
   if (!is.null(netFile)) {if (!file.exists(netFile)) {stop("Please provide a valid network filename or leave it as NULL to run CARNIVAL examples.")}}
   if (!is.null(measFile)) {if (!file.exists(measFile)) {stop("Please provide a valid measurement filename or leave it as NULL to run CARNIVAL examples.")}}
   if (!is.null(inputFile)) {if (!file.exists(inputFile)) {stop("Please provide a valid target-input filename or leave it as NULL to run CARNIVAL examples.")}}
@@ -101,12 +99,7 @@ runCARNIVAL <- function(solverPath=NULL,
   if (!is.null(poolReplace)) {if (!(poolReplace %in% c(0,1,2))) {stop("CPLEX parameter: Please set the replacement strategy of solution [0,1,2] or leave it as NULL for CPLEX default value (0) - First In First Out")}}; if (is.null(poolReplace)) {poolReplace=0}
   if (!is.numeric(alphaWeight)) {stop("Objective Function: Please set a weight for mismatch penalty (will be applied only when the weight of measurement is not defined)")}
   if (!is.numeric(betaWeight)) {stop("Objective Function: Please set a weight for node penalty")}
-  
-  valid_solver_list <- c("cplex", "cbc")
-  if (!(solver %in% valid_solver_list)){
-    stop(paste0("Select a valid solver option (", paste(valid_solver_list, collapse=", "), ")"))
-  }
-  
+
   # Load necessary packages and functions
   library(CARNIVAL)
   load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
@@ -209,98 +202,74 @@ runCARNIVAL <- function(solverPath=NULL,
   ptm <- proc.time()
   print("Solving LP problem...")
   
-  if(solver=="cplex"){
-    
-    if (Sys.info()[1]=="Windows") {
-      file.copy(from = solverPath,to = getwd())
-      system(paste0("cplex.exe -f cplexCommand_", condition,"_",repIndex,".txt"))
-      file.remove("cplex.exe")
-      Elapsed_2 <- proc.time() - ptm
-    } else {
-      system(paste0(solverPath, " -f cplexCommand_", condition,"_",repIndex,".txt"))
-      Elapsed_2 <- proc.time() - ptm
-    }
-    
-    # Move result files to result folder and remove redundant files after the optimisation
-    if (file.exists(paste0("testFile_",condition,"_",repIndex,".lp"))) {file.remove(paste0("testFile_",condition,"_",repIndex,".lp"))} # might be useful for debugging
-    
-    if (file.exists(paste0("results_cplex_",condition, "_",repIndex,".txt"))) {file.copy(from = paste0("results_cplex_",condition,"_",repIndex,".txt"),to = paste0(current_dir,"/",dir_name,"/results_cplex_",condition,"_",repIndex,".txt")); file.remove(paste0("results_cplex_",condition,"_",repIndex,".txt"))}
-    
-    if (file.exists("cplex.log")) {file.copy(from = "cplex.log",to = paste0(current_dir,"/",dir_name,"/cplex_",condition,"_",repIndex,".log")); file.remove("cplex.log")}
-    
-    if (file.exists(paste0("cplexCommand_", condition,"_",repIndex,".txt"))) {file.remove(paste0("cplexCommand_", condition,"_",repIndex,".txt"))}
-    AllFiles <- list.files()
-    
-    CloneFiles <- which(grepl(pattern = "clone",x = AllFiles,fixed = T))
-    if (length(CloneFiles)>0) {
-      for (counter in 1:length(CloneFiles)) {
-        file.remove(AllFiles[CloneFiles[counter]])
-      }
-    }
-    
-    # Write result files in the results folder
-    ptm <- proc.time()
-    print("Writing result files...")
-    resList <- list()
-    # if (file.exists(paste0("results/",dir_name,"/results_cplex.txt"))) {
-    if (file.exists(paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt"))) {
-      for(i in 1:length(variables)){
-        res <- exportResult(cplexSolutionFileName = paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt"),
-                            variables = variables, pknList = pknList, conditionIDX = i,
-                            dir_name = dir_name, inputs=inputs,measurements=measurements,
-                            Export_all = Export_all,writeIndividualResults = T, solver = "cplex")
-        resList[[length(resList)+1]] <- res
-        # res <- files2res(counterlist) # retrieve results from previously generated result files
-      }
-      if (!is.null(res)) {
-        if (UP2GS) {res <- Uniprot2GeneSymbol(res)}
-        if (DOTfig) {WriteDOTfig(res=res,dir_name=dir_name,
-                                 inputs=inputs,measurements=measurements,UP2GS=UP2GS)}
-        # if (DOTfig) {WriteDOTfig(res=res,idxModel=c(1,2),dir_name=dir_name,
-        #                             inputs=inputs,measurements=measurements,UP2GS=UP2GS)} # Write figures for individual results
-        save(res,file = paste0(dir_name,"/results_CARNIVAL.Rdata"))
-      }
-    } else {
-      print("No result to be written")
-    }
-    Elapsed_3 <- proc.time() - ptm
-    
-    file.remove(paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt")) # optional; remove cplex results (to save space)
-    
-    # Logged computational time
-    ElapsedAll <- as.data.frame(matrix(t(c(Elapsed_1[3],Elapsed_2[3],Elapsed_3[3])),3,1))
-    rownames(ElapsedAll) <- c("WriteConstraints:","CplexSolving:","ExportResults:")
-    write.table(x = ElapsedAll,file = paste0(dir_name,"/elapsed_time.txt"),col.names = F,row.names = T,quote = F)
-    
-    # Remove global variable 
-    objs <- ls(pos = ".GlobalEnv")
-    rm(list = objs[grep("pknList", objs)], pos = ".GlobalEnv") # remove pknList
-    
-    print(" ")
-    print("--- End of the CARNIVAL pipeline ---")
-    print(" ")
-    
-    return(resList)
-    
+  if (Sys.info()[1]=="Windows") {
+    file.copy(from = CplexPath,to = getwd())
+    system(paste0("cplex.exe -f cplexCommand_", condition,"_",repIndex,".txt"))
+    file.remove("cplex.exe")
+    Elapsed_2 <- proc.time() - ptm
   } else {
-    
-    resFile = paste0("results_cbc_", parallelIdx1, "_", parallelIdx2, ".txt")
-    
-    cbc_command <- paste0(solverPath, " testFile_", parallelIdx1, "_", parallelIdx2, ".lp -seconds ", timelimit,
-                          " -ratio ", mipGAP, " solve printi csv solu ", resFile)
-    
-    system(cbc_command)
-    
-    library(readr)
-    # results_cbc <- read_csv("results_cbc.txt")
-    
-    res <- exportResult(cplexSolutionFileName = resFile,
-                        variables = variables, pknList = pknList, conditionIDX = parallelIdx1,
-                        dir_name = dir_name, inputs=inputs,measurements=measurements,
-                        Export_all = Export_all,writeIndividualResults = T, solver = "cbc")
-    
-    return(res)
-    
+    system(paste0(CplexPath, " -f cplexCommand_", condition,"_",repIndex,".txt"))
+    Elapsed_2 <- proc.time() - ptm
   }
+
+  # Move result files to result folder and remove redundant files after the optimisation
+  if (file.exists(paste0("testFile_",condition,"_",repIndex,".lp"))) {file.remove(paste0("testFile_",condition,"_",repIndex,".lp"))} # might be useful for debugging
+
+  if (file.exists(paste0("results_cplex_",condition, "_",repIndex,".txt"))) {file.copy(from = paste0("results_cplex_",condition,"_",repIndex,".txt"),to = paste0(current_dir,"/",dir_name,"/results_cplex_",condition,"_",repIndex,".txt")); file.remove(paste0("results_cplex_",condition,"_",repIndex,".txt"))}
+
+  if (file.exists("cplex.log")) {file.copy(from = "cplex.log",to = paste0(current_dir,"/",dir_name,"/cplex_",condition,"_",repIndex,".log")); file.remove("cplex.log")}
+
+  if (file.exists(paste0("cplexCommand_", condition,"_",repIndex,".txt"))) {file.remove(paste0("cplexCommand_", condition,"_",repIndex,".txt"))}
+  AllFiles <- list.files()
+
+  CloneFiles <- which(grepl(pattern = "clone",x = AllFiles,fixed = T))
+  if (length(CloneFiles)>0) {
+    for (counter in 1:length(CloneFiles)) {
+      file.remove(AllFiles[CloneFiles[counter]])
+    }
+  }
+
+  # Write result files in the results folder
+  ptm <- proc.time()
+  print("Writing result files...")
+  resList <- list()
+  # if (file.exists(paste0("results/",dir_name,"/results_cplex.txt"))) {
+  if (file.exists(paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt"))) {
+    for(i in 1:length(variables)){
+      res <- exportResult(cplexSolutionFileName = paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt"),
+                          variables = variables, pknList = pknList, conditionIDX = i,
+                          dir_name = dir_name, inputs=inputs,measurements=measurements,
+                          Export_all = Export_all,writeIndividualResults = T)
+      resList[[length(resList)+1]] <- res
+      # res <- files2res(counterlist) # retrieve results from previously generated result files
+    }
+    if (!is.null(res)) {
+      if (UP2GS) {res <- Uniprot2GeneSymbol(res)}
+      if (DOTfig) {WriteDOTfig(res=res,dir_name=dir_name,
+                               inputs=inputs,measurements=measurements,UP2GS=UP2GS)}
+      # if (DOTfig) {WriteDOTfig(res=res,idxModel=c(1,2),dir_name=dir_name,
+      #                             inputs=inputs,measurements=measurements,UP2GS=UP2GS)} # Write figures for individual results
+      save(res,file = paste0(dir_name,"/results_CARNIVAL.Rdata"))
+    }
+  } else {
+    print("No result to be written")
+  }
+  Elapsed_3 <- proc.time() - ptm
+
+  file.remove(paste0(dir_name,"/results_cplex_",condition,"_",repIndex,".txt")) # optional; remove cplex results (to save space)
+
+  # Logged computational time
+  ElapsedAll <- as.data.frame(matrix(t(c(Elapsed_1[3],Elapsed_2[3],Elapsed_3[3])),3,1))
+  rownames(ElapsedAll) <- c("WriteConstraints:","CplexSolving:","ExportResults:")
+  write.table(x = ElapsedAll,file = paste0(dir_name,"/elapsed_time.txt"),col.names = F,row.names = T,quote = F)
   
+  # Remove global variable 
+  objs <- ls(pos = ".GlobalEnv")
+  rm(list = objs[grep("pknList", objs)], pos = ".GlobalEnv") # remove pknList
+  
+  print(" ")
+  print("--- End of the CARNIVAL pipeline ---")
+  print(" ")
+
+  return(resList)
 }
