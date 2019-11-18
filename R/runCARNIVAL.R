@@ -76,7 +76,6 @@ runCARNIVAL <- function(CplexPath=NULL,
   if (is.null(measObj)) {stop("Please provide a valid measurement object.")}
   if (!is.numeric(parallelIdx1) | !is.numeric(parallelIdx2)) {stop("Please set numbers on the parameters 'parallelIdx1' and 'parallelIdx2' for running CARNIVAL in parallelisation ")}
   if (!is.logical(DOTfig)) {stop("For plotting: please choose whether to plot DOT figure as an output with a logical value T/F")}
-  if (!is.logical(Export_all)) {stop("Please choose whether to export all variables names with a logical value T/F (only recommended for debugging)")}
   if (!is.numeric(timelimit)) {stop("CPLEX parameter: Please set a time limit for CPLEX optimisation in seconds")}
   if (!is.null(mipGAP)) {if (!is.numeric(mipGAP)) {stop("CPLEX parameter: Please set the allowed mipGAP parameter or leave it as NULL for CPLEX default value (1e-04)")}}; if (is.null(mipGAP)) {mipGAP=1e-04}
   if (!is.null(poolrelGAP)) {if (!is.numeric(poolrelGAP)) {stop("CPLEX parameter: Please set the allowed pool relative GAP parameter or leave it as NULL for CPLEX default value (1e75)")}}; if (is.null(poolrelGAP)) {poolrelGAP=1e75}
