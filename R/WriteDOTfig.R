@@ -170,7 +170,6 @@ WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
       }
     }
 
-
     Dot_text <- c(Dot_text,"")
     Dot_text <- c(Dot_text,"")
     Dot_text <- c(Dot_text,"}")
