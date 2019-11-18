@@ -14,7 +14,7 @@
 
 WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
 
-  UP2GStag <- ifelse (UP2GS,"GeneSymbol","Uniprot")
+  if(!is.null(UP2GS)){UP2GStag <- ifelse (UP2GS,"GeneSymbol","Uniprot")}
 
   sif_input=NULL;act_input=NULL
   if (sum(idxModel==0)>0) { # default case; if idxModel is not provided, plot the combined and average network
@@ -69,12 +69,14 @@ WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
     }
 
     # Map input(s)' activities
-    inputsName <- names(inputs)
-    if (UP2GS) {
-      IDmap <- read.table(file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",package="CARNIVAL"),header = F,sep = "\t",stringsAsFactors = F)
-      for (counter in 1:length(inputsName)) {
-        if (length(which(IDmap[,1] == inputsName[counter])>0)) { # check first if the ID could be mapped
-          inputsName[counter] <- IDmap[which(IDmap[,1] == inputsName[counter]),3][1]
+    inputsName <- colnames(inputs)
+    if(!is.null(UP2GS)){
+      if (UP2GS) {
+        IDmap <- read.table(file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",package="CARNIVAL"),header = F,sep = "\t",stringsAsFactors = F)
+        for (counter in 1:length(inputsName)) {
+          if (length(which(IDmap[,1] == inputsName[counter])>0)) { # check first if the ID could be mapped
+            inputsName[counter] <- IDmap[which(IDmap[,1] == inputsName[counter]),3][1]
+          }
         }
       }
     }
@@ -114,11 +116,13 @@ WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
     }
 
     AllMeas <- colnames(measurements)
-    if (UP2GS) {
-      IDmap <- read.table(file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",package="CARNIVAL"),header = F,sep = "\t",stringsAsFactors = F)
-      for (counter in 1:length(AllMeas)) {
-        if (length(which(IDmap[,1] == AllMeas[counter])>0)) { # check first if the ID could be mapped
-          AllMeas[counter] <- IDmap[which(IDmap[,1] == AllMeas[counter]),3][1]
+    if(!is.null(UP2GS)){
+      if (UP2GS) {
+        IDmap <- read.table(file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",package="CARNIVAL"),header = F,sep = "\t",stringsAsFactors = F)
+        for (counter in 1:length(AllMeas)) {
+          if (length(which(IDmap[,1] == AllMeas[counter])>0)) { # check first if the ID could be mapped
+            AllMeas[counter] <- IDmap[which(IDmap[,1] == AllMeas[counter]),3][1]
+          }
         }
       }
     }
@@ -171,8 +175,8 @@ WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
     Dot_text <- c(Dot_text,"")
     Dot_text <- c(Dot_text,"}")
 
-    # fileConn <- file(paste0("results/",dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
-    fileConn <- file(paste0(dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
+    fileConn <- file(paste0("results/",dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
+    # fileConn <- file(paste0(getwd(), "/DOTfigures/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
     writeLines(Dot_text,fileConn)
     close(fileConn)
 
