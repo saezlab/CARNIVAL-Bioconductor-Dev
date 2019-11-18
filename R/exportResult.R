@@ -6,7 +6,6 @@
 #' @param variables The list of mapping indices of LP variables
 #' @param conditionIDX The number of experimental condition to be processed
 #' @param pknList The provided prior knowledge network
-#' @param dir_name The name of directory to store results
 #' @param inputs The list of known or potential target of perturbation
 #' @param measurements The discretised observations (here transcription factor activities) of values [-1,0,1]
 #' @param Export_all An option to define whether all detailed mapppd LP variables will be written as individual files
@@ -17,7 +16,7 @@
 #' @export
 
 exportResult <- function(cplexSolutionFileName = cplexSolutionFileName, variables = variables, conditionIDX = conditionIDX,
-                              pknList = pknList, dir_name = dir_name, inputs=inputs, measurements=measurements, Export_all = Export_all, writeIndividualResults=F){
+                              pknList = pknList, inputs=inputs, measurements=measurements){
 
   solution <- read.delim(file = cplexSolutionFileName)
   solution[, 1] <- as.character(solution[, 1])
@@ -201,43 +200,6 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName, variable
     }
 
     # Write SIF, DOT and Nodes' activities files
-
-    if (writeIndividualResults) {
-
-      if (!is.null(sif)) {
-        # write.table(x = sif, file = paste0("results/",dir_name,"/interactions_", conditionIDX, "_model", ii, ".tsv"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = sif, file = paste0(dir_name,"/interactions_", conditionIDX, "_model", ii, ".tsv"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-      } else {
-        # write.table(x = "Empty network returned", file = paste0("results/",dir_name,"/interactions_", conditionIDX,"_model", ii, ".tsv"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-        write.table(x = "Empty network returned", file = paste0(dir_name,"/emptyNetwork", ii, ".tsv"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-      }
-
-      if (length(idx)!=0) {
-        if (!is.null(sif)){
-        # write.table(x = activityNodes, file = paste0("results/",dir_name,"/nodesActivity_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = activityNodes, file = paste0(dir_name,"/nodesActivity_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        }
-    #  } else {
-       # if (!is.null(sif)){
-        # write.table(x = activityNodes, file = paste0("results/",dir_name,"/nodesActivity_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-       #  write.table(x = activityNodes, file = paste0(dir_name,"/nodesActivity_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-    #    }
-      }
-
-      if (Export_all) {
-        # write.table(x = nodes, file = paste0("results/",dir_name,"/nodesAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        # write.table(x = nodesUp, file = paste0("results/",dir_name,"/nodesUpAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        # write.table(x = nodesDown, file = paste0("results/",dir_name,"/nodesDownAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        # write.table(x = edgesUp, file = paste0("results/",dir_name,"/reactionsUpAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        # write.table(x = edgesDown, file = paste0("results/",dir_name,"/reactionsDownAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = nodes, file = paste0(dir_name,"/nodesAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = nodesUp, file = paste0(dir_name,"/nodesUpAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = nodesDown, file = paste0(dir_name,"/nodesDownAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = edgesUp, file = paste0(dir_name,"/reactionsUpAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-        write.table(x = edgesDown, file = paste0(dir_name,"/reactionsDownAttributes_", conditionIDX, "_model", ii, ".txt"), quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-      }
-
-    }
     sifAll[[length(sifAll)+1]] <- sif
     nodesAll[[length(nodesAll)+1]] <- nodes
     nodesActAll[[length(nodesActAll)+1]] <- activityNodes
@@ -306,8 +268,8 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName, variable
 
     # write.table(x = weightedSIF, file = "weightedModel.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
     # fileConn2 <- file(paste0("results/",dir_name,"/weightedModel_", conditionIDX, ".txt"))
-    fileConn2 <- file(paste0(dir_name,"/weightedModel_", conditionIDX, ".txt"))
-    write.table(x = weightedSIF, file = fileConn2, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
+    # fileConn2 <- file(paste0(dir_name,"/weightedModel_", conditionIDX, ".txt"))
+    # write.table(x = weightedSIF, file = fileConn2, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 
     ##
     nodesVar <- c()
@@ -406,8 +368,8 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName, variable
 
     # write.table(x = nodesAttributes, file = "nodesAttributes.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
     # fileConn3 <- file(paste0("results/",dir_name,"/nodesAttributes_", conditionIDX, ".txt"))
-    fileConn3 <- file(paste0(dir_name,"/nodesAttributes_", conditionIDX, ".txt"))
-    write.table(x = nodesAttributes, file = fileConn3, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
+    # fileConn3 <- file(paste0(dir_name,"/nodesAttributes_", conditionIDX, ".txt"))
+    # write.table(x = nodesAttributes, file = fileConn3, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 
     RES <- list()
     RES[[length(RES)+1]] <- weightedSIF
