@@ -334,7 +334,7 @@ runCARNIVAL <- function(solverPath=NULL,
     }
     
     if (file.exists(paste0("testFile_",condition,"_",repIndex,".lp"))) {file.remove(paste0("testFile_",condition,"_",repIndex,".lp"))} # might be useful for debugging
-    if (file.exists(paste0("results_cbc_",condition, "_",repIndex,".txt"))) {file.remove(paste0("results_cplex_",condition,"_",repIndex,".txt"))}
+    if (file.exists(paste0("results_cbc_",condition, "_",repIndex,".txt"))) {file.remove(paste0("results_cbc_",condition,"_",repIndex,".txt"))}
     if (file.exists("cplex.log")) {file.remove("cplex.log")}
     if (file.exists(paste0("cplexCommand_", condition,"_",repIndex,".txt"))) {file.remove(paste0("cplexCommand_", condition,"_",repIndex,".txt"))}
     
