@@ -175,7 +175,11 @@ WriteDOTfig <- function(res,idxModel=0,dir_name,inputs,measurements,UP2GS=F){
     Dot_text <- c(Dot_text,"")
     Dot_text <- c(Dot_text,"}")
 
-    fileConn <- file(paste0(dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
+    if(!is.null(UP2GS)){
+      fileConn <- file(paste0(dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
+    } else {
+      fileConn <- file(paste0(dir_name,"/ActivityNetwork_model_Nr",idxModel[counter_mod],".dot"))
+    }
     # fileConn <- file(paste0(getwd(), "/DOTfigures/ActivityNetwork_model_Nr",idxModel[counter_mod],"_",UP2GStag,".dot"))
     writeLines(Dot_text,fileConn)
     close(fileConn)
