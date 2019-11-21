@@ -115,7 +115,7 @@ Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to caus
 A tutorial for preparing \emph{CARNIVAL} input files starting from differentially gene expression (DEG) and for running the \emph{CARNIVAL} pipeline are provided as vignettes in R-Markdown, R-script and HTML formats. The wrapper script \emph{runCARNIVAL} was introduced to take input arguments, pre-process input descriptions, run optimisation and export results as network figures. Three built-in \emph{CARNIVAL} examples are also supplied as case studies for users. Moreover processed gene expression values (besides differential values) can also be used as an input to \emph{CARNIVAL} but examples are not provided in this vignette.
 
 \subsection{Prerequisites}
-Besides the above mentioned solvers, users need also to install the following R-package dependencies: \emph{readr}(see \url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}(see \url{https://igraph.org/r/}); \emph{readxl}(see \urel{https://readxl.tidyverse.org/}).
+Besides the above mentioned solvers, users need also to install the following R-package dependencies: \emph{readr}(see \url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}(see \url{https://igraph.org/r/}); \emph{readxl}(see \url{https://readxl.tidyverse.org/}).
 
 \subsection{Installation}
 \emph{CARNIVAL} is currently available for the installation as an R-package from our GitHub page.
