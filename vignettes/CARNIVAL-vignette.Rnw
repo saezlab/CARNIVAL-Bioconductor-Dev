@@ -103,7 +103,7 @@ For Windows:
 # C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
 @
 
-Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX_Studio129).
+Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX-Studio129).
 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
