@@ -88,11 +88,11 @@ CARNIVAL refines a quantitative objective function for ILP problem by incorporat
 \subsection{ILP solvers}
 \emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning method from Melas et al.~\cite{Melas}.The network inference process is swiftly performed with an Integer Linear Programming (ILP) formulation of causal reasoning using two solvers: the open-source mixed integer programming solver \emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc}); or the \emph{CPLEX optimizer} from \emph{IBM} (see \url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for free through the Academic Initiative. To perform the analysis, the users will then need to store the binary \emph{cbc} or \emph{cplex} executables on any directory they wish. The binary files of \emph{cbc} can be found by first downloading one of the optimization suites provided here: \url{https://www.coin-or.org/download/binary/OptimizationSuite/}, unzip the download and from there save the \emph{cbc} executable (which can be found on the \emph{bin} directory) file on any of the direcotries they wish of their machines. As for the \emph{cplex}, the executable file can be obtained after registration on the \emph{ILOG CPLEX Optimization Studio} here: \url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}. Samilar like before, users will have to find the \emph{cplex} executable binary file and save on a directory of their own wish or keep them on their default installation paths. The path to interactive version of \emph{CPLEX} is differed based on the operating system. The default installation path for each OS is as follows:
 
-1) For Mac OS: "~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex" -- Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is \emph{CPLEX_Studio129})
+1) For Mac OS: \url{~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex} -- Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is \emph{CPLEX_Studio129})
 
-2) For Linux: "/opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex"
+2) For Linux: \url{/opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex}
 
-3) For Windows: "C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe"
+3) For Windows: \url{C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe}
 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
