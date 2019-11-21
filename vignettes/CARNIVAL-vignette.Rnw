@@ -92,7 +92,6 @@ For Mac OS:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 # ~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex
 @
-Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX Studio129).
 
 For Linux:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
@@ -103,6 +102,8 @@ For Windows:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 # C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
 @
+
+Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX_Studio129).
 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
@@ -126,17 +127,25 @@ Besides the above mentioned solvers, users need also to install the following R-
 library(devtools)
 install_github('saezlab/CARNIVAL', build_vignettes = TRUE)
 # or download the source file from GitHub and install from source
-install.packages('path_to_extracted_CARNIVAL_directory', repos = NULL, type="source")
+install.packages('path_to_extracted_CARNIVAL_directory', 
+                 repos = NULL, type="source")
 @
 
 \subsection{Documentation}
 After successfully installing \emph{CARNIVAL}, its documentation can be accessed as follows.
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-# Install CARNIVAL from Github using devtools
-# install.packages('devtools') # in case devtools hasn't been installed
+# Open vignette as pdf file
 vignette("CNORode-vignette")
 @
+
+\section{Running CARNIVAL}
+
+In the CARNIVAL package, 3 built-in examples are available as the test cases as follows:
+
+1. SBVimprover species translational dataset with EGF as the perturbator
+2. TG-GATEs dataset with paracetamol (APAP) as the perturbator
+3. Toy Model of two crosstalk pathways with multiple (two) experimental conditions
 
 \begin{thebibliography}{}
 
