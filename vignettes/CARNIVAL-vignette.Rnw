@@ -100,57 +100,6 @@ I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh, D.A.~Lauffen
 \newblock From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL.
 \newblock {npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z}
 
-\bibitem{MMB}
-M.K.~Morris, I.~Melas, J.~Saez-Rodriguez.
-\newblock Construction of cell type-specific logic models of signalling networks using CellNetOptimizer.
-\newblock {\em Methods in Molecular Biology: Computational Toxicology}, Ed. B. Reisfeld and A. Mayeno, Humana Press.
-
-\bibitem{fuzzy2011}
-M.K.~Morris, J.~Saez-Rodriguez, D.C.~Clarke, P.K.~Sorger, D.A.~Lauffenburger.
-\newblock Training Signaling Pathway Maps to Biochemical Data with Constrain
-ed Fuzzy Logic: Quantitative Analysis of Liver Cell Responses to Inflammatory
-Stimuli.
-\newblock{\em PLoS Comput Biol.} 7(3) (2011) : e1001099.
-
-\bibitem{julio2009}
-J.~Saez-Rodriguez, L.~Alexopoulos, J.~Epperlein, R.~Samaga, D.~Lauffenburger, S.~Klamt and P.K.~Sorger.
-\newblock Discrete logic modelling as a means to link protein signalling networks with functional analysis of mammalian signal transduction.
-\newblock {\em Molecular Systems Biology}, 5:331, 2009.
-
-\bibitem{wittmanJS}
-Dominik Wittmann, Jan Krumsiek, Julio S. Rodriguez, Douglas
-Lauffenburger, Steffen Klamt, and Fabian Theis.
-\newblock Transforming boolean models to continuous models: methodology and application to t-cell
-receptor signaling.
-\newblock BMC Systems Biology, 3(1):98+, September 2009.
-
-\bibitem{eSSR1}
-Egea, J.A., Maria, R., Banga, J.R. (2010)
-\newblock An evolutionary method for complex-process optimization.
-\newblock Computers \& Operations Research 37(2):315\-324.
-
-\bibitem{eSSR2}
-Egea, J.A., Balsa-Canto, E., Garcia, M.S.G., Banga, J.R. (2009)
-\newblock Dynamic optimization of nonlinear processes with an enhanced scatter search
-method.
-\newblock Industrial \& Engineering Chemistry Research 49(9): 4388\-4401.
-
-\bibitem{wittman}
-Jan Krumsiek, Sebastian Polsterl, Dominik Wittmann, and Fabian Theis.
-\newblock Odefy - from discrete to continuous models.
-\newblock BMC Bioinformatics, 11(1):233+, 2010.
-
-\bibitem{cvodes}
-R. Serban and A. C. Hindmarsh
-\newblock"CVODES: the Sensitivity\-Enabled ODE Solver in SUNDIALS,"
-\newblock Proceedings of IDETC/CIE 2005, Sept. 2005, Long Beach, CA. Also available as LLNL
-technical report UCRL\-JP\-200039.
-
-\bibitem{macnamara_2012}
-A. MacNamara, C. Terfve, D. Henriques, B.P. Bernabe, and J. Saez-Rodriguez.
-\newblock State-time spectrum of signal transduction logic models.
-\newblock Phys Biol., 9(4):045003, 2012.
-
 \end{thebibliography}
 
 
