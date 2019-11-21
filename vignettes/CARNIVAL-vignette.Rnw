@@ -1,0 +1,157 @@
+%\VignetteIndexEntry{Main vignette:Playing with networks using CARNIVAL}
+%\VignetteKeywords{Contextualizing large scale signalling networks from expression footprints
+% with CARNIVAL
+%}
+
+%\VignettePackage{CARNIVAL}
+
+\documentclass{article}
+\usepackage{Sweave,fullpage}
+\usepackage{url, color}
+
+%\usepackage{cmap}
+
+\usepackage{authblk}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks, linkcolor=blue
+}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx,ae,fancyvrb,color}
+\IfFileExists{upquote.sty}{\RequirePackage{upquote}}{}
+\setkeys{Gin}{width=0.8\textwidth}
+
+
+\definecolor{gris90}{gray}{0.90}
+\definecolor{gris10}{gray}{0.1}
+\definecolor{green}{rgb}{0.6, 0.9,0.6}
+
+
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{%
+    fontshape=sl,
+    frame=single,
+    xleftmargin=2em,
+    fillcolor=\color{gris90},
+%    numbers=left % prevent copy/paste entire code
+    }
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{
+    fontshape=sl,
+    frame=single,
+    xleftmargin=2em,
+    fillcolor=\color{green}
+}
+
+
+\DefineVerbatimEnvironment{shell}{Verbatim}{formatcom=\color{blue}}
+
+\title{Contextualizing large scale signalling networks from expression footprints
+with CARNIVAL
+}
+\author[1,2]{Enio Gjerga \thanks{enio.gjerga@bioquant.uni-heidelberg.de}}
+\author[2]{Panuwat Trairatphisan}
+
+\affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for Computational Biomedicine (JRC-COMBINE), 52074, Aachen, Germany}
+\affil[2]{Heidelberg University, Faculty of Medicine, and Heidelberg University Hospital, Institute of Computational Biomedicine, Bioquant, 69120, Heidelberg, Germany}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+% gg
+<<preliminaries, eval=True, results=hide, include=False, echo=FALSE>>=
+options(width=70, useFancyQuotes="UTF-8", prompt=" ", continue="  ")
+@
+
+\section{Introduction}
+
+While gene expression profiling is commonly used to gain an overview of cellular processes, the identification of upstream processes that drive expression changes remains a challenge. To address this issue, we introduce \emph{CARNIVAL}~\cite{CARNIVAL}, a causal network contextualization tool which derives network architectures from gene expression footprints. \emph{CARNIVAL} (CAusal Reasoning pipeline for Network identification using Integer VALue programming)(see \url{https://saezlab.github.io/CARNIVAL/}) integrates different sources of prior knowledge including signed and directed protein–protein interactions, transcription factor targets, and pathway signatures.
+
+\subsection{CARNIVAL pipeline}
+
+CARNIVAL refines a quantitative objective function for ILP problem by incorporating TF and pathway activities on a continuous scale. In addition, the CARNIVAL framework allows us to contextualize the network with or without known targets of perturbations. The implementation is separated into two pipelines which will be referred henceforth as Standard CARNIVAL \emph{StdCARNIVAL} (with known perturbation targets as an input) and Inverse CARNIVAL \emph{InvCARNIVAL} (without information on targets of perturbation), see Figure \ref{fig:carnival_pipeline}. The differential gene expression is used to infer transcription factor (TF) activities with DoRothEA, which are subsequently discretized in order to formulate ILPconstraints. As a result, CARNIVAL derives a family of highest scoring networks which best explain theinferred TF activities. Continuous pathway and TF activities can be additionally considered in the objective function.
+
+\begin{center}
+\begin{figure}[ht]
+\includegraphics[height=7cm, width=14cm]{carnival_pipeline}
+\caption{\emph{CARNIVAL} pipeline}
+\end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{ILP solvers}
+\emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning method from Melas et al.~\cite{Melas}.The network inference process is swiftly performed with an Integer Linear Programming (ILP) formulation of causal reasoning using two solvers: the open-source mixed integer programming solver \emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc}); or the \emph{CPLEX optimizer} from \emph{IBM} (see \url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for free through the Academic Initiative (see \url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/home}). To perform the analysis, the users will then need to store the binary \emph{cbc} or \emph{cplex} executables on any directory they wish. The binary files of \emph{cbc} can be found by first downloading one of the optimization suites provided here: \url{https://www.coin-or.org/download/binary/OptimizationSuite/}, unzip the download and from there save the \emph{'\bin\cbc'} file on any of the direcotries they wish of their machines. As for the \emph{cplex}, after registration on the \emph{ILOG CPLEX Optimization Studio} here: \url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}. Samilar like before, users will have to find the \emph{cplex} executable binary file and save on a directory of their own wish.
+
+\begin{thebibliography}{}
+
+\bibitem{CARNIVAL}
+A.~Liu, P.~Trairatphisan, E.~Gjerga, A.~Didangelos, J.~Barratt and J.~Saez-Rodriguez.
+\newblock From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL.
+\newblock {npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z}
+
+\bibitem{Melas}
+I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh, D.A.~Lauffenburger, J.~Saez-Rodriguez and J.P.F.~Bai
+\newblock From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL.
+\newblock {npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z}
+
+\bibitem{MMB}
+M.K.~Morris, I.~Melas, J.~Saez-Rodriguez.
+\newblock Construction of cell type-specific logic models of signalling networks using CellNetOptimizer.
+\newblock {\em Methods in Molecular Biology: Computational Toxicology}, Ed. B. Reisfeld and A. Mayeno, Humana Press.
+
+\bibitem{fuzzy2011}
+M.K.~Morris, J.~Saez-Rodriguez, D.C.~Clarke, P.K.~Sorger, D.A.~Lauffenburger.
+\newblock Training Signaling Pathway Maps to Biochemical Data with Constrain
+ed Fuzzy Logic: Quantitative Analysis of Liver Cell Responses to Inflammatory
+Stimuli.
+\newblock{\em PLoS Comput Biol.} 7(3) (2011) : e1001099.
+
+\bibitem{julio2009}
+J.~Saez-Rodriguez, L.~Alexopoulos, J.~Epperlein, R.~Samaga, D.~Lauffenburger, S.~Klamt and P.K.~Sorger.
+\newblock Discrete logic modelling as a means to link protein signalling networks with functional analysis of mammalian signal transduction.
+\newblock {\em Molecular Systems Biology}, 5:331, 2009.
+
+\bibitem{wittmanJS}
+Dominik Wittmann, Jan Krumsiek, Julio S. Rodriguez, Douglas
+Lauffenburger, Steffen Klamt, and Fabian Theis.
+\newblock Transforming boolean models to continuous models: methodology and application to t-cell
+receptor signaling.
+\newblock BMC Systems Biology, 3(1):98+, September 2009.
+
+\bibitem{eSSR1}
+Egea, J.A., Maria, R., Banga, J.R. (2010)
+\newblock An evolutionary method for complex-process optimization.
+\newblock Computers \& Operations Research 37(2):315\-324.
+
+\bibitem{eSSR2}
+Egea, J.A., Balsa-Canto, E., Garcia, M.S.G., Banga, J.R. (2009)
+\newblock Dynamic optimization of nonlinear processes with an enhanced scatter search
+method.
+\newblock Industrial \& Engineering Chemistry Research 49(9): 4388\-4401.
+
+\bibitem{wittman}
+Jan Krumsiek, Sebastian Polsterl, Dominik Wittmann, and Fabian Theis.
+\newblock Odefy - from discrete to continuous models.
+\newblock BMC Bioinformatics, 11(1):233+, 2010.
+
+\bibitem{cvodes}
+R. Serban and A. C. Hindmarsh
+\newblock"CVODES: the Sensitivity\-Enabled ODE Solver in SUNDIALS,"
+\newblock Proceedings of IDETC/CIE 2005, Sept. 2005, Long Beach, CA. Also available as LLNL
+technical report UCRL\-JP\-200039.
+
+\bibitem{macnamara_2012}
+A. MacNamara, C. Terfve, D. Henriques, B.P. Bernabe, and J. Saez-Rodriguez.
+\newblock State-time spectrum of signal transduction logic models.
+\newblock Phys Biol., 9(4):045003, 2012.
+
+\end{thebibliography}
+
+
+\end{document}
