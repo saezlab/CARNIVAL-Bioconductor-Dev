@@ -78,7 +78,7 @@ CARNIVAL refines a quantitative objective function for ILP problem by incorporat
 
 \begin{center}
 \begin{figure}[ht]
-\includegraphics[height=7cm, width=14cm]{carnival_pipeline}
+\includegraphics[height=20cm, width=25cm]{carnival_pipeline}
 \caption{\emph{CARNIVAL} pipeline}
 \end{figure}
 \end{center}
