@@ -24,7 +24,8 @@
 #'
 #' @export
 
-writeLPFileMulti <- function(data = data, pknList = pknList, inputs = inputs, alphaWeight=1, betaWeight=0.2, scores=scores, mipGAP=0.1, poolrelGAP=0.01, limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800,measWeights=NULL, repIndex, condition="") {
+writeLPFileMulti <- function(data = data, pknList = pknList, inputs = inputs, alphaWeight=1, betaWeight=0.2, scores=scores, mipGAP=0.1, poolrelGAP=0.01, 
+                             limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800,measWeights=NULL, repIndex, condition="", experimental_conditions) {
   dataMatrix <- buildDataMatrix(data = data, pknList = pknList, inputs = inputs)
   dataMatrix$dataMatrix <- dataMatrix$dataMatrix[experimental_conditions, ]
   dataMatrix$dataMatrixSign <- dataMatrix$dataMatrixSign[experimental_conditions, ]

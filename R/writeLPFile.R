@@ -23,7 +23,8 @@
 #'
 #' @export
 
-writeLPFile <- function(data = data, pknList = pknList, inputs = inputs, alphaWeight=1, betaWeight=0.2, scores=scores, mipGAP=0.1, poolrelGAP=0.01, limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800,measWeights=NULL, repIndex, condition="") {
+writeLPFile <- function(data = data, pknList = pknList, inputs = inputs, alphaWeight=1, betaWeight=0.2, scores=scores, mipGAP=0.1, poolrelGAP=0.01, 
+                        limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800,measWeights=NULL, repIndex, condition="") {
   dataMatrix <- buildDataMatrix(data = data, pknList = pknList, inputs = inputs)
   variables <- create_variables_all(pknList = pknList, dataMatrix = dataMatrix)
   # distVariables <- write_dist_variables(pknList = pknList)
