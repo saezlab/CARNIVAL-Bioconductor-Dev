@@ -88,17 +88,17 @@ CARNIVAL refines a quantitative objective function for ILP problem by incorporat
 
 For Mac OS:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex
+# ~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex
 @
 
 For Linux:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-/opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex
+# /opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex
 @
 
 For Windows:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
+# C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
 @
 
 Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX-Studio129).
