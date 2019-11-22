@@ -304,12 +304,11 @@ Here we use \emph{CPLEX} solver for running the analysis and it takes up to few 
 
 Since we set \emph{DOTfig=TRUE}, the analysis will generate the \emph{.dot} file as visualized in Figure \ref{fig:egf_network} of the network within the default \emph{DOTfig} directory (please use \emph{dir name} variable if you wish to save the network solution at a different directory and on a different name). This figure represents the combined solution network as in the \emph{weightedSIF}. Since the \emph{UP2GS=TRUE}, the generated network will have Gene ID's, otherwise it can be set to \emph{FALSE}. Otherwise if the user is not interested to generate any \emph{.dot} figure, it can as well keep the default \emph{DOTfig=FALSE} for the analysis.
 
-\begin{center}
-\begin{figure}[ht]
-\includegraphics[height=12cm, width=10cm]{egf_network}
-\caption{Network soltion - Example 1}
-\end{figure}
-\end{center}
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{egf_network.jpg}}
+\caption{Solution network - Example 1}
+\label{fig:egf_network}
+\end{figure*}
 
 \begin{thebibliography}{}
 
