@@ -178,7 +178,7 @@ The main function of the \emph{CARNIVAL} apckage is \emph{runCARNIVAL}. This fun
 
 19. \emph{betaWeight}: Objective function: weight for node penalty (Default set to 0.2)
 
-20. \emph{dir name}: Directory name where the users wishes to save the plotted network as a .DOT figure (in case if DOTfig=TRUE). Default set to "current_working_directory/DOTfigures".
+20. \emph{dir name}: Directory name where the users wishes to save the plotted network as a .DOT figure (in case if DOTfig=TRUE). Default set to "current working directory/DOTfigures".
 
 21. \emph{solver}: Solver to use: \emph{cplex} or \emph{cbc} (Default set to \emph{cplex}).
 
