@@ -146,6 +146,7 @@ The main function of the \emph{CARNIVAL} apckage is \emph{runCARNIVAL}. This fun
 
 3. \emph{measObj}:  A matrix or data-frame object containing the measurements (either gene expressions or estimated transcription factor activities).
 
+4. \emph{inputObj}: A matrix or data-frame object containing the experimental perturbation targets. The values can either be 1 (for activatory perturbations), -1 (for inhibitory effects of a perturbation) or NA (when we know that a protein is being targeted but we are not sure about the effect - in this case \emph{CARNIVAL} will try to infer the most likely effect). Default set to NULL (in this case we run \emph{InvCARNIVAL}).
 
 5. \emph{weightObj}: A matrix or data-frame object containing the pathway activity scores as inferred from \emph{runPROGENy}. Default set to NULL.
 
@@ -177,11 +178,11 @@ The main function of the \emph{CARNIVAL} apckage is \emph{runCARNIVAL}. This fun
 
 19. \emph{betaWeight}: Objective function: weight for node penalty (Default set to 0.2)
 
-20. \emph{dir_name}: Directory name where the users wishes to save the plotted network as a .DOT figure (in case if DOTfig=TRUE). Default set to "current_working_directory/DOTfigures".
+20. \emph{dir name}: Directory name where the users wishes to save the plotted network as a .DOT figure (in case if DOTfig=TRUE). Default set to "current_working_directory/DOTfigures".
 
 21. \emph{solver}: Solver to use: \emph{cplex} or \emph{cbc} (Default set to \emph{cplex}).
 
-22. \emph{experimental_conditions}: In the case when the user wishes to combine information from multiple experimental conditions, it has to specify which experimental conditions wishes to use. Default set to NULL - in which case \emph{CARNIVAL} will generate as many network solutions as there are rows in the \emph{measObj}, \emph{inputObj} and/or \emph{weightObj}.
+22. \emph{experimental conditions}: In the case when the user wishes to combine information from multiple experimental conditions, it has to specify which experimental conditions wishes to use. Default set to NULL - in which case \emph{CARNIVAL} will generate as many network solutions as there are rows in the \emph{measObj}, \emph{inputObj} and/or \emph{weightObj}.
 
 While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX} solver is more computationally efficient and is able to provide multiple equivalent solutions which are then combined. The  \emph{mipGAP}, \emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} make sense only if \emph{CPLEX} solver is used to train the networks.
 
