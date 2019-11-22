@@ -213,19 +213,23 @@ library(igraph) # load igraph library
 library(readxl) # load readxl library
 
 #Load files
-file.copy(from=system.file("SBV_EGF_tvalues.csv",package="CARNIVAL"),to=getwd(),overwrite=TRUE)
-file.copy(from=system.file("dorothea_TF_mapping.csv",package="CARNIVAL"),to=getwd(),overwrite=TRUE)
+file.copy(from=system.file("SBV_EGF_tvalues.csv",package="CARNIVAL"),
+          to=getwd(),overwrite=TRUE)
+file.copy(from=system.file("dorothea_TF_mapping.csv",package="CARNIVAL"),
+          to=getwd(),overwrite=TRUE)
 load(file = system.file("BEST_viperRegulon.rdata",package="CARNIVAL"))
 
 df<-read.csv2("SBV_EGF_tvalues.csv", row.names = 'GeneName')  
 map<-read.csv("dorothea_TF_mapping.csv")
 
 #Run DoRothEA and convert from gene symbol to uniprot ID
-TF_genesymbol<-runDoRothEA(df, regulon=viper_regulon, confidence_level=c('A','B','C'))
+TF_genesymbol<-runDoRothEA(df, regulon=viper_regulon, 
+                           confidence_level=c('A','B','C'))
 TF_uniprot<-GeneSymbol2Uniprot(TF_genesymbol, map, 1, 2)
 
 #Generate measurement files in CARNIVAL input format
-generate_measfile(measurements=TF_uniprot, topnumber=50, write2folder="measurements")
+generate_measfile(measurements=TF_uniprot, topnumber=50, 
+                  write2folder="measurements")
 @
 
 Also, users can generate the additional weight input file which contains calculated pathway scores by applying the function runPROGENy. An example of the pipeline to generate a measurement file for Example 1 (SBVimprover-EGF) is shown as follows:
@@ -234,7 +238,8 @@ Also, users can generate the additional weight input file which contains calcula
 library(CARNIVAL) # load CARNIVAL library
 
 #Load files
-file.copy(from=system.file("model_NatComm+14_human.csv",package="CARNIVAL"),to=getwd(),overwrite=TRUE)
+file.copy(from=system.file("model_NatComm+14_human.csv",package="CARNIVAL"),
+          to=getwd(),overwrite=TRUE)
 
 weight_matrix<-read.csv("model_NatComm+14_human.csv")
 df_genenames<-data.frame('gene'=rownames(df),df)
@@ -245,7 +250,8 @@ pathway_scores<-runPROGENy(df_genenames,weight_matrix, z_scores = F)
 #Generate CARNIVAL input files
 for (cond in colnames(pathway_scores)){
   scores<-rbind(rownames(pathway_scores),pathway_scores[,cond])
-  write.table(scores, paste0("measurements/scores_",cond,".txt"),col.names = F, row.names = F, quote = F, sep = '\t')
+  write.table(scores, paste0("measurements/scores_",cond,".txt"),
+              col.names = F, row.names = F, quote = F, sep = '\t')
 }
 @
 
@@ -279,11 +285,19 @@ The \emph{measurements} object is the same as table generated from the \emph{gen
 As a next step, we run the \emph{runCARNIVAL} function to perform the analysis as shown below. We allow a maximal of 1 hour timelimit to perform the analysis, although it will only take few minutes. Also we ask the solver to give us 100 (\emph{poolCap}) of the most diverse (\emph{poolReplace}) 500 (\emph{limitPop}) solutions inferred:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-result = runCARNIVAL(solverPath=solverPath, netObj = Ex2_network_SBV_Omnipath, 
-                     measObj = Ex2_measurements_SBV_EGF, inputObj = Ex2_inputs_SBV_EGF, 
-                     weightObj = Ex2_weights_SBV_EGF, timelimit = 3600, poolCap = 100,
-                     poolReplace = 2, limitPop = 500, nodeID = "uniprot", 
-                     UP2GS = TRUE, DOTfig = TRUE, solver = "cplex")
+result = runCARNIVAL(solverPath=solverPath, 
+                     netObj = Ex2_network_SBV_Omnipath, 
+                     measObj = Ex2_measurements_SBV_EGF, 
+                     inputObj = Ex2_inputs_SBV_EGF, 
+                     weightObj = Ex2_weights_SBV_EGF, 
+                     timelimit = 3600, 
+                     poolCap = 100,
+                     poolReplace = 2, 
+                     limitPop = 500, 
+                     nodeID = "uniprot", 
+                     UP2GS = TRUE, 
+                     DOTfig = TRUE, 
+                     solver = "cplex")
 @
 
 Here we use \emph{CPLEX} solver for running the analysis and it takes up to few minutes. Once the analysis is finished, the returned \emph{result} object contains the resulting weighted network (\emph{weightedSIF} -- combined network solution with weights of interactions telling how often an interaction appears in the pool of solutions); the attributes of each node (\emph{nodesAttributes} -- indicating the average inferred protein activities across the multiple solutions); all the single network solutions inferred (\emph{sifAll}); 
