@@ -306,7 +306,7 @@ Since we set \emph{DOTfig=TRUE}, the analysis will generate the \emph{.dot} file
 
 \begin{center}
 \begin{figure}[ht]
-\includegraphics[height=18cm, width=16.5cm]{egf_network}
+\includegraphics[height=12cm, width=10cm]{egf_network}
 \caption{Network soltion - Example 1}
 \end{figure}
 \end{center}
