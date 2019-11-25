@@ -276,10 +276,14 @@ library(readxl) # load readxl library
 
 ##
 # Example 1
-load(file = system.file("Ex2_inputs_SBV_EGF.RData",package="CARNIVAL"))
-load(file = system.file("Ex2_measurements_SBV_EGF.RData",package="CARNIVAL"))
-load(file = system.file("Ex2_network_SBV_Omnipath.RData",package="CARNIVAL"))
-load(file = system.file("Ex2_weights_SBV_EGF.RData",package="CARNIVAL"))
+load(file = system.file("Ex2_inputs_SBV_EGF.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex2_measurements_SBV_EGF.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex2_network_SBV_Omnipath.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex2_weights_SBV_EGF.RData",
+                        package="CARNIVAL"))
 @
 
 The \emph{measurements} object is the same as table generated from the \emph{generate measfile} function after estimating the Transcription Factor (TF) activites via \emph{DoRothEA}~\cite{dorothea} analysis (see \emph{runDoRothEA} function) as described above. The \emph{weights} are the normalized estimated pathway activities through \emph{PROGENy}~\cite{progeny} (sign indicating the direction of the regulation) (see \emph{runPROGENy}). The \emph{inputs} represents the target of the perturbation (activation of EGF on this case). The \emph{network} object represents the signed and directed prior knowledge network. The proteins on this case are mapped as \emph{Uniprot ID's}.
@@ -325,9 +329,12 @@ library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
 
-load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
-load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",package="CARNIVAL"))
-load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",
+                        package="CARNIVAL"))
 
 # cplex solver
 result_cplex = runCARNIVAL(solverPath=solverPath, 
@@ -359,9 +366,12 @@ library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
 
-load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
-load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",package="CARNIVAL"))
-load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",
+                        package="CARNIVAL"))
 
 # cbc solver
 result_cbc = runCARNIVAL(solverPath=solverPath, 
@@ -402,9 +412,12 @@ library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
 
-load(file = system.file("Ex1_inputs_Toy_mult.RData",package="CARNIVAL"))
-load(file = system.file("Ex1_measurements_Toy_mult.RData",package="CARNIVAL"))
-load(file = system.file("Ex1_network_Toy_mult.RData",package="CARNIVAL"))
+load(file = system.file("Ex1_inputs_Toy_mult.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex1_measurements_Toy_mult.RData",
+                        package="CARNIVAL"))
+load(file = system.file("Ex1_network_Toy_mult.RData",
+                        package="CARNIVAL"))
 
 # cplex solver
 result1 = runCARNIVAL(solverPath = solverPath, 
