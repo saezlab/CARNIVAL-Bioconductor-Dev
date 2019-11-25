@@ -235,8 +235,6 @@ generate_measfile(measurements=TF_uniprot, topnumber=50,
 Also, users can generate the additional weight input file which contains calculated pathway scores by applying the function runPROGENy. An example of the pipeline to generate a measurement file for Example 1 (SBVimprover-EGF) is shown as follows:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-library(CARNIVAL) # load CARNIVAL library
-
 #Load files
 file.copy(from=system.file("model_NatComm+14_human.csv",package="CARNIVAL"),
           to=getwd(),overwrite=TRUE)
@@ -271,6 +269,10 @@ Next, users can load the \emph{CARNIVAL} inputs for Example 1. On this case:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
+library(dplyr) # load dplyr library
+library(readr) # load readr library
+library(igraph) # load igraph library
+library(readxl) # load readxl library
 
 ##
 # Example 1
@@ -309,6 +311,123 @@ Since we set \emph{DOTfig=TRUE}, the analysis will generate the \emph{.dot} file
 \caption{Solution network - Example 1}
 \label{fig:egf_network}
 \end{figure*}
+
+\subsection{CARNIVAL pipeline - Example 2}
+
+In case the target(s) of perturbation is unknown (e.g. in the case of multi-factorial diseases or broad-spectrum drugs), users can choose the Inverse CARNIVAL pipeline to exclusively build a sub-network without input's target(s) information (i.e. inputFile = NULL, inverseCR=T). Note that the pathway scores from PROGENy is highly recommended to be included once running the Inverse CARNIVAL pipeline. Here we present Example 3 as a case study for the Inverse CARNIVAL pipeline (to investigate downstream toxicity effects of paracetamol/APAP on cellular processes). An example of R-code by is provided below:
+
+Training with \emph{CPLEX} (100 combined solutions showed in Figure \ref{fig:apap_cplex}):
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+library(CARNIVAL) # load CARNIVAL library
+library(dplyr) # load dplyr library
+library(readr) # load readr library
+library(igraph) # load igraph library
+library(readxl) # load readxl library
+
+load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+
+# cplex solver
+result_cplex = runCARNIVAL(solverPath=solverPath, 
+                           netObj = Ex3_network_APAP_TGG_Omnipath, 
+                           measObj = Ex3_measurement_APAP_TGG_24hrHighDose, 
+                           weightObj = Ex3_weights_APAP_TGG_24hrHighDose, 
+                           timelimit = 3600, 
+                           poolCap = 100,
+                           poolReplace = 2, 
+                           limitPop = 100, 
+                           nodeID = "uniprot", 
+                           UP2GS = TRUE, 
+                           DOTfig = TRUE, 
+                           solver = "cplex")
+@
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{apap_cplex.jpg}}
+\caption{Solution network - Example 2 - Result with \emph{CPLEX} solver}
+\label{fig:apap_cplex}
+\end{figure*}
+
+Training with \emph{Cbc} (1 single solution obtained and showed in Figure \ref{fig:apap_cbc}):
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+library(CARNIVAL) # load CARNIVAL library
+library(dplyr) # load dplyr library
+library(readr) # load readr library
+library(igraph) # load igraph library
+library(readxl) # load readxl library
+
+load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",package="CARNIVAL"))
+load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",package="CARNIVAL"))
+
+# cbc solver
+result_cbc = runCARNIVAL(solverPath=solverPath, 
+                         netObj = Ex3_network_APAP_TGG_Omnipath, 
+                         measObj = Ex3_measurement_APAP_TGG_24hrHighDose, 
+                         weightObj = Ex3_weights_APAP_TGG_24hrHighDose, 
+                         timelimit = 3600, 
+                         nodeID = "uniprot", 
+                         UP2GS = TRUE, 
+                         DOTfig = TRUE, 
+                         solver = "cbc")
+@
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{apap_cbc.jpg}}
+\caption{Solution network - Example 2 - Result with \emph{Cbc} solver}
+\label{fig:apap_cbc}
+\end{figure*}
+
+\subsection{Toy example with multiple conditions}
+
+In the context of multiple perturbation experiments, users would wish to obtain one consensus model fitting best the combined experiments rather than obtaining separate solutions for each experimental conditions. \emph{CARNIVAL} has been implemented in such a way to handle these cases and we show one such application over a small toy example as shown in Figure \ref{fig:carnival_vignette_toy}:
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{carnival_vignette_toy.jpeg}}
+\caption{Toy example with multiple experimental conditions. \emph{Left panel:} Prior knowledge network. \emph{Right upper panel:} Inputs. \emph{Right lower panel:} Measurements.}
+\label{fig:carnival_vignette_toy}
+\end{figure*}
+
+The toy example shows the effects of perturbing nodes \emph{P1} and \emph{P2} over \emph{G1} and \emph{G2}. On the left panel we have the prior knowledge network showing how inputs connect to the measurements through the activatory interactions.
+
+We train the network with \emph{CPLEX} as below:
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+library(CARNIVAL) # load CARNIVAL library
+library(dplyr) # load dplyr library
+library(readr) # load readr library
+library(igraph) # load igraph library
+library(readxl) # load readxl library
+
+load(file = system.file("Ex1_inputs_Toy_mult.RData",package="CARNIVAL"))
+load(file = system.file("Ex1_measurements_Toy_mult.RData",package="CARNIVAL"))
+load(file = system.file("Ex1_network_Toy_mult.RData",package="CARNIVAL"))
+
+# cplex solver
+result1 = runCARNIVAL(solverPath = solverPath, 
+                      netObj = Ex1_network_Toy_mult, 
+                      measObj = Ex1_measurements_Toy_mult, 
+                      inputObj = Ex1_inputs_Toy_mult, 
+                      mipGAP = 0, 
+                      poolrelGAP = 0, 
+                      DOTfig = TRUE, 
+                      solver = "cplex")
+@
+
+The consensus network is as shown in Figure \ref{fig:carnival_vignette_toy_2}.
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{carnival_vignette_toy_2.jpeg}}
+\caption{Consensus network solution of the Toy Example.}
+\label{fig:carnival_vignette_toy_2}
+\end{figure*}
+
+We can easily notice that this is the desired network although measurement \emph{G2} is not perfectly fitted well on the third experimental condition. This is because if by connecting \emph{P2} to \emph{G2} through \emph{TF2}, we would obtain a good fit of \emph{G2} on the third experiment, however this would come at the expense of mis-fiting other measurements for the other two experimental conditions.
+
+When running \emph{CARNIVAL} for multiple experimental conditions we only obtain the network solution and not the list of the node activities since they might differ from one experimental condition to the other.
 
 \begin{thebibliography}{}
 
