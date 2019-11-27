@@ -135,6 +135,7 @@ runCARNIVAL <- function(solverPath=NULL,
   } else {
     if(length(idx2rem)>0){
       measObj = measObj[, -idx2rem]
+      measObj = t(as.matrix(measObj))
     }
   }
   
@@ -160,6 +161,7 @@ runCARNIVAL <- function(solverPath=NULL,
     } else {
       if(length(idx2rem)>0){
         inputObj = inputObj[, -idx2rem]
+        inputObj = t(as.matrix(inputObj))
       }
     } 
   }
