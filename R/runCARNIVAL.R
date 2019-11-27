@@ -158,6 +158,7 @@ runCARNIVAL <- function(solverPath=NULL,
     } else {
       if(length(idx2rem)>0){
         inputObj = inputObj[, -idx2rem]
+        inputObj = t(as.matrix(inputObj))
       }
     } 
   }
