@@ -56,7 +56,8 @@ runCARNIVAL <- function(solverPath=NULL,
                         betaWeight=0.2,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cbc", 
-                        experimental_conditions = NULL)
+                        experimental_conditions = NULL, 
+                        progenyMembers = NULL)
 {
 
   # @param parallelCR Execute the parallelised version of CARNIVAL pipeline (logical T/F)
@@ -96,7 +97,9 @@ runCARNIVAL <- function(solverPath=NULL,
   }
 
   # Load necessary packages and functions
-  load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
+  if(is.null(progenyMembers)){
+    load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
+  }
   current_dir = getwd()
 
   if(is.null(inputObj)){
