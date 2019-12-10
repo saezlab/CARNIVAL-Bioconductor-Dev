@@ -23,12 +23,7 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
       measured <- gsub(colnames(dataMatrix$dataMatrix)[dataMatrix$dsID], pattern = "DS:", replacement = "")
       # measured <- c(measured, gsub(colnames(dataMatrix$dataMatrix)[dataMatrix$dnID], pattern = "DN:", replacement = ""))
 
-      idxMeasured <- c()
-      for(i in 1:length(measured)){
-
-        idxMeasured <- c(idxMeasured, which(variables$expNodesReduced==paste0("Species ", measured[i])))
-
-      }
+      idxMeasured = which(variables$expNodesReduced%in%paste0("Species ", measured))
 
       measuredVar <- variables$variables[idxMeasured]
 
@@ -36,13 +31,9 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
 
       if(!is.null(measWeights)){
 
-        weightedSpecies <- rownames(measWeights)
+        weightedSpecies <- colnames(measWeights)
 
-        for(i in 1:length(weightedSpecies)){
-
-          allWeights[which(which(variables$expNodesReduced==paste0("Species ", weightedSpecies[i]))==idxMeasured)] <- measWeights[i]
-
-        }
+        allWeights[which(which(variables$expNodesReduced%in%paste0("Species ", weightedSpecies[i]))==idxMeasured)] <- measWeights
 
         objectiveFunctionVec <- paste0(" + ", allWeights, " absDiff", gsub(measuredVar, pattern = "xb", replacement = ""))
 
@@ -74,12 +65,7 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
       measured <- gsub(colnames(dataMatrix$dataMatrix)[dataMatrix$dsID], pattern = "DS:", replacement = "")
       # measured <- c(measured, gsub(colnames(dataMatrix$dataMatrix)[dataMatrix$dnID], pattern = "DN:", replacement = ""))
 
-      idxMeasured <- c()
-      for(i in 1:length(measured)){
-
-        idxMeasured <- c(idxMeasured, which(variables$expNodesReduced==paste0("Species ", measured[i])))
-
-      }
+      idxMeasured = which(variables$expNodesReduced%in%paste0("Species ", measured))
 
       measuredVar <- variables$variables[idxMeasured]
 
@@ -87,13 +73,9 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
 
       if(!is.null(measWeights)){
 
-        weightedSpecies <- rownames(measWeights)
+        weightedSpecies <- colnames(measWeights)
 
-        for(i in 1:length(weightedSpecies)){
-
-          allWeights[which(which(variables$expNodesReduced==paste0("Species ", weightedSpecies[i]))==idxMeasured)] <- measWeights[i]
-
-        }
+        allWeights[which(which(variables$expNodesReduced%in%paste0("Species ", weightedSpecies[i]))==idxMeasured)] <- measWeights
 
         objectiveFunctionVec <- paste0(" + ", allWeights, " absDiff", gsub(measuredVar, pattern = "xb", replacement = ""))
 
