@@ -36,7 +36,7 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
       
       if(!is.null(measWeights)){
         
-        weightedSpecies <- rownames(measWeights)
+        weightedSpecies <- colnames(measWeights)
         
         for(i in 1:length(weightedSpecies)){
           
@@ -87,7 +87,7 @@ write_objective_function_all <- function(dataMatrix = dataMatrix, variables = va
       
       if(!is.null(measWeights)){
         
-        weightedSpecies <- rownames(measWeights)
+        weightedSpecies <- colnames(measWeights)
         
         for(i in 1:length(weightedSpecies)){
           
