@@ -89,16 +89,16 @@ solveCARNIVAL <- function(solverPath = solverPath,
                               variables = variables, 
                               pknList = pknList, 
                               conditionIDX = i,
-                              inputObj=inputObj,
-                              measObj=measObj)
+                              inputs=inputObj,
+                              measurements=measObj)
           resList[[length(resList)+1]] <- res
         }
         if (!is.null(res)) {
           if(!is.null(UP2GS)){if (UP2GS) {res <- Uniprot2GeneSymbol(res)}}
           if (DOTfig) {WriteDOTfig(res=res,
                                    dir_name=dir_name,
-                                   inputObj=inputObj,
-                                   measObj=measObj,
+                                   inputs=inputObj,
+                                   measurements=measObj,
                                    UP2GS=UP2GS)}
         }
       } else {
@@ -136,16 +136,16 @@ solveCARNIVAL <- function(solverPath = solverPath,
                           variables = variables, 
                           conditionIDX = parallelIdx1,
                           pknList = pknList, 
-                          inputObj=inputObj, 
-                          measObj=measObj, 
+                          inputs=inputObj, 
+                          measurements=measObj, 
                           solver = "cbc")
       
       if (!is.null(res)) {
         if(!is.null(UP2GS)){if (UP2GS) {res <- Uniprot2GeneSymbol(res)}}
         if (DOTfig) {WriteDOTfig(res=res,
                                  dir_name=dir_name,
-                                 inputObj=inputObj,
-                                 measObj=measObj,
+                                 inputs=inputObj,
+                                 measurements=measObj,
                                  UP2GS=UP2GS)}
       }
       
@@ -209,8 +209,8 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                                   "_",repIndex,".txt"),
                                          variables = variables, 
                                          pknList = pknList,
-                                         inputObj=inputObj,
-                                         measObj=measObj, 
+                                         inputs=inputObj,
+                                         measurements=measObj, 
                                          solver = "cplex")
         if (!is.null(res)) {
           if(!is.null(UP2GS)){if (UP2GS) {res <- Uniprot2GeneSymbol(res)}}
@@ -238,8 +238,8 @@ solveCARNIVAL <- function(solverPath = solverPath,
       res <- exportResultAllConditions(cplexSolutionFileName = resFile, 
                                        variables = variables,
                                        pknList = pknList, 
-                                       inputObj=inputObj, 
-                                       measObj=measObj, 
+                                       inputs=inputObj, 
+                                       measurements=measObj, 
                                        solver = "cbc")
       
       if (!is.null(res)) {
