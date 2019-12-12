@@ -74,7 +74,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
         Elapsed_2 <- proc.time() - ptm
       }
       
-      cleanupCARNIVAL(condition = condition, repIndex = repIndex)
+      # cleanupCARNIVAL(condition = condition, repIndex = repIndex)
       
       # Write result files in the results folder
       ptm <- proc.time()
@@ -149,7 +149,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                  UP2GS=UP2GS)}
       }
       
-      cleanupCARNIVAL(condition = condition, repIndex = repIndex)
+      # cleanupCARNIVAL(condition = condition, repIndex = repIndex)
       
       return(res)
       
