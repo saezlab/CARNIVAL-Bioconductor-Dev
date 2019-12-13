@@ -13,7 +13,7 @@ checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
                       as.character(as.matrix(netObj)[, 3])))
   
   if (is.null(weightObj)) {
-    weightObj = NULL
+    weightObj = "NULL"
   } else {
     allowedClass = c("matrix", "data.frame")
     if(!(any(class(weightObj)%in%allowedClass))){

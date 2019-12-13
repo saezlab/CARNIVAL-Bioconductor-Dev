@@ -30,7 +30,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                           condition = condition,
                           repIndex = repIndex){
   
-  # Write constraints as ILP inputObj
+  ## Write constraints as ILP inputObj
   ptm <- proc.time()
   print("Writing constraints...")
   
@@ -40,6 +40,9 @@ solveCARNIVAL <- function(solverPath = solverPath,
   ## Extracted sign of measurement for ILP fitting
   measurements <- sign(measObj)
   measWeights <- abs(measObj)
+  
+  ## Check the weight
+  if(weightObj=="NULL"){weightObj=NULL}
   
   pknList <<- pknList
   
