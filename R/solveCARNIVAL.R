@@ -42,7 +42,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
   measWeights <- abs(measObj)
   
   ## Check the weight
-  if(weightObj=="NULL"){weightObj=NULL}
+  if(weightObj[1]=="NULL"){weightObj=NULL}
   
   pknList <<- pknList
   
