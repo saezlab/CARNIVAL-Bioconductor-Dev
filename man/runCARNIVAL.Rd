@@ -4,66 +4,96 @@
 \alias{runCARNIVAL}
 \title{\code{runCARNIVAL}}
 \usage{
-runCARNIVAL(CplexPath = NULL, netFile = NULL, measFile = NULL,
-  inputFile = NULL, weightFile = NULL, CARNIVAL_example = 2,
-  Result_dir = "Results_CARNIVAL", inverseCR = F, parallelIdx1 = 1,
-  parallelIdx2 = 1, nodeID = "uniprot", UP2GS = T, DOTfig = T,
-  Export_all = F, timelimit = 600, mipGAP = 0.05,
-  poolrelGAP = 1e-04, limitPop = 500, poolCap = 100,
-  poolIntensity = 4, poolReplace = 2, alphaWeight = 1,
-  betaWeight = 0.2)
+runCARNIVAL(solverPath=NULL, netObj=NULL, measObj=NULL, inputObj=NULL,
+            weightObj=NULL, parallelIdx1=1, parallelIdx2=1, nodeID="uniprot",
+            UP2GS=NULL, DOTfig=T, timelimit=600, mipGAP=0.05, poolrelGAP=0.0001,
+            limitPop=500, poolCap=100, poolIntensity=4, poolReplace=2,
+            alphaWeight=1, betaWeight=0.2,
+            dir_name=paste0(getwd(), "/DOTfigures"), solver="cbc", 
+            experimental_conditions = NULL)
 }
 \arguments{
-\item{CplexPath}{Path to executable cplex file - always required}
+\item{solverPath}{Path to executable cbc/cplex file - always required}
 
-\item{netFile}{Filename of the prior knowledge network - always required or set as NULL to run CARNIVAL built-in example}
+\item{netObj}{Prior knowledge network object (class data.frame/matrix) - 
+              always required}
 
-\item{measFile}{Filename of the measurement file (here DoRothEA normalised enrichment scores) - always required or set as NULL to run CARNIVAL built-in example}
+\item{measObj}{Measurement object (class data.frame/matrix, here we suggest to
+               use DoRothEA normalised enrichment scores but can as well be gene
+               expression values) - always required}
 
-\item{inputFile}{Filename of the list for target of perturbation - optional or set as NULL to run CARNIVAL built-in example}
+\item{inputObj}{Perturbation targets (class data.frame/matrix where column names
+                represent the perturbation target ID's and matrix elements 
+                represent the corresponding perturbation effect: 1 for 
+                activation, -1 for inhibition annd NaN if the effect is un-known
+                - optional or set as NULL to run the InvCARNIVAL}
 
-\item{weightFile}{Filename of the additional weight (here PROGENy pathway score) - optional or set as NULL to run CARNIVAL built-in example}
+\item{weightObj}{Weight object (here we suggest PROGENy pathway scores but can
+                 as well be normalized measured protein activities from -1 to 1) 
+                 - optional and default set as NULL to run CARNIVAL without
+                 weighting proteins}
 
-\item{CARNIVAL_example}{Number of built-in CARNIVAL example (1=Toy Model,2=SBVimprove-EGF,3=TG-GATEs-APAP) or set as NULL to use user-defined input files}
+\item{parallelIdx1}{First index number suitable for parallelisation (numeric - 
+                    set to 1 by default)}
 
-\item{Result_dir}{Specify directory name to store results}
+\item{parallelIdx2}{Second index number suitable for parallelisation (numeric - 
+                    set to 1 by default)}
 
-\item{inverseCR}{Execute the inverse CARNIVAL pipeline (logical T/F)}
+\item{nodeID}{Define the input format of nodes in the network (either 'uniprot' 
+              or 'gene' symbol). Default set to 'uniprot' ID's for humans. If
+              you using other identifiers/organisms or not sure about this
+              variable, leave to default}
 
-\item{parallelIdx1}{First index number suitable for parallelisation (numeric - set to 1 by default)}
+\item{UP2GS}{For plotting: define if Human Uniprot ID will be converted to gene 
+             symbols for better readability (logical T/F). Default set to NULL
+             and if you using other identifiers/organisms or not sure about this
+              variable, leave to default}
 
-\item{parallelIdx2}{Second index number suitable for parallelisation (numeric - set to 1 by default)}
+\item{DOTfig}{For plotting: define if DOT figure will be exported in the result 
+              folder (logical T/F). Default set to TRUE. If this the case, the
+              plotted DOT figures will be saved in the defined dir_name 
+              directory}
+              
+\item{dir_name}{Specify directory name to store results. by default it will
+                create a /DOTfigures directory within the current working
+                directory}
 
-\item{nodeID}{Define the input format of nodes in the network (either 'uniprot' or 'gene' symbol)}
+\item{timelimit}{CPLEX/Cbc parameter: Time limit of CPLEX optimisation (in 
+                 seconds)}
 
-\item{UP2GS}{For plotting: define if Uniprot ID will be converted to gene symbols for better readability (logical T/F)}
+\item{mipGAP}{CPLEX parameter: the absolute tolerance on the gap between the 
+              best integer objective and the objective of the best node 
+              remaining. When this difference falls below the value of this 
+              parameter, the linear integer optimization is stopped. Default set
+              to 0.05}
 
-\item{DOTfig}{For plotting: define if DOT figure will be exported in the result folder (logical T/F)}
+\item{poolrelGAP}{CPLEX/Cbc parameter: Allowed relative gap of accepted solution 
+      comparing within the pool of accepted solution (fraction; default: 
+      0.0001)}
 
-\item{Export_all}{Define if all CPLEX variables results will be exported into files (logical T/F) - only recommended for debugging}
+\item{limitPop}{CPLEX parameter: Allowed number of solutions to be generated 
+                (default: 500)}
 
-\item{timelimit}{CPLEX parameter: Time limit of CPLEX optimisation (in seconds)}
+\item{poolCap}{CPLEX parameter: Allowed number of solution to be kept in the 
+               pool of solution (default: 100)}
 
-\item{mipGAP}{CPLEX parameter: Allowed gap of accepted solution comparing to the best solution (fraction; default: 0.05 = 5 percents)}
+\item{poolIntensity}{CPLEX parameter: Intensity of solution searching (0,1,2,3,4
+                     - default: 4)}
 
-\item{poolrelGAP}{CPLEX parameter: Allowed relative gap of accepted solution comparing within the pool of accepted solution (fraction; default: 0.0001)}
+\item{poolReplace}{CPLEX parameter: Replacement strategy of solutions in the 
+                   pool (0,1,2 - default: 2 = most diversified solutions)}
 
-\item{limitPop}{CPLEX parameter: Allowed number of solutions to be generated (default: 500)}
-
-\item{poolCap}{CPLEX parameter: Allowed number of solution to be kept in the pool of solution (default: 100)}
-
-\item{poolIntensity}{CPLEX parameter: Intensity of solution searching (0,1,2,3,4 - default: 4)}
-
-\item{poolReplace}{CPLEX parameter: Replacement strategy of solutions in the pool (0,1,2 - default: 2 = most diversified solutions)}
-
-\item{alphaWeight}{Objective function: weight for mismatch penalty (default: 1 - will only be applied once measurement file only contains discrete values)}
+\item{alphaWeight}{Objective function: weight for mismatch penalty (default: 1 - 
+                   will only be applied once measurement file only contains 
+                   discrete values)}
 
 \item{betaWeight}{Objective function: weight for node penalty (defaul: 0.2)}
 }
 \value{
-The networks and predicted node activities from the CARNIVAL pipeline as a variable which are also saved in the destined result folder
+The networks and predicted node activities from the CARNIVAL pipeline as a 
+variable which are also saved in the destined result folder
 }
 \description{
-Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL built-in examples
-Note: The pipeline requires either all required user-defined input variables (netFile and measFile) are set to NULL or CARNIVAL_example is set to NULL to execute
+Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL 
+built-in examples
 }
