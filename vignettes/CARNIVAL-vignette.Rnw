@@ -374,12 +374,6 @@ Next, users can load the \emph{CARNIVAL} inputs for Example 1. The
 \emph{assignPROGENyScores} function. On this case:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-
 ##
 # Example 1
 load(file = system.file("Ex2_inputs_SBV_EGF.RData",
@@ -391,6 +385,7 @@ load(file = system.file("Ex2_network_SBV_Omnipath.RData",
 
 load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
 
+## pathway_scores as generated as described in section 3.1
 weightObj <- assignPROGENyScores(progeny = t(pathway_scores), 
                                  progenyMembers = progenyMembers, 
                                  id = "uniprot")
