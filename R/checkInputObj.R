@@ -15,7 +15,7 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
   
   if(is.null(inputObj)){
     print("inputObj set to NULL -- running InvCARNIVAL")
-    MappedPertNode <- AddPerturbationNode(network = netObj)
+    MappedPertNode <- AddPerturbationNode(network = as.matrix(netObj))
     returnList = MappedPertNode
   } else {
     if(ncol(inputObj)>0){
