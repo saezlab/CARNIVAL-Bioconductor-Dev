@@ -88,6 +88,15 @@ runCARNIVAL(solverPath=NULL, netObj=NULL, measObj=NULL, inputObj=NULL,
                    discrete values)}
 
 \item{betaWeight}{Objective function: weight for node penalty (defaul: 0.2)}
+
+\item{solver}{Solver to use: CPLEX or CbC (Default set to CPLEX)}
+
+\item{experimental_conditions}{In the case when the user wishes to combine 
+information from multiple experimental conditions, it has to specify which 
+experimental conditions wishes to use. Default set to NULL - in which case 
+CARNIVAL will generate as many network solutions as there are rows in the
+measObj, inputObj and/or weightObj}
+
 }
 \value{
 The networks and predicted node activities from the CARNIVAL pipeline as a 

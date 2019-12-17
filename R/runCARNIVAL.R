@@ -56,7 +56,7 @@ runCARNIVAL <- function(solverPath=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         dir_name=paste0(getwd(), "/DOTfigures"),
-                        solver="cbc", 
+                        solver="cplex", 
                         experimental_conditions = NULL)
 {
 

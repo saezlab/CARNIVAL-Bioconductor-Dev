@@ -55,8 +55,10 @@ with CARNIVAL
 \author[1,2]{Enio Gjerga \thanks{enio.gjerga@bioquant.uni-heidelberg.de}}
 \author[2]{Panuwat Trairatphisan}
 
-\affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for Computational Biomedicine (JRC-COMBINE), 52074, Aachen, Germany}
-\affil[2]{Heidelberg University, Faculty of Medicine, and Heidelberg University Hospital, Institute of Computational Biomedicine, Bioquant, 69120, Heidelberg, Germany}
+\affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for 
+Computational Biomedicine (JRC-COMBINE), 52074, Aachen, Germany}
+\affil[2]{Heidelberg University, Faculty of Medicine, and Heidelberg University 
+Hospital, Institute of Computational Biomedicine, Bioquant, 69120, Heidelberg, Germany}
 
 \begin{document}
 \maketitle
@@ -70,11 +72,31 @@ options(width=70, useFancyQuotes="UTF-8", prompt=" ", continue="  ")
 
 \section{Introduction}
 
-While gene expression profiling is commonly used to gain an overview of cellular processes, the identification of upstream processes that drive expression changes remains a challenge. To address this issue, we introduce \emph{CARNIVAL}~\cite{CARNIVAL}, a causal network contextualization tool which derives network architectures from gene expression footprints. \emph{CARNIVAL} (CAusal Reasoning pipeline for Network identification using Integer VALue programming)(see \url{https://saezlab.github.io/CARNIVAL/}) integrates different sources of prior knowledge including signed and directed protein–protein interactions, transcription factor targets, and pathway signatures.
+While gene expression profiling is commonly used to gain an overview of cellular
+processes, the identification of upstream processes that drive expression 
+changes remains a challenge. To address this issue, we introduce 
+\emph{CARNIVAL}~\cite{CARNIVAL}, a causal network contextualization tool which 
+derives network architectures from gene expression footprints. \emph{CARNIVAL} 
+(CAusal Reasoning pipeline for Network identification using Integer VALue 
+programming)(see \url{https://saezlab.github.io/CARNIVAL/}) integrates different
+sources of prior knowledge including signed and directed protein–protein 
+interactions, transcription factor targets, and pathway signatures.
 
 \subsection{CARNIVAL pipeline}
 
-CARNIVAL refines a quantitative objective function for ILP problem by incorporating TF and pathway activities on a continuous scale. In addition, the CARNIVAL framework allows us to contextualize the network with or without known targets of perturbations. The implementation is separated into two pipelines which will be referred henceforth as Standard CARNIVAL \emph{StdCARNIVAL} (with known perturbation targets as an input) and Inverse CARNIVAL \emph{InvCARNIVAL} (without information on targets of perturbation), see Figure \ref{fig:carnival_pipeline}. The differential gene expression is used to infer transcription factor (TF) activities with DoRothEA, which are subsequently discretized in order to formulate ILPconstraints. As a result, CARNIVAL derives a family of highest scoring networks which best explain theinferred TF activities. Continuous pathway and TF activities can be additionally considered in the objective function.
+CARNIVAL refines a quantitative objective function for ILP problem by 
+incorporating TF and pathway activities on a continuous scale. In addition, the 
+CARNIVAL framework allows us to contextualize the network with or without known 
+targets of perturbations. The implementation is separated into two pipelines 
+which will be referred henceforth as Standard CARNIVAL \emph{StdCARNIVAL} (with 
+known perturbation targets as an input) and Inverse CARNIVAL \emph{InvCARNIVAL} 
+(without information on targets of perturbation), see Figure 
+\ref{fig:carnival_pipeline}. The differential gene expression is used to infer 
+transcription factor (TF) activities with DoRothEA, which are subsequently 
+discretized in order to formulate ILPconstraints. As a result, CARNIVAL derives 
+a family of highest scoring networks which best explain theinferred TF 
+activities. Continuous pathway and TF activities can be additionally considered
+in the objective function.
 
 \begin{center}
 \begin{figure}[ht]
@@ -84,7 +106,28 @@ CARNIVAL refines a quantitative objective function for ILP problem by incorporat
 \end{center}
 
 \subsection{ILP solvers}
-\emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning method from Melas et al.~\cite{Melas}.The network inference process is swiftly performed with an Integer Linear Programming (ILP) formulation of causal reasoning using two solvers: the open-source mixed integer programming solver \emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc}); or the \emph{CPLEX optimizer} from \emph{IBM} (see \url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for free through the Academic Initiative. To perform the analysis, the users will then need to store the binary \emph{cbc} or \emph{cplex} executables on any directory they wish. The binary files of \emph{cbc} can be found by first downloading one of the optimization suites provided here: \url{https://www.coin-or.org/download/binary/OptimizationSuite/}, unzip the download and from there save the \emph{cbc} executable (which can be found on the \emph{bin} directory) file on any of the direcotries they wish of their machines. As for the \emph{cplex}, the executable file can be obtained after registration on the \emph{ILOG CPLEX Optimization Studio} here: \url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}. Samilar like before, users will have to find the \emph{cplex} executable binary file and save on a directory of their own wish or keep them on their default installation paths. The path to interactive version of \emph{CPLEX} is differed based on the operating system. The default installation path for each OS is as follows:
+\emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning 
+method from Melas et al.~\cite{Melas}.The network inference process is swiftly 
+performed with an Integer Linear Programming (ILP) formulation of causal 
+reasoning using two solvers: the open-source mixed integer programming solver 
+\emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc}); 
+or the \emph{CPLEX optimizer} from \emph{IBM} (see 
+\url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for 
+free through the Academic Initiative. To perform the analysis, the users will 
+then need to store the binary \emph{cbc} or \emph{cplex} executables on any 
+directory they wish. The binary files of \emph{cbc} can be found by first 
+downloading one of the optimization suites provided here: 
+\url{https://www.coin-or.org/download/binary/OptimizationSuite/}, unzip the 
+download and from there save the \emph{cbc} executable (which can be found on 
+the \emph{bin} directory) file on any of the direcotries they wish of their 
+machines. As for the \emph{cplex}, the executable file can be obtained after 
+registration on the \emph{ILOG CPLEX Optimization Studio} here: 
+\url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}. 
+Similar like before, users will have to find the \emph{cplex} executable binary 
+file and save on a directory of their own wish or keep them on their default 
+installation paths. The path to interactive version of \emph{CPLEX} is differed 
+based on the operating system. The default installation path for each OS is as 
+follows:
 
 For Mac OS:
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
@@ -106,17 +149,34 @@ Note that the version of \emph{CPLEX} has to be changed accordingly (the latest 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
 
-Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL. npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z
+Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to 
+causal pathways: contextualizing large signaling networks with CARNIVAL. npj 
+Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z
 
 \clearpage
 
 \section{Getting Started}
-A tutorial for preparing \emph{CARNIVAL} input files starting from differentially gene expression (DEG) and for running the \emph{CARNIVAL} pipeline are provided as vignettes in R-Markdown, R-script and HTML formats. The wrapper script \emph{runCARNIVAL} was introduced to take input arguments, pre-process input descriptions, run optimisation and export results as network figures. Three built-in \emph{CARNIVAL} examples are also supplied as case studies for users. Moreover processed gene expression values (besides differential values) can also be used as an input to \emph{CARNIVAL} but examples are not provided in this vignette.
+A tutorial for preparing \emph{CARNIVAL} input files starting from 
+differentially gene expression (DEG) and for running the \emph{CARNIVAL} 
+pipeline are provided as vignettes in R-Markdown, R-script and HTML formats. The 
+wrapper script \emph{runCARNIVAL} was introduced to take input arguments, 
+pre-process input descriptions, run optimisation and export results as network 
+figures. Three built-in \emph{CARNIVAL} examples are also supplied as case 
+studies for users. Moreover processed gene expression values (besides 
+differential values) can also be used as an input to \emph{CARNIVAL} but 
+examples are not provided in this vignette.
 
 \subsection{Prerequisites}
-Besides the above mentioned solvers, users need also to install the following R-package dependencies: \emph{readr}(see \url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}(see \url{https://igraph.org/r/}); \emph{readxl}(see \url{https://readxl.tidyverse.org/}); \emph{dplyr}(see \url{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8}).
+Besides the above mentioned solvers, users need also to install the following 
+R-package dependencies: \emph{readr}(see 
+\url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}
+(see \url{https://igraph.org/r/}); \emph{readxl}(see 
+\url{https://readxl.tidyverse.org/}); \emph{dplyr}(see 
+\url{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8}).
 
-In order to visualize the automatically generated \emph{CARNIVAL} networks, users will also need to download and install the Graph Visualization software \emph{graphviz}(see \url{https://www.graphviz.org/}).
+In order to visualize the automatically generated \emph{CARNIVAL} networks, 
+users will also need to download and install the Graph Visualization software 
+\emph{graphviz}(see \url{https://www.graphviz.org/}).
 
 \subsection{Installation}
 \emph{CARNIVAL} is currently available for the installation as an R-package from our GitHub page.
@@ -140,60 +200,102 @@ vignette("CNORode-vignette")
 @
 
 \subsection{CARNIVAL settings}
-The main function of the \emph{CARNIVAL} apckage is \emph{runCARNIVAL}. This function runs the pipeline by using the user-provided list of inputs or run CARNIVAL built-in examples. These inputs are:
+The main function of the \emph{CARNIVAL} apckage is \emph{runCARNIVAL}. This 
+function runs the pipeline by using the user-provided list of inputs or run 
+CARNIVAL built-in examples. These inputs are:
 
-- \emph{solverPath}: Pointing to the path where the \emph{cplex} or the \emph{cbc} executable files are stored.
+- \emph{solverPath}: Pointing to the path where the \emph{cplex} or the 
+\emph{cbc} executable files are stored.
 
-- \emph{netObj}: A matrix or data-frame object containing the prior knowledge networks as a list of directed and signed protein interactions. The first column should contain the source node, the second column should contain the sign of the interaction and the third column should contain the target node.
+- \emph{netObj}: A matrix or data-frame object containing the prior knowledge 
+networks as a list of directed and signed protein interactions. The first column 
+should contain the source node, the second column should contain the sign of the 
+interaction and the third column should contain the target node.
 
-- \emph{measObj}:  A matrix or data-frame object containing the measurements (either gene expressions or estimated transcription factor activities).
+- \emph{measObj}:  A matrix or data-frame object containing the measurements 
+(either gene expressions or estimated transcription factor activities).
 
-- \emph{inputObj}: A matrix or data-frame object containing the experimental perturbation targets. The values can either be 1 (for activatory perturbations), -1 (for inhibitory effects of a perturbation) or NA (when we know that a protein is being targeted but we are not sure about the effect - in this case \emph{CARNIVAL} will try to infer the most likely effect). Default set to NULL (in this case we run \emph{InvCARNIVAL}).
+- \emph{inputObj}: A matrix or data-frame object containing the experimental 
+perturbation targets. The values can either be 1 (for activatory perturbations), 
+-1 (for inhibitory effects of a perturbation) or NA (when we know that a protein 
+is being targeted but we are not sure about the effect - in this case 
+\emph{CARNIVAL} will try to infer the most likely effect). Default set to NULL 
+(in this case we run \emph{InvCARNIVAL}).
 
-- \emph{weightObj}: A matrix or data-frame object containing the pathway activity scores as inferred from \emph{runPROGENy}. Default set to NULL.
+- \emph{weightObj}: A matrix or data-frame object containing the pathway 
+activity scores as inferred from \emph{runPROGENy}. Default set to NULL.
 
-- \emph{parallelIdx1}: First index number suitable for parallelisation (numeric). Default set to 1.
+- \emph{parallelIdx1}: First index number suitable for parallelisation 
+(numeric). Default set to 1.
 
-- \emph{parallelIdx2}: Second index number suitable for parallelisation (numeric). Default set to 1.
+- \emph{parallelIdx2}: Second index number suitable for parallelisation 
+(numeric). Default set to 1.
 
-- \emph{nodeID}: Define the input format of nodes in the network (either 'uniprot' or 'gene' symbol). Default set to 'uniprot'. Leave it to default if you do not wish to map proteins or if you using other symbols besides gene/uniprot ID's.
+- \emph{nodeID}: Define the input format of nodes in the network (either 
+'uniprot' or 'gene' symbol). Default set to 'uniprot'. Leave it to default if 
+you do not wish to map proteins or if you using other symbols besides 
+gene/uniprot ID's.
 
-- \emph{UP2GS}: For plotting: define if Uniprot ID will be converted to gene symbols for better readability (logical T/F).
+- \emph{UP2GS}: For plotting: define if Uniprot ID will be converted to gene 
+symbols for better readability (logical T/F).
 
-- \emph{DOTfig}: For plotting: define if DOT figure will be exported in the result folder (logical T/F). Default set to FALSE
+- \emph{DOTfig}: For plotting: define if DOT figure will be exported in the 
+result folder (logical T/F). Default set to FALSE
 
-- \emph{timelimit}: Optimization parameter: Time limit of optimisation (in seconds)
+- \emph{timelimit}: Optimization parameter: Time limit of optimisation (in 
+seconds)
 
-- \emph{mipGAP}: CPLEX parameter: Allowed gap of accepted solution comparing to the best solution (fraction; default: 0.05 = 5 percents).
+- \emph{mipGAP}: CPLEX parameter: Allowed gap of accepted solution comparing to 
+the best solution (fraction; default: 0.05 = 5 percents).
 
-- \emph{poolrelGAP}: Optimization parameter: Allowed relative gap of accepted solution comparing within the pool of accepted solution (fraction; Default set to 0.0001)
+- \emph{poolrelGAP}: Optimization parameter: Allowed relative gap of accepted 
+solution comparing within the pool of accepted solution (fraction; Default set to 0.0001)
 
-- \emph{limitPop}: CPLEX parameter: Allowed number of solutions to be generated (Default set to 500)
+- \emph{limitPop}: CPLEX parameter: Allowed number of solutions to be generated 
+(Default set to 500)
 
-- \emph{poolCap}: CPLEX parameter: Allowed number of solution to be kept in the pool of solution (Default set to 100)
+- \emph{poolCap}: CPLEX parameter: Allowed number of solution to be kept in the 
+pool of solution (Default set to 100)
 
-- \emph{poolIntensity}: CPLEX parameter: Intensity of solution searching (0,1,2,3,4 - Default set to 4)
+- \emph{poolIntensity}: CPLEX parameter: Intensity of solution searching 
+(0,1,2,3,4 - Default set to 4)
 
-- \emph{poolReplace}: CPLEX parameter: Replacement strategy of solutions in the pool (0,1,2 - Default set to 2 = most diversified solutions)
+- \emph{poolReplace}: CPLEX parameter: Replacement strategy of solutions in the 
+pool (0,1,2 - Default set to 2 = most diversified solutions)
 
-- \emph{alphaWeight}: Objective function: weight for mismatch penalty (Default set to 1 - will only be applied once measurement file only contains discrete values).
+- \emph{alphaWeight}: Objective function: weight for mismatch penalty (Default 
+set to 1 - will only be applied once measurement file only contains discrete 
+values).
 
-- \emph{betaWeight}: Objective function: weight for node penalty (Default set to 0.2)
+- \emph{betaWeight}: Objective function: weight for node penalty (Default set to
+0.2)
 
-- \emph{dir name}: Directory name where the users wishes to save the plotted network as a .DOT figure (in case if DOTfig=TRUE). By default it will be stored on a DOTfigure folder within the current working directory.
+- \emph{dir name}: Directory name where the users wishes to save the plotted 
+network as a .DOT figure (in case if DOTfig=TRUE). By default it will be stored 
+on a DOTfigure folder within the current working directory.
 
-- \emph{solver}: Solver to use: \emph{cplex} or \emph{cbc} (Default set to \emph{cplex}).
+- \emph{solver}: Solver to use: \emph{cplex} or \emph{cbc} (Default set to 
+\emph{cplex}).
 
-- \emph{experimental conditions}: In the case when the user wishes to combine information from multiple experimental conditions, it has to specify which experimental conditions wishes to use. Default set to NULL - in which case \emph{CARNIVAL} will generate as many network solutions as there are rows in the \emph{measObj}, \emph{inputObj} and/or \emph{weightObj}.
+- \emph{experimental conditions}: In the case when the user wishes to combine 
+information from multiple experimental conditions, it has to specify which 
+experimental conditions wishes to use. Default set to NULL - in which case 
+\emph{CARNIVAL} will generate as many network solutions as there are rows in the
+\emph{measObj}, \emph{inputObj} and/or \emph{weightObj}.
 
 
-While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX} solver is more computationally efficient and is able to provide multiple equivalent solutions which are then combined. The  \emph{mipGAP}, \emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} make sense only if \emph{CPLEX} solver is used to train the networks.
+While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX} 
+solver is more computationally efficient and is able to provide multiple 
+equivalent solutions which are then combined. The  \emph{mipGAP}, 
+\emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} 
+make sense only if \emph{CPLEX} solver is used to train the networks.
 
 \clearpage
 
 \section{Running CARNIVAL}
 
-In the CARNIVAL package, built-in examples are available as the test cases as follows:
+In the CARNIVAL package, built-in examples are available as the test cases as 
+follows:
 
 1. SBVimprover species translational dataset with EGF as the perturbator
 
@@ -203,7 +305,10 @@ In the CARNIVAL package, built-in examples are available as the test cases as fo
 
 \subsection{DEG Pre-processing}
 
-Users can generate the measurement file which contains calculated transcription factor (TF) normalised enrichment scores by applying the function \emph{runDoRothEA}. An example of the pipeline to generate a measurement file for the Example 1 (SBVimprover-EGF) is shown as follows:
+Users can generate the measurement file which contains calculated transcription 
+factor (TF) normalised enrichment scores by applying the function 
+\emph{runDoRothEA}. An example of the pipeline to generate a measurement file 
+for the Example 1 (SBVimprover-EGF) is shown as follows:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
@@ -212,52 +317,50 @@ library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
 
-#Load files
 file.copy(from=system.file("SBV_EGF_tvalues.csv",package="CARNIVAL"),
           to=getwd(),overwrite=TRUE)
+
 file.copy(from=system.file("dorothea_TF_mapping.csv",package="CARNIVAL"),
           to=getwd(),overwrite=TRUE)
+
 load(file = system.file("BEST_viperRegulon.rdata",package="CARNIVAL"))
-
-df<-read.csv2("SBV_EGF_tvalues.csv", row.names = 'GeneName')  
+df<-read.csv2("SBV_EGF_tvalues.csv", row.names = 'GeneName')
 map<-read.csv("dorothea_TF_mapping.csv")
-
 #Run DoRothEA and convert from gene symbol to uniprot ID
-TF_genesymbol<-runDoRothEA(df, regulon=viper_regulon, 
+TF_genesymbol<-runDoRothEA(df, regulon=viper_regulon,
                            confidence_level=c('A','B','C'))
 TF_uniprot<-GeneSymbol2Uniprot(TF_genesymbol, map, 1, 2)
-
 #Generate measurement files in CARNIVAL input format
-generate_measfile(measurements=TF_uniprot, topnumber=50, 
+generate_measfile(measurements=TF_uniprot, topnumber=50,
                   write2folder="measurements")
 @
 
-Also, users can generate the additional weight input file which contains calculated pathway scores by applying the function runPROGENy. An example of the pipeline to generate a measurement file for Example 1 (SBVimprover-EGF) is shown as follows:
+Also, users can generate the additional weight input file which contains 
+calculated pathway scores by applying the function \emph{runPROGENy}. An example
+of the pipeline to generate a weight object file for Example 1 (SBVimprover-EGF)
+is shown as follows:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-#Load files
+## Loading weight matrix of PROGENy
 file.copy(from=system.file("model_NatComm+14_human.csv",package="CARNIVAL"),
           to=getwd(),overwrite=TRUE)
-
 weight_matrix<-read.csv("model_NatComm+14_human.csv")
 df_genenames<-data.frame('gene'=rownames(df),df)
 
-#Run PROGENy
+## Run PROGENy
 pathway_scores<-runPROGENy(df_genenames,weight_matrix, z_scores = F)
-
-#Generate CARNIVAL input files
-for (cond in colnames(pathway_scores)){
-  scores<-rbind(rownames(pathway_scores),pathway_scores[,cond])
-  write.table(scores, paste0("measurements/scores_",cond,".txt"),
-              col.names = F, row.names = F, quote = F, sep = '\t')
-}
 @
 
-The results from DEG-preprocessing pipeline are saved in the directory "measurements" in the current working directory.
+The results from DEG-preprocessing pipeline are saved in the directory 
+"measurements" in the current working directory.
 
 \subsection{CARNIVAL pipeline - Example 1}
 
-To run the CARNIVAL pipeline, users fist have to define the path to interactive CPLEX on the variable \emph{solverPath} in the runCARNIVAL function. The path to the interactive version of \emph{Cbc} is where the user has copied this file The path to interactive version of CPLEX is differed based on the operating system. The default installation path for each OS is as described in \emph{Section 1.2}.
+To run the CARNIVAL pipeline, users fist have to define the path to interactive 
+CPLEX on the variable \emph{solverPath} in the runCARNIVAL function. The path to 
+the interactive version of \emph{Cbc} is where the user has copied this file The 
+path to interactive version of CPLEX is differed based on the operating system. 
+The default installation path for each OS is as described in \emph{Section 1.2}.
 
 For this example, we can set:
 
@@ -265,7 +368,10 @@ For this example, we can set:
 solverPath = "~/Applications/IBM/ILOG/CPLEX_Studio1281/cplex/bin/x86-64_osx/cplex"
 @
 
-Next, users can load the \emph{CARNIVAL} inputs for Example 1. On this case:
+Next, users can load the \emph{CARNIVAL} inputs for Example 1. The 
+\emph{PROGENy} weights can then be assigned to representative nodes (via 
+\emph{progenyMembers.RData}) of each of the pathways through 
+\emph{assignPROGENyScores} function. On this case:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
@@ -282,20 +388,52 @@ load(file = system.file("Ex2_measurements_SBV_EGF.RData",
                         package="CARNIVAL"))
 load(file = system.file("Ex2_network_SBV_Omnipath.RData",
                         package="CARNIVAL"))
-load(file = system.file("Ex2_weights_SBV_EGF.RData",
-                        package="CARNIVAL"))
+
+load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
+
+weightObj <- assignPROGENyScores(progeny = t(pathway_scores), 
+                                 progenyMembers = progenyMembers, 
+                                 id = "uniprot")
 @
 
-The \emph{measurements} object is the same as table generated from the \emph{generate measfile} function after estimating the Transcription Factor (TF) activites via \emph{DoRothEA}~\cite{dorothea} analysis (see \emph{runDoRothEA} function) as described above. The \emph{weights} are the normalized estimated pathway activities through \emph{PROGENy}~\cite{progeny} (sign indicating the direction of the regulation) (see \emph{runPROGENy}). The \emph{inputs} represents the target of the perturbation (activation of EGF on this case). The \emph{network} object represents the signed and directed prior knowledge network. The proteins on this case are mapped as \emph{Uniprot ID's}.
+The \emph{measurements} object is the same as table generated from the 
+\emph{generate measfile} function after estimating the Transcription Factor (TF) 
+activites via \emph{DoRothEA}~\cite{dorothea} analysis (see \emph{runDoRothEA} 
+function) as described above. The \emph{weights} are the normalized estimated 
+pathway activities through \emph{PROGENy}~\cite{progeny} (sign indicating the 
+direction of the regulation) (see \emph{runPROGENy}). The \emph{inputs} 
+represents the target of the perturbation (activation of EGF on this case). The 
+\emph{network} object represents the signed and directed prior knowledge 
+network. The proteins on this case are mapped as \emph{Uniprot ID's}.
 
-As a next step, we run the \emph{runCARNIVAL} function to perform the analysis as shown below. We allow a maximal of 1 hour timelimit to perform the analysis, although it will only take few minutes. Also we ask the solver to give us 100 (\emph{poolCap}) of the most diverse (\emph{poolReplace}) 500 (\emph{limitPop}) solutions inferred:
+As a next step, we run the \emph{runCARNIVAL} function to perform the analysis 
+as shown below. We allow a maximal of 1 hour timelimit to perform the analysis, 
+although it will only take few minutes. Also we ask the solver to give us 100 
+(\emph{poolCap}) of the most diverse (\emph{poolReplace}) 500 (\emph{limitPop}) 
+solutions inferred:
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-result = runCARNIVAL(solverPath=solverPath, 
+## Without PROGENy weights
+result1 = runCARNIVAL(solverPath=solverPath, 
                      netObj = Ex2_network_SBV_Omnipath, 
                      measObj = Ex2_measurements_SBV_EGF, 
                      inputObj = Ex2_inputs_SBV_EGF, 
-                     weightObj = Ex2_weights_SBV_EGF, 
+                     weightObj = NULL, 
+                     timelimit = 3600, 
+                     poolCap = 100,
+                     poolReplace = 2, 
+                     limitPop = 500, 
+                     nodeID = "uniprot", 
+                     UP2GS = TRUE, 
+                     DOTfig = TRUE, 
+                     solver = "cplex")
+
+## With PROGENy weights
+result2 = runCARNIVAL(solverPath=solverPath, 
+                     netObj = Ex2_network_SBV_Omnipath, 
+                     measObj = Ex2_measurements_SBV_EGF, 
+                     inputObj = Ex2_inputs_SBV_EGF, 
+                     weightObj = weightObj, 
                      timelimit = 3600, 
                      poolCap = 100,
                      poolReplace = 2, 
@@ -306,21 +444,56 @@ result = runCARNIVAL(solverPath=solverPath,
                      solver = "cplex")
 @
 
-Here we use \emph{CPLEX} solver for running the analysis and it takes up to few minutes. Once the analysis is finished, the returned \emph{result} object contains the resulting weighted network (\emph{weightedSIF} -- combined network solution with weights of interactions telling how often an interaction appears in the pool of solutions); the attributes of each node (\emph{nodesAttributes} -- indicating the average inferred protein activities across the multiple solutions); all the single network solutions inferred (\emph{sifAll}); 
+Here we use \emph{CPLEX} solver for running the analysis and it takes up to one 
+hour Once the analysis is finished, the returned \emph{result1} and  
+\emph{result2} object contains the resulting weighted network 
+(\emph{weightedSIF} -- combined network solution with weights of interactions 
+telling how often an interaction appears in the pool of solutions); the 
+attributes of each node (\emph{nodesAttributes} -- indicating the average 
+inferred protein activities across the multiple solutions); all the single 
+network solutions inferred (\emph{sifAll});
 
-Since we set \emph{DOTfig=TRUE}, the analysis will generate the \emph{.dot} file as visualized in Figure \ref{fig:egf_network} of the network within the default \emph{DOTfig} directory (please use \emph{dir name} variable if you wish to save the network solution at a different directory and on a different name). This figure represents the combined solution network as in the \emph{weightedSIF}. Since the \emph{UP2GS=TRUE}, the generated network will have Gene ID's, otherwise it can be set to \emph{FALSE}. Otherwise if the user is not interested to generate any \emph{.dot} figure, it can as well keep the default \emph{DOTfig=FALSE} for the analysis.
+\emph{result1} corresponds to the \emph{CARNIVAL} results without considering
+\emph{PROGENy} weights, while \emph{result2} corresponds to the \emph{CARNIVAL}
+when considering them.
+
+Since we set \emph{DOTfig=TRUE}, the analysis will generate the \emph{.dot} file 
+as visualized in Figure \ref{fig:Ex2_network_without_weights} and 
+\ref{fig:Ex2_network_with_weights} of the network within the default 
+\emph{DOTfig} directory (please use \emph{dir name} variable if you wish to save 
+the network solution at a different directory and on a different name). This 
+figure represents the combined solution network as in the \emph{weightedSIF}. 
+Since the \emph{UP2GS=TRUE}, the generated network will have Gene ID's, 
+otherwise it can be set to \emph{FALSE}. Otherwise if the user is not interested 
+to generate any \emph{.dot} figure, it can as well keep the default 
+\emph{DOTfig=FALSE} for the analysis.
 
 \begin{figure*}
-\centerline{\includegraphics[width=\textwidth]{egf_network.jpg}}
-\caption{Solution network - Example 1}
-\label{fig:egf_network}
+\centerline{\includegraphics[width=\textwidth]{Ex2_network_without_weights.jpeg}}
+\caption{Solution network - Example 1 - Analysis without PROGENy weights}
+\label{fig:Ex2_network_with_weights}
+\end{figure*}
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{Ex2_network_with_weights.jpeg}}
+\caption{Solution network - Example 1 - Analysis with PROGENy weights}
+\label{fig:Ex2_network_without_weights}
 \end{figure*}
 
 \subsection{CARNIVAL pipeline - Example 2}
 
-In case the target(s) of perturbation is unknown (e.g. in the case of multi-factorial diseases or broad-spectrum drugs), users can choose the Inverse CARNIVAL pipeline to exclusively build a sub-network without input's target(s) information (i.e. inputFile = NULL, inverseCR=T). Note that the pathway scores from PROGENy is highly recommended to be included once running the Inverse CARNIVAL pipeline. Here we present Example 3 as a case study for the Inverse CARNIVAL pipeline (to investigate downstream toxicity effects of paracetamol/APAP on cellular processes). An example of R-code by is provided below:
+In case the target(s) of perturbation is unknown (e.g. in the case of 
+multi-factorial diseases or broad-spectrum drugs), users can choose the Inverse 
+CARNIVAL pipeline to exclusively build a sub-network without input's target(s) 
+information (i.e. inputFile = NULL, inverseCR=T). Note that the pathway scores 
+from PROGENy is highly recommended to be included once running the Inverse 
+CARNIVAL pipeline. Here we present Example 3 as a case study for the Inverse 
+CARNIVAL pipeline (to investigate downstream toxicity effects of 
+paracetamol/APAP on cellular processes). An example of R-code by is provided 
+below:
 
-Training with \emph{CPLEX} (100 combined solutions showed in Figure \ref{fig:apap_cplex}):
+Training with \emph{CPLEX} (100 combined solutions showed in Figure 
+\ref{fig:apap_cplex}):
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
@@ -333,14 +506,12 @@ load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",
                         package="CARNIVAL"))
 load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",
                         package="CARNIVAL"))
-load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",
-                        package="CARNIVAL"))
 
 # cplex solver
 result_cplex = runCARNIVAL(solverPath=solverPath, 
                            netObj = Ex3_network_APAP_TGG_Omnipath, 
                            measObj = Ex3_measurement_APAP_TGG_24hrHighDose, 
-                           weightObj = Ex3_weights_APAP_TGG_24hrHighDose, 
+                           weightObj = NULL, 
                            timelimit = 3600, 
                            poolCap = 100,
                            poolReplace = 2, 
@@ -357,7 +528,8 @@ result_cplex = runCARNIVAL(solverPath=solverPath,
 \label{fig:apap_cplex}
 \end{figure*}
 
-Training with \emph{Cbc} (1 single solution obtained and showed in Figure \ref{fig:apap_cbc}):
+Training with \emph{Cbc} (1 single solution obtained and showed in Figure 
+\ref{fig:apap_cbc}):
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
@@ -393,15 +565,24 @@ result_cbc = runCARNIVAL(solverPath=solverPath,
 
 \subsection{Toy example with multiple conditions}
 
-In the context of multiple perturbation experiments, users would wish to obtain one consensus model fitting best the combined experiments rather than obtaining separate solutions for each experimental conditions. \emph{CARNIVAL} has been implemented in such a way to handle these cases and we show one such application over a small toy example as shown in Figure \ref{fig:carnival_vignette_toy}:
+In the context of multiple perturbation experiments, users would wish to obtain 
+one consensus model fitting best the combined experiments rather than obtaining 
+separate solutions for each experimental conditions. \emph{CARNIVAL} has been 
+implemented in such a way to handle these cases and we show one such application 
+over a small toy example as shown in Figure \ref{fig:carnival_vignette_toy}:
 
 \begin{figure*}
 \centerline{\includegraphics[width=\textwidth]{carnival_vignette_toy.jpeg}}
-\caption{Toy example with multiple experimental conditions. \emph{Left panel:} Prior knowledge network. \emph{Right upper panel:} Inputs. \emph{Right lower panel:} Measurements.}
+\caption{Toy example with multiple experimental conditions. \emph{Left panel:} 
+Prior knowledge network. \emph{Right upper panel:} Inputs. 
+\emph{Right lower panel:} Measurements.}
 \label{fig:carnival_vignette_toy}
 \end{figure*}
 
-The toy example shows the effects of perturbing nodes \emph{P1} and \emph{P2} over \emph{G1} and \emph{G2}. On the left panel we have the prior knowledge network showing how inputs connect to the measurements through the activatory interactions.
+The toy example shows the effects of perturbing nodes \emph{P1} and \emph{P2} 
+over \emph{G1} and \emph{G2}. On the left panel we have the prior knowledge 
+network showing how inputs connect to the measurements through the activatory 
+interactions.
 
 We train the network with \emph{CPLEX} as below:
 
@@ -438,30 +619,46 @@ The consensus network is as shown in Figure \ref{fig:carnival_vignette_toy_2}.
 \label{fig:carnival_vignette_toy_2}
 \end{figure*}
 
-We can easily notice that this is the desired network although measurement \emph{G2} is not perfectly fitted well on the third experimental condition. This is because if by connecting \emph{P2} to \emph{G2} through \emph{TF2}, we would obtain a good fit of \emph{G2} on the third experiment, however this would come at the expense of mis-fiting other measurements for the other two experimental conditions.
+We can easily notice that this is the desired network although measurement 
+\emph{G2} is not perfectly fitted well on the third experimental condition. 
+This is because if by connecting \emph{P2} to \emph{G2} through \emph{TF2}, we 
+would obtain a good fit of \emph{G2} on the third experiment, however this would 
+come at the expense of mis-fiting other measurements for the other two 
+experimental conditions.
 
-When running \emph{CARNIVAL} for multiple experimental conditions we only obtain the network solution and not the list of the node activities since they might differ from one experimental condition to the other.
+When running \emph{CARNIVAL} for multiple experimental conditions we only obtain 
+the network solution and not the list of the node activities since they might 
+differ from one experimental condition to the other.
 
 \begin{thebibliography}{}
 
 \bibitem{CARNIVAL}
-A.~Liu, P.~Trairatphisan, E.~Gjerga, A.~Didangelos, J.~Barratt and J.~Saez-Rodriguez.
-\newblock From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL.
+A.~Liu, P.~Trairatphisan, E.~Gjerga, A.~Didangelos, J.~Barratt and 
+J.~Saez-Rodriguez.
+\newblock From expression footprints to causal pathways: contextualizing large 
+signaling networks with CARNIVAL.
 \newblock {npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z.}
 
 \bibitem{Melas}
-I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh, D.A.~Lauffenburger, J.~Saez-Rodriguez and J.P.F.~Bai
-\newblock Identification of drug-specific pathways based on gene expression data: application to drug induced lung injury.
+I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh, 
+D.A.~Lauffenburger, J.~Saez-Rodriguez and J.P.F.~Bai
+\newblock Identification of drug-specific pathways based on gene expression 
+data: application to drug induced lung injury.
 \newblock {Integr Biol (Camb). 2015 Aug;7(8):904-20. doi: 10.1039/c4ib00294f.}
 
 \bibitem{dorothea}
-L.~Garcia-Alonso, F.~Iorio, A.~Matchan, N.~Fonseca, P.~Jaaks, G.~Peat, M.~Pignatelli, F.~Falcone, C.H.~Benes, I.~Dunham, G.R.~Bignell, S.~McDade, M.J.~Garnett and J.~Saez-Rodriguez
-\newblock Transcription Factor Activities Enhance Markers of Drug Sensitivity in Cancer.
+L.~Garcia-Alonso, F.~Iorio, A.~Matchan, N.~Fonseca, P.~Jaaks, G.~Peat, 
+M.~Pignatelli, F.~Falcone, C.H.~Benes, I.~Dunham, G.R.~Bignell, S.~McDade, 
+M.J.~Garnett and J.~Saez-Rodriguez
+\newblock Transcription Factor Activities Enhance Markers of Drug Sensitivity in 
+Cancer.
 \newblock {Cancer Research, 78(3), 769–780.}
 
 \bibitem{progeny}
-M.~Schubert, B.~Klinger, M.~Klunemann, A.~Sieber, F.~Uhlitz, S.~Sauer, M.J.~Garnett, N.~Bluthgen and J.~Saez-Rodriguez
-\newblock Perturbation-response genes reveal signaling footprints in cancer gene expression
+M.~Schubert, B.~Klinger, M.~Klunemann, A.~Sieber, F.~Uhlitz, S.~Sauer, 
+M.J.~Garnett, N.~Bluthgen and J.~Saez-Rodriguez
+\newblock Perturbation-response genes reveal signaling footprints in cancer gene 
+expression
 \newblock {Nat Commun. 2018;9(1):20.}
 
 \end{thebibliography}
