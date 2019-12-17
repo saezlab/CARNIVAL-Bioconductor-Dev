@@ -36,6 +36,9 @@ solveCARNIVAL <- function(solverPath = solverPath,
   
   pknList <- as.data.frame(netObj)
   colnames(pknList) <- c("Node1", "Sign", "Node2")
+  pknList$Node1 = as.character(pknList$Node1)
+  pknList$Sign = as.character(as.numeric(as.character(pknList$Sign)))
+  pknList$Node2 = as.character(pknList$Node2)
   
   ## Extracted sign of measurement for ILP fitting
   measurements <- sign(measObj)
