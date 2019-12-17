@@ -40,7 +40,7 @@ checkInputs <- function(solverPath=NULL,
                    alphaWeight=alphaWeight, betaWeight=betaWeight, UP2GS=UP2GS,
                    experimental_conditions=experimental_conditions)
   
-  returnList[[length(returnList)+1]] = netObj
+  returnList[[length(returnList)+1]] = inputObj$network
   returnList[[length(returnList)+1]] = measObj
   returnList[[length(returnList)+1]] = inputObj
   returnList[[length(returnList)+1]] = weightObj
