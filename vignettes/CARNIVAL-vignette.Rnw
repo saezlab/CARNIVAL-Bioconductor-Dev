@@ -541,8 +541,6 @@ load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",
                         package="CARNIVAL"))
 load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",
                         package="CARNIVAL"))
-load(file = system.file("Ex3_weights_APAP_TGG_24hrHighDose.RData",
-                        package="CARNIVAL"))
 
 # cbc solver
 result_cbc = runCARNIVAL(solverPath=solverPath, 
