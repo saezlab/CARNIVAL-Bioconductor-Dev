@@ -5,13 +5,10 @@
 #'
 
 exportResult <- function(cplexSolutionFileName = cplexSolutionFileName, 
-                         variables = variables, 
-                         conditionIDX = conditionIDX,
-                         pknList = pknList, 
-                         inputs=inputs, 
-                         measurements=measurements, 
-                         solver = "cplex"){
-
+                         variables = variables, conditionIDX = conditionIDX,
+                         pknList = pknList, inputs=inputs, 
+                         measurements=measurements, solver = "cplex"){
+  
   if(solver=="cplex"){
     
     solution <- read.delim(file = cplexSolutionFileName)
@@ -19,25 +16,21 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
     idxVarStart <- which(grepl(pattern = "<variables>", x = solution[, 1]))[-1]
     idxVarEnd <- which(grepl(pattern = "</variables>", x = solution[, 1]))[-1]
     
-    solMatrix <- matrix(data = , 
-                        nrow = idxVarEnd[1]-idxVarStart[1]-1, 
+    solMatrix <- matrix(data = , nrow = idxVarEnd[1]-idxVarStart[1]-1, 
                         ncol = length(idxVarStart))
     colnames(solMatrix) <- paste0("Solution-", 1:ncol(solMatrix))
-    ss1 <- sapply(
-      strsplit(
-        solution[(idxVarStart[1]+1):(idxVarEnd[1]-1), 1], split = " "), "[", 5)
+    ss1 <- sapply(strsplit(solution[(idxVarStart[1]+1):(idxVarEnd[1]-1), 1], 
+                           split = " "), "[", 5)
     rownames(solMatrix) <- sapply((strsplit(ss1, split = "=")), "[", 2)
     
     for(ii in 1:ncol(solMatrix)){
       
-      ss1 <- sapply(
-        strsplit(
-          solution[(idxVarStart[ii]+1):(idxVarEnd[ii]-1), 1], 
-          split = " "), "[", 7)
-      solMatrix[, ii] <- gsub(
-        pattern = "/>", 
-        replacement = "", 
-        x = sapply(strsplit(ss1, split = "="), "[", 2))
+      ss1 <- 
+        sapply(strsplit(solution[(idxVarStart[ii]+1):(idxVarEnd[ii]-1), 1], 
+                        split = " "), "[", 7)
+      solMatrix[, ii] <- 
+        gsub(pattern = "/>", replacement = "", 
+             x = sapply(strsplit(ss1, split = "="), "[", 2))
       
     }
     
@@ -51,23 +44,20 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         vars%in%variables[[conditionIDX]]$variables[
           variables[[conditionIDX]]$idxNodes])
     idxNodesUp <- 
-      which(vars%in%variables[[conditionIDX]]$variables[
-        variables[[conditionIDX]]$idxNodesUp])
+      which(
+        vars%in%variables[[conditionIDX]]$variables[
+          variables[[conditionIDX]]$idxNodesUp])
     idxNodesDown <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxNodesDown])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxNodesDown])
     idxEdgesUp <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxEdgesUp])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxEdgesUp])
     idxEdgesDown <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxEdgesDown])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxEdgesDown])
     
-    indeces <- c(idxNodes, idxNodesUp, 
-                 idxNodesDown, idxEdgesUp, idxEdgesDown)
+    indeces <- c(idxNodes, idxNodesUp, idxNodesDown, idxEdgesUp, idxEdgesDown)
     
     for(ii in 1:ncol(solMatrix)){
       
@@ -150,24 +140,26 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         
         for(i in 1:length(kk1)){
           
-          ss <- strsplit
-          (strsplit(
-            variables[[conditionIDX]]$exp[which(
-              variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
-            split = " ")[[1]][2], split = "=")[[1]][1]
-          tt <- strsplit(
+          ss <- 
             strsplit(
-              variables[[conditionIDX]]$exp[which(
-                variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
-              split = " ")[[1]][2], split = "=")[[1]][2]
+              strsplit(
+                variables[[conditionIDX]]$exp[which(
+                  variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
+                split = " ")[[1]][2], split = "=")[[1]][1]
+          tt <- 
+            strsplit(
+              strsplit(
+                variables[[conditionIDX]]$exp[which(
+                  variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
+                split = " ")[[1]][2], split = "=")[[1]][2]
           
           
-          if(as.numeric(
-            edgesUp[kk1[i], 2])==as.numeric(
-              nodesUp[which(
-                nodesUp[, 1]==variables[[conditionIDX]]$variables[which(
-                  variables[[conditionIDX]]$exp==paste0(
-                    "SpeciesUP ", tt, " in experiment ", conditionIDX))]), 2])){
+          if(as.numeric(edgesUp[kk1[i], 2])==
+             as.numeric(nodesUp[which(nodesUp[, 1]==
+                                      variables[[conditionIDX]]$variables[which(
+                                        variables[[conditionIDX]]$exp==paste0(
+                                          "SpeciesUP ", tt, " in experiment ", 
+                                          conditionIDX))]), 2])){
             
             sif <- rbind(sif, pknList[kk1[i], ])
             
@@ -185,9 +177,8 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           
           ss <- strsplit(
             strsplit(
-              variables[[conditionIDX]]$exp[
-                which(
-                  variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
+              variables[[conditionIDX]]$exp[which(
+                variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
               split = " ")[[1]][2], split = "=")[[1]][1]
           tt <- strsplit(
             strsplit(
@@ -195,13 +186,12 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
                 variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
               split = " ")[[1]][2], split = "=")[[1]][2]
           
-          if(as.numeric(
-            edgesDown[kk1[i], 2])==as.numeric(
-              nodesDown[which(
-                nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
-                  variables[[conditionIDX]]$exp==paste0(
-                    "SpeciesDown ", tt, 
-                    " in experiment ", conditionIDX))]), 2])){
+          if(as.numeric(edgesDown[kk1[i], 2])==
+             as.numeric(nodesDown[which(
+               nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
+                 variables[[conditionIDX]]$exp==paste0("SpeciesDown ", tt, 
+                                                       " in experiment ", 
+                                                       conditionIDX))]), 2])){
             
             sif <- rbind(sif, pknList[kk1[i], ])
             
@@ -221,7 +211,7 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           sif <- t(as.matrix(sif))
         }
       } else {
-        sif <- sif[-1,] ## simply remove an empty line
+        sif <- sif[-1,] # simply remove an empty line
       }
       
       if (nrow(sif)==0) {
@@ -242,10 +232,11 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         activityNodes[, 2] <- nodesAct[idx, 2]
         for(i in 1:length(idx)){
           
-          activityNodes[i, 1] <- strsplit(
-            variables[[conditionIDX]]$exp[which(
-              variables[[conditionIDX]]$variables==nodesAct[idx[i], 1])], 
-            split = " ")[[1]][2]
+          activityNodes[i, 1] <- 
+            strsplit(
+              variables[[conditionIDX]]$exp[which(
+                variables[[conditionIDX]]$variables==nodesAct[idx[i], 1])], 
+              split = " ")[[1]][2]
           
         }
         colnames(activityNodes) <- c("Nodes","Activity")
@@ -374,12 +365,9 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           
         }
         
-        nodesAttributes[i, 2] <- 
-          as.character(zeroCnt*100/length(nodesAll))
-        nodesAttributes[i, 3] <- 
-          as.character(upCnt*100/length(nodesAll))
-        nodesAttributes[i, 4] <- 
-          as.character(downCnt*100/length(nodesAll))
+        nodesAttributes[i, 2] <- as.character(zeroCnt*100/length(nodesAll))
+        nodesAttributes[i, 3] <- as.character(upCnt*100/length(nodesAll))
+        nodesAttributes[i, 4] <- as.character(downCnt*100/length(nodesAll))
         nodesAttributes[i, 5] <- 
           as.character((zeroCnt*0+upCnt*1+downCnt*(-1))*100/length(nodesAll))
         
@@ -406,7 +394,6 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       colnames(nodesAttributes) <- c("Node", "ZeroAct", "UpAct", 
                                      "DownAct", "AvgAct", "NodeType")
       
-      
       RES <- list()
       RES[[length(RES)+1]] <- weightedSIF
       RES[[length(RES)+1]] <- nodesAttributes
@@ -430,25 +417,20 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
     nodesActAll <- list()
     
     idxNodes <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxNodes])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxNodes])
     idxNodesUp <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxNodesUp])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxNodesUp])
     idxNodesDown <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxNodesDown])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxNodesDown])
     idxEdgesUp <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxEdgesUp])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxEdgesUp])
     idxEdgesDown <- 
-      which(
-        vars%in%variables[[conditionIDX]]$variables[
-          variables[[conditionIDX]]$idxEdgesDown])
+      which(vars%in%variables[[conditionIDX]]$variables[
+        variables[[conditionIDX]]$idxEdgesDown])
     
     indeces <- c(idxNodes, idxNodesUp, idxNodesDown, idxEdgesUp, idxEdgesDown)
     
@@ -540,24 +522,26 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         
         for(i in 1:length(kk1)){
           
-          ss <- strsplit(
+          ss <- 
             strsplit(
-              variables[[conditionIDX]]$exp[which(
-                variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
-              split = " ")[[1]][2], split = "=")[[1]][1]
-          tt <- strsplit(
+              strsplit(
+                variables[[conditionIDX]]$exp[which(
+                  variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
+                split = " ")[[1]][2], split = "=")[[1]][1]
+          tt <- 
             strsplit(
-              variables[[conditionIDX]]$exp[which(
-                variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
-              split = " ")[[1]][2], split = "=")[[1]][2]
+              strsplit(
+                variables[[conditionIDX]]$exp[which(
+                  variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
+                split = " ")[[1]][2], split = "=")[[1]][2]
           
           
-          if(as.numeric(
-            edgesUp[kk1[i], 2])==as.numeric(
-              nodesUp[which(
-                nodesUp[, 1]==variables[[conditionIDX]]$variables[which(
-                  variables[[conditionIDX]]$exp==paste0(
-                    "SpeciesUP ", tt, " in experiment ", conditionIDX))]), 2])){
+          if(as.numeric(edgesUp[kk1[i], 2])==as.numeric(
+            nodesUp[which(
+              nodesUp[, 1]==variables[[conditionIDX]]$variables[which(
+                variables[[conditionIDX]]$exp==paste0("SpeciesUP ", tt, 
+                                                      " in experiment ", 
+                                                      conditionIDX))]), 2])){
             
             sif <- rbind(sif, pknList[kk1[i], ])
             
@@ -573,22 +557,23 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         
         for(i in 1:length(kk1)){
           
-          ss <- strsplit(
-            strsplit(
+          ss <- 
+            strsplit(strsplit(
               variables[[conditionIDX]]$exp[which(
                 variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
               split = " ")[[1]][2], split = "=")[[1]][1]
-          tt <- strsplit(
-            strsplit(
+          tt <- 
+            strsplit(strsplit(
               variables[[conditionIDX]]$exp[which(
                 variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
               split = " ")[[1]][2], split = "=")[[1]][2]
           
-          if(as.numeric(
-            edgesDown[kk1[i], 2])==as.numeric(nodesDown[which(
+          if(as.numeric(edgesDown[kk1[i], 2])==as.numeric(
+            nodesDown[which(
               nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
-                variables[[conditionIDX]]$exp==paste0(
-                  "SpeciesDown ", tt, " in experiment ", conditionIDX))]), 2])){
+                variables[[conditionIDX]]$exp==paste0("SpeciesDown ", tt, 
+                                                      " in experiment ", 
+                                                      conditionIDX))]), 2])){
             
             sif <- rbind(sif, pknList[kk1[i], ])
             
@@ -600,7 +585,7 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       
       if (nrow(sif)==2) {
         ## If there is only one interaction (plus one empty line)
-        ## convert it to matrix, remove empty line, and convert back to matrix
+        ## convert it to matrix, remove empty line, and convert back to matrix 
         ## for exporting
         sif <- as.matrix(sif)
         sif <- sif[-1,]
@@ -608,14 +593,14 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           sif <- t(as.matrix(sif))
         }
       } else {
-        sif <- sif[-1,] # simply remove an empty line
+        sif <- sif[-1,] ## simply remove an empty line
       }
       
       if (nrow(sif)==0) {
         sif <- NULL
       }
       
-      # Node activities
+      ## Node activities
       
       nodesAct <- nodes
       colnames(nodesAct) <- c("Nodes","Activity")
@@ -629,10 +614,10 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
         activityNodes[, 2] <- nodesAct[idx, 2]
         for(i in 1:length(idx)){
           
-          activityNodes[i, 1] <- strsplit(
-            variables[[conditionIDX]]$exp[which(
+          activityNodes[i, 1] <- 
+            strsplit(variables[[conditionIDX]]$exp[which(
               variables[[conditionIDX]]$variables==nodesAct[idx[i], 1])], 
-            split = " ")[[1]][2]
+              split = " ")[[1]][2]
           
         }
         colnames(activityNodes) <- c("Nodes","Activity")
@@ -646,8 +631,6 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       nodesActAll[[length(nodesActAll)+1]] <- activityNodes
       
     }
-    
-    # print(sifAll)
     
     if(length(sifAll)==0){
       
@@ -719,8 +702,9 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       var <- variables[[conditionIDX]]
       for(ii in 1:length(nodesVar)){
         
-        nodesNames <- c(nodesNames, strsplit(
-          x = var$exp[which(var$variables==nodesVar[ii])], split = " ")[[1]][2])
+        nodesNames <- c(nodesNames, 
+                        strsplit(x = var$exp[which(
+                          var$variables==nodesVar[ii])], split = " ")[[1]][2])
         
       }
       
@@ -758,12 +742,9 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           
         }
         
-        nodesAttributes[i, 2] <- 
-          as.character(zeroCnt*100/length(nodesAll))
-        nodesAttributes[i, 3] <- 
-          as.character(upCnt*100/length(nodesAll))
-        nodesAttributes[i, 4] <- 
-          as.character(downCnt*100/length(nodesAll))
+        nodesAttributes[i, 2] <- as.character(zeroCnt*100/length(nodesAll))
+        nodesAttributes[i, 3] <- as.character(upCnt*100/length(nodesAll))
+        nodesAttributes[i, 4] <- as.character(downCnt*100/length(nodesAll))
         nodesAttributes[i, 5] <- 
           as.character((zeroCnt*0+upCnt*1+downCnt*(-1))*100/length(nodesAll))
         
@@ -799,9 +780,9 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       names(RES) <- c("weightedSIF", "nodesAttributes","sifAll","attributesAll")
       
       return(RES)
-    
+      
     }
     
   }
-
+  
 }
