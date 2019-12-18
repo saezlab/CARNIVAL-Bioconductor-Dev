@@ -153,8 +153,7 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
           ss <- strsplit
           (strsplit(
             variables[[conditionIDX]]$exp[which(
-              variables[[conditionIDX]]$variables==edgesUp[kk1[i], 
-                                                           1])], 
+              variables[[conditionIDX]]$variables==edgesUp[kk1[i], 1])], 
             split = " ")[[1]][2], split = "=")[[1]][1]
           tt <- strsplit(
             strsplit(
