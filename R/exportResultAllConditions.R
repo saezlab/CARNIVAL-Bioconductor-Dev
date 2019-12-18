@@ -1,22 +1,16 @@
 #'\code{exportResult}
 #'
-#' Extract and export the optimisation results from the cplex solution file (XML) as files and variables for further plotting functions
+#' Extract and export the optimisation results from the cplex solution file 
+#' (XML) as files and variables for further plotting functions
 #'
-#' @param cplexSolutionFileName Path to the cplex solution file (XML)
-#' @param variables The list of mapping indices of LP variables
-#' @param pknList The provided prior knowledge network
-#' @param dir_name The name of directory to store results
-#' @param inputs The list of known or potential target of perturbation
-#' @param measurements The discretised observations (here transcription factor activities) of values [-1,0,1]
-#' @param Export_all An option to define whether all detailed mapppd LP variables will be written as individual files
-#' @param writeIndividualResults An option to define whether the results of individual solutions will be written; if FALSE, only the global combined solution will be written
-#'
-#' @return Output files of ILP solutions and a list of networks and node activities to be written into figures
-#'
-#' @export
 
-exportResultAllConditions <- function(cplexSolutionFileName = cplexSolutionFileName, variables = variables,
-                         pknList = pknList, inputs=inputs, measurements=measurements, solver){
+exportResultAllConditions <- function(cplexSolutionFileName = 
+                                        cplexSolutionFileName, 
+                                      variables = variables,
+                                      pknList = pknList, 
+                                      inputs=inputs, 
+                                      measurements=measurements, 
+                                      solver){
   
   if(solver=="cplex"){
     
@@ -25,15 +19,19 @@ exportResultAllConditions <- function(cplexSolutionFileName = cplexSolutionFileN
     idxVarStart <- which(grepl(pattern = "<variables>", x = solution[, 1]))[-1]
     idxVarEnd <- which(grepl(pattern = "</variables>", x = solution[, 1]))[-1]
     
-    solMatrix <- matrix(data = , nrow = idxVarEnd[1]-idxVarStart[1]-1, ncol = length(idxVarStart))
+    solMatrix <- matrix(data = , nrow = idxVarEnd[1]-idxVarStart[1]-1, 
+                        ncol = length(idxVarStart))
     colnames(solMatrix) <- paste0("Solution-", 1:ncol(solMatrix))
-    ss1 <- sapply(strsplit(solution[(idxVarStart[1]+1):(idxVarEnd[1]-1), 1], split = " "), "[", 5)
+    ss1 <- sapply(strsplit(solution[(idxVarStart[1]+1):(idxVarEnd[1]-1), 1], 
+                           split = " "), "[", 5)
     rownames(solMatrix) <- sapply((strsplit(ss1, split = "=")), "[", 2)
     
     for(ii in 1:ncol(solMatrix)){
       
-      ss1 <- sapply(strsplit(solution[(idxVarStart[ii]+1):(idxVarEnd[ii]-1), 1], split = " "), "[", 7)
-      solMatrix[, ii] <- gsub(pattern = "/>", replacement = "", x = sapply(strsplit(ss1, split = "="), "[", 2))
+      ss1 <- sapply(strsplit(solution[(idxVarStart[ii]+1):(idxVarEnd[ii]-1), 1], 
+                             split = " "), "[", 7)
+      solMatrix[, ii] <- gsub(pattern = "/>", replacement = "", 
+                              x = sapply(strsplit(ss1, split = "="), "[", 2))
       
     }
     
@@ -56,14 +54,31 @@ exportResultAllConditions <- function(cplexSolutionFileName = cplexSolutionFileN
         if(solMatrix[which(rownames(solMatrix)==edgesVar[jj]), ii]==1){
           
           cnt <- 0
-          ss <- strsplit(x = strsplit(x = variables$`Reaction Variables`$Explanation[which(variables$`Reaction Variables`$Variables==edgesVar[jj])], split = " ", fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][1]
-          tt <- strsplit(x = strsplit(x = variables$`Reaction Variables`$Explanation[which(variables$`Reaction Variables`$Variables==edgesVar[jj])], split = " ", fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][2]
+          ss <- 
+            strsplit(
+              x = strsplit(
+                x = variables$`Reaction Variables`$Explanation[which(
+                  variables$`Reaction Variables`$Variables==edgesVar[jj])], 
+                split = " ", fixed = TRUE)[[1]][2], 
+              split = "=", fixed = TRUE)[[1]][1]
+          tt <- 
+            strsplit(
+              x = strsplit(
+                x = variables$`Reaction Variables`$Explanation[which(
+                  variables$`Reaction Variables`$Variables==edgesVar[jj])], 
+                split = " ", fixed = TRUE)[[1]][2], 
+              split = "=", fixed = TRUE)[[1]][2]
           for(kk in 1:(length(variables)-1)){
             
-            ssVar <- variables[[kk]]$variables[which(variables[[kk]]$exp==paste0("Species ", ss, " in experiment ", kk))]
-            ttVar <- variables[[kk]]$variables[which(variables[[kk]]$exp==paste0("Species ", tt, " in experiment ", kk))]
+            ssVar <- variables[[kk]]$variables[which(
+              variables[[kk]]$exp==paste0("Species ", 
+                                          ss, " in experiment ", kk))]
+            ttVar <- variables[[kk]]$variables[which(
+              variables[[kk]]$exp==paste0("Species ", tt, 
+                                          " in experiment ", kk))]
             
-            if((solMatrix[which(rownames(solMatrix)==ssVar), ii]!=0) && solMatrix[which(rownames(solMatrix)==ttVar), ii]!=0){
+            if((solMatrix[which(rownames(solMatrix)==ssVar), ii]!=0) && 
+               solMatrix[which(rownames(solMatrix)==ttVar), ii]!=0){
               
               cnt <- cnt + 1
               
@@ -77,7 +92,8 @@ exportResultAllConditions <- function(cplexSolutionFileName = cplexSolutionFileN
             idx2 <- which(pknList$Node2==tt)
             idx <- intersect(x = idx1, y = idx2)
             
-            sif <- unique(rbind(sif, t(as.matrix(c(ss, pknList$Sign[idx], tt)))))
+            sif <- unique(rbind(sif, 
+                                t(as.matrix(c(ss, pknList$Sign[idx], tt)))))
             
           }
           
@@ -164,22 +180,30 @@ exportResultAllConditions <- function(cplexSolutionFileName = cplexSolutionFileN
     solMatrix = read_csv(cplexSolutionFileName)
     
     vars <- solMatrix$name
-    map_reac_vars = matrix(data = , nrow = length(variables$`Reaction Variables`$Variables), ncol = 2)
+    map_reac_vars = matrix(data = , nrow = 
+                             length(variables$`Reaction Variables`$Variables), 
+                           ncol = 2)
     map_reac_vars[, 1] = variables$`Reaction Variables`$Variables
     map_reac_vars[, 2] = variables$`Reaction Variables`$Explanation
     
     if(ncol(solMatrix)>1){
       
-      idx = intersect(x = which(solMatrix$solution==1), y = which(solMatrix$name%in%variables$`Reaction Variables`$Variables))
+      idx = 
+        intersect(x = which(solMatrix$solution==1), 
+                  y = which(
+                    solMatrix$name%in%variables$`Reaction Variables`$Variables))
       if(length(idx) > 0){
         
-        reactions = map_reac_vars[which(map_reac_vars[, 1]%in%solMatrix$name[idx]), 2]
-        reactions = gsub(pattern = "Reaction ", replacement = "", x = reactions, fixed = TRUE)
+        reactions = map_reac_vars[which(
+          map_reac_vars[, 1]%in%solMatrix$name[idx]), 2]
+        reactions = gsub(pattern = "Reaction ", replacement = "", 
+                         x = reactions, fixed = TRUE)
         
         ss = sapply(strsplit(reactions, split='=', fixed=TRUE), '[', 1)
         tt = sapply(strsplit(reactions, split='=', fixed=TRUE), '[', 2)
         
-        RES = pknList[intersect(x = which(pknList$Node1%in%ss), y = which(pknList$Node2%in%tt)), ]
+        RES = pknList[intersect(x = which(pknList$Node1%in%ss), 
+                                y = which(pknList$Node2%in%tt)), ]
         
         return(RES)
         
