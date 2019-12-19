@@ -1,4 +1,4 @@
-'\code{GeneSymbol2Uniprot}
+#'\code{GeneSymbol2Uniprot}
 #'
 #' This function converts the gene symbol rownames of a dataframe to uniprot 
 #' rownames. In case one gene symbol maps to two uniprot IDs, the row will be 
