@@ -24,4 +24,6 @@ GeneSymbol2Uniprot=function(df, map, geneID=1, uniprotID=2){
   rownames(df)<-df$uniprotids_for_mapping
   df<-df%>%dplyr::select(-uniprotids_for_mapping,-genesymbols_for_mapping)
   
+  return(df)
+  
 }
