@@ -263,6 +263,9 @@ pool of solution (Default set to 100)
 - \emph{poolReplace}: CPLEX parameter: Replacement strategy of solutions in the 
 pool (0,1,2 - Default set to 2 = most diversified solutions)
 
+- \emph{threads}: CPLEX parameter: Number of threads to use
+(default: 0 for maximum number possible on system)
+
 - \emph{alphaWeight}: Objective function: weight for mismatch penalty (Default 
 set to 1 - will only be applied once measurement file only contains discrete 
 values).
