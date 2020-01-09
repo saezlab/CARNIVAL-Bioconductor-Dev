@@ -23,6 +23,7 @@ checkInputs <- function(solverPath=NULL,
                         poolReplace=2,
                         alphaWeight=1,
                         betaWeight=0.2,
+                        threads=0,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cbc", 
                         experimental_conditions = NULL){
@@ -37,7 +38,7 @@ checkInputs <- function(solverPath=NULL,
                    DOTfig=DOTfig, timelimit=timelimit, mipGAP=mipGAP,
                    poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
                    poolIntensity=poolIntensity, poolReplace=poolReplace,
-                   alphaWeight=alphaWeight, betaWeight=betaWeight, UP2GS=UP2GS,
+                   alphaWeight=alphaWeight, betaWeight=betaWeight, UP2GS=UP2GS, threads = threads,
                    experimental_conditions=experimental_conditions)
   
   returnList[[length(returnList)+1]] = inputObj$network

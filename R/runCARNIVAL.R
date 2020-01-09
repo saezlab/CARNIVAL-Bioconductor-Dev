@@ -24,6 +24,7 @@
 #'@param poolReplace CPLEX parameter: Replacement strategy of solutions in the pool (0,1,2 - default: 2 = most diversified solutions)
 #'@param alphaWeight Objective function: weight for mismatch penalty (default: 1 - will only be applied once measurement file only contains discrete values)
 #'@param betaWeight Objective function: weight for node penalty (defaul: 0.2)
+#'@param threads CPLEX parameter: Number of threads to use (default: 0 for maximum number possible on system)
 #'
 #'@return The networks and predicted node activities from the CARNIVAL pipeline as a variable which are also saved in the destined result folder
 #'
@@ -57,7 +58,8 @@ runCARNIVAL <- function(solverPath=NULL,
                         betaWeight=0.2,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cplex", 
-                        experimental_conditions = NULL)
+                        experimental_conditions = NULL
+                        threads=0)
 {
 
   # Clean working environment
@@ -73,7 +75,8 @@ runCARNIVAL <- function(solverPath=NULL,
                     poolCap = poolCap, poolIntensity = poolIntensity, 
                     poolReplace = poolReplace, alphaWeight = alphaWeight, 
                     betaWeight = betaWeight, dir_name = dir_name, 
-                    solver = solver, 
+                    solver = solver,
+                    threads = threads,
                     experimental_conditions = experimental_conditions)
   
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
@@ -89,7 +92,8 @@ runCARNIVAL <- function(solverPath=NULL,
                          poolIntensity = poolIntensity, 
                          poolReplace = poolReplace, alphaWeight = alphaWeight, 
                          betaWeight = betaWeight, dir_name = dir_name, 
-                         solver = solver, 
+                         solver = solver,
+                         threads = threads,
                          experimental_conditions = experimental_conditions, 
                          condition = res$condition, repIndex = res$repIndex)
   

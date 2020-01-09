@@ -15,6 +15,7 @@
 #' @param poolIntensity The intensity of the search in solution space
 #' @param poolReplace The replacement strategy of the solutions in the solution pool
 #' @param timelimit The allowed amount of time (in seconds) for the optimisation
+#' @param threads Number of threads to use (default: 0 for maximum number possible on system)
 #' @param measWeights The countinous weight of observations (here transcription factor activities) - to replace the default alphaWeight if assigned; Note: take only positive values!
 #' @param repIndex The indexing of optimisation - useful in case more than one experiment is performed
 #' @param condition The free variable which could be assigned for additional study e.g. to vary the efect of betaWeight in a loop
@@ -24,7 +25,7 @@
 #' @export
 
 writeLPFile <- function(data = data, pknList = pknList, inputs = inputs, alphaWeight=1, betaWeight=0.2, scores=scores, mipGAP=0.1, poolrelGAP=0.01, 
-                        limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800,measWeights=NULL, repIndex, condition="") {
+                        limitPop=100, poolCap=100, poolIntensity=0, poolReplace=2,timelimit=1800, threads=0, measWeights=NULL, repIndex, condition="") {
   dataMatrix <- buildDataMatrix(data = data, pknList = pknList, inputs = inputs)
   variables <- create_variables_all(pknList = pknList, dataMatrix = dataMatrix)
   # distVariables <- write_dist_variables(pknList = pknList)
@@ -70,6 +71,7 @@ writeLPFile <- function(data = data, pknList = pknList, inputs = inputs, alphaWe
   write(paste0("set mip pool capacity ",poolCap), cplexCommand, append = TRUE)
   write(paste0("set mip pool intensity ",poolIntensity), cplexCommand, append = TRUE)
   write(paste0("set timelimit ",timelimit), cplexCommand, append = TRUE)
+  write(paste0("set threads ", threads), cplexCommand, append = TRUE)
   # write("optimize", cplexCommand, append = TRUE)
   write("populate", cplexCommand, append = TRUE)
   # write(paste0("write results_cplex.txt sol"), cplexCommand, append = TRUE)
