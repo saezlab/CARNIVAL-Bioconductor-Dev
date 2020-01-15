@@ -60,10 +60,6 @@ runCARNIVAL <- function(solverPath=NULL,
                         experimental_conditions = NULL)
 {
 
-  # Clean working environment
-  # rm(list=ls());cat("\014") # clean screen and variables
-  # if(length(dev.list())>0){dev.off()} # clean figure
-
   res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj, 
                     inputObj = inputObj, weightObj = weightObj, 
                     parallelIdx1 = parallelIdx1, parallelIdx2 = parallelIdx2, 

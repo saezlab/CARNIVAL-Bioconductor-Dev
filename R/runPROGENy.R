@@ -16,7 +16,8 @@
 #'
 #'@export
 
-runPROGENy <- function(df,weight_matrix,k = 10000, z_scores = T, get_nulldist = F)
+runPROGENy <- function(df, weight_matrix, k = 10000, 
+                       z_scores = T, get_nulldist = F)
 {
   # library(tidyverse)
   library(dplyr)
@@ -52,7 +53,10 @@ runPROGENy <- function(df,weight_matrix,k = 10000, z_scores = T, get_nulldist = 
 
     scores <- as.data.frame(current_weights %*% current_mat)
 
-    null_dist_t <- replicate(k, sample(t_values,length(current_mat[,1]), replace = F))
+    null_dist_t <- replicate(k, 
+                             sample(t_values,
+                                    length(current_mat[,1]), 
+                                    replace = F))
 
     null_dist_scores <- current_weights %*% null_dist_t
 

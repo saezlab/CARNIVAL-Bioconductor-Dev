@@ -9,19 +9,20 @@
 #' @param write2file Path to outputfile for all TF_activities if desired
 #'
 #' @import viper
+#' @import dplyr
+#' @import purrr
+#' @import viper
+#' @import tibble
+#' @import tidyr
+#' @import tidyverse
 #'
 #' @return A n*m dataframe describing the inferred TF activities, where n is the number of Tfs and m the number of conditions.
 #'
 #' @export
 
-runDoRothEA<-function(df, regulon, confidence_level=c('A','B','C'), write2file = NULL){
-  # library(tidyverse)
-  library(dplyr)
-  library(purrr)
-  library(viper)
-  library(tibble)
-  library(tidyr)
-  # names(regulon) <- sapply(strsplit(names(viper_regulon), split = ' - '), head, 1)
+runDoRothEA<-function(df, regulon, 
+                      confidence_level=c('A','B','C'), write2file = NULL){
+  
   names(regulon) <- sapply(strsplit(names(regulon), split = ' - '), head, 1)
   filtered_regulon <- regulon %>%
     map_df(.f = function(i) {
@@ -39,7 +40,10 @@ runDoRothEA<-function(df, regulon, confidence_level=c('A','B','C'), write2file =
       likelihood = dat$likelihood
       list(tfmode =targets, likelihood = likelihood)})
 
-  TF_activities = as.data.frame(viper::viper(eset = df, regulon = filtered_regulon, nes = T, method = 'none', minsize = 4, eset.filter = F))
+  TF_activities = as.data.frame(viper::viper(eset = df, 
+                                             regulon = filtered_regulon, 
+                                             nes = T, method = 'none', 
+                                             minsize = 4, eset.filter = F))
   if(!is.null(write2file)){write.csv2(TF_activities, file = write2file)}
 
     return(TF_activities)

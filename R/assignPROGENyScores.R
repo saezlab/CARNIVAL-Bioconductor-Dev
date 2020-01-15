@@ -8,7 +8,9 @@
 #'
 #'@export
 
-assignPROGENyScores <- function(progeny = progeny, progenyMembers = progenyMembers, id = "uniprot"){
+assignPROGENyScores <- function(progeny = progeny, 
+                                progenyMembers = progenyMembers, 
+                                id = "uniprot"){
   
   if(id=="uniprot"){
     
@@ -45,7 +47,9 @@ assignPROGENyScores <- function(progeny = progeny, progenyMembers = progenyMembe
   
   for(i in 1:ncol(scores)){
     
-    scores[1, i] <- as.numeric(progeny[1, members[which(members[, 2]==colnames(scores)[i]), 1]])
+    scores[1, i] <- 
+      as.numeric(
+        progeny[1, members[which(members[, 2]==colnames(scores)[i]), 1]])
     
   }
   

@@ -19,5 +19,7 @@ GeneSymbol2Uniprot(df, map, geneID = 1, uniprotID = 2)
 A vector of genes or uniprot IDs.
 }
 \description{
-This function converts the gene symbol rownames of a dataframe to uniprot rownames. In case one gene symbol maps to two uniprot IDs, the row will be duplicated.
+This function converts the gene symbol rownames of a dataframe to uniprot 
+rownames. In case one gene symbol maps to two uniprot IDs, the row will be 
+duplicated.
 }

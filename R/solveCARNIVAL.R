@@ -1,8 +1,6 @@
 #'\code{solveCARNIVAL}
 #'
-#'@return result object after solving with CARNIVAL
-#'
-#'@export
+#' Returning result object after solving with CARNIVAL
 #'
 
 solveCARNIVAL <- function(solverPath = solverPath, 
@@ -80,13 +78,10 @@ solveCARNIVAL <- function(solverPath = solverPath,
         Elapsed_2 <- proc.time() - ptm
       }
       
-      # cleanupCARNIVAL(condition = condition, repIndex = repIndex)
-      
-      # Write result files in the results folder
+      ## Write result files in the results folder
       ptm <- proc.time()
       print("Writing result files...")
       resList <- list()
-      # if (file.exists(paste0("results/",dir_name,"/results_cplex.txt"))) {
       if (file.exists(paste0("results_cplex_",condition,"_",repIndex,".txt"))) {
         for(i in 1:length(variables)){
           res <- exportResult(cplexSolutionFileName = paste0("results_cplex_",
@@ -115,7 +110,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
       
       cleanupCARNIVAL(condition = condition, repIndex = repIndex)
       
-      # Remove global variable 
+      ## Remove global variable 
       objs <- ls(pos = ".GlobalEnv")
       rm(list = objs[grep("pknList", objs)], pos = ".GlobalEnv")
       
@@ -203,9 +198,9 @@ solveCARNIVAL <- function(solverPath = solverPath,
         Elapsed_2 <- proc.time() - ptm
       }
       
-      cleanupCARNIVAL(condition = condition, repIndex = repIndex)
+      ## cleanupCARNIVAL(condition = condition, repIndex = repIndex)
       
-      # Write result files in the results folder
+      ## Write result files in the results folder
       ptm <- proc.time()
       print("Writing result files...")
       resList <- list()
