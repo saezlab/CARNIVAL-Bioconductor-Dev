@@ -592,14 +592,15 @@ load(file = system.file("Ex1_network_Toy_mult.RData",
                         package="CARNIVAL"))
 
 # cplex solver
-result1 = runCARNIVAL(solverPath = solverPath, 
-                      netObj = Ex1_network_Toy_mult, 
-                      measObj = Ex1_measurements_Toy_mult, 
-                      inputObj = Ex1_inputs_Toy_mult, 
-                      mipGAP = 0, 
-                      poolrelGAP = 0, 
-                      DOTfig = TRUE, 
-                      solver = "cplex")
+result1 = runCARNIVAL(solverPath = "~/Documents/cplex",
+                      netObj = Ex1_network_Toy_mult,
+                      measObj = Ex1_measurements_Toy_mult,
+                      inputObj = Ex1_inputs_Toy_mult,
+                      mipGAP = 0,
+                      poolrelGAP = 0,
+                      DOTfig = TRUE,
+                      solver = "cplex", 
+                      experimental_conditions = c(1, 2, 3))
 @
 
 The consensus network is as shown in Figure \ref{fig:carnival_vignette_toy_2}.
