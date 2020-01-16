@@ -29,7 +29,8 @@ checkInputs <- function(solverPath=NULL,
                         experimental_conditions = NULL){
 
   returnList = list()
-  checkSolver(solverPath = solverPath, solver = solver, dir_name = dir_name)
+  checkSolver(solverPath = solverPath, solver = solver,
+              dir_name = dir_name, dt = dt)
   netObj = checkNetwork(netObj = netObj)
   measObj = checkMeasObj(measObj = measObj, netObj = netObj, dt = dt)
   inputObj = checkInputObj(inputObj = inputObj, netObj = netObj, dt = dt)

@@ -70,7 +70,7 @@ runCARNIVAL <- function(solverPath=NULL,
                     poolCap = poolCap, poolIntensity = poolIntensity,
                     poolReplace = poolReplace, alphaWeight = alphaWeight,
                     betaWeight = betaWeight, dir_name = dir_name,
-                    solver = solver, dt = dt
+                    solver = solver, dt = dt,
                     experimental_conditions = experimental_conditions)
 
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
