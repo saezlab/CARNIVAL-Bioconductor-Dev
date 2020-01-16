@@ -24,14 +24,15 @@ checkInputs <- function(solverPath=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         dir_name=paste0(getwd(), "/DOTfigures"),
-                        solver="cbc", 
+                        solver="cbc",
+                        dt = FALSE,
                         experimental_conditions = NULL){
-  
+
   returnList = list()
   checkSolver(solverPath = solverPath, solver = solver, dir_name = dir_name)
   netObj = checkNetwork(netObj = netObj)
-  measObj = checkMeasObj(measObj = measObj, netObj = netObj)
-  inputObj = checkInputObj(inputObj = inputObj, netObj = netObj)
+  measObj = checkMeasObj(measObj = measObj, netObj = netObj, dt = dt)
+  inputObj = checkInputObj(inputObj = inputObj, netObj = netObj, dt = dt)
   weightObj = checkWeightObj(weightObj = weightObj, netObj = netObj)
   pp = checkSolverParam(parallelIdx1=parallelIdx1, parallelIdx2=parallelIdx2,
                    DOTfig=DOTfig, timelimit=timelimit, mipGAP=mipGAP,
@@ -39,16 +40,16 @@ checkInputs <- function(solverPath=NULL,
                    poolIntensity=poolIntensity, poolReplace=poolReplace,
                    alphaWeight=alphaWeight, betaWeight=betaWeight, UP2GS=UP2GS,
                    experimental_conditions=experimental_conditions)
-  
+
   returnList[[length(returnList)+1]] = inputObj$network
   returnList[[length(returnList)+1]] = measObj
   returnList[[length(returnList)+1]] = inputObj
   returnList[[length(returnList)+1]] = weightObj
   returnList[[length(returnList)+1]] = pp$condition
   returnList[[length(returnList)+1]] = pp$repIndex
-  names(returnList) = c("network", "measurements", "inputs", 
+  names(returnList) = c("network", "measurements", "inputs",
                         "weights", "condition", "repIndex")
-  
+
   return(returnList)
-  
+
 }

@@ -6,11 +6,11 @@
 #'
 #'@export
 
-checkMeasObj <- function(measObj = measObj, netObj = netObj){
-  
-  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]), 
+checkMeasObj <- function(measObj = measObj, netObj = netObj, dt = dt){
+
+  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]),
                       as.character(as.matrix(netObj)[, 3])))
-  
+
   if (is.null(measObj)) {
     stop("Please provide a valid measurement object.")
   } else {
@@ -18,14 +18,19 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
     if(!(any(class(measObj)%in%allowedClass))){
       stop("Measurement object should either be of matrix or data.frame class")
     } else {
+      if(nrow(measObj) == 1 && dt){
+        stop("You are using CARNIVAL-dt but only specified one timepoint in
+             measObject. Add a line per timepoint to measObject.")
+      }
+
       if(ncol(measObj)>0){
         mSpecies = colnames(measObj)
-        
+
         idx = which(mSpecies%in%nSpecies)
         idx2rem = setdiff(1:length(mSpecies), idx)
-        
+
         if(length(idx2rem)==length(mSpecies)){
-          stop("Something wrong with your measurements object/network object. 
+          stop("Something wrong with your measurements object/network object.
                No measurements is present in the network")
         } else {
           if(length(idx2rem)>0){
@@ -42,7 +47,7 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
       }
     }
   }
-  
+
   return(measObj)
-  
+
 }

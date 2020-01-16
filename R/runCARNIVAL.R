@@ -56,39 +56,40 @@ runCARNIVAL <- function(solverPath=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         dir_name=paste0(getwd(), "/DOTfigures"),
-                        solver="cplex", 
+                        solver="cplex",
+                        dt=FALSE,
                         experimental_conditions = NULL)
 {
 
-  res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj, 
-                    inputObj = inputObj, weightObj = weightObj, 
-                    parallelIdx1 = parallelIdx1, parallelIdx2 = parallelIdx2, 
-                    nodeID = nodeID, UP2GS = UP2GS, DOTfig = DOTfig, 
-                    timelimit = timelimit, mipGAP = mipGAP, 
-                    poolrelGAP = poolrelGAP, limitPop = limitPop, 
-                    poolCap = poolCap, poolIntensity = poolIntensity, 
-                    poolReplace = poolReplace, alphaWeight = alphaWeight, 
-                    betaWeight = betaWeight, dir_name = dir_name, 
-                    solver = solver, 
+  res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj,
+                    inputObj = inputObj, weightObj = weightObj,
+                    parallelIdx1 = parallelIdx1, parallelIdx2 = parallelIdx2,
+                    nodeID = nodeID, UP2GS = UP2GS, DOTfig = DOTfig,
+                    timelimit = timelimit, mipGAP = mipGAP,
+                    poolrelGAP = poolrelGAP, limitPop = limitPop,
+                    poolCap = poolCap, poolIntensity = poolIntensity,
+                    poolReplace = poolReplace, alphaWeight = alphaWeight,
+                    betaWeight = betaWeight, dir_name = dir_name,
+                    solver = solver, dt = dt
                     experimental_conditions = experimental_conditions)
-  
+
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
 
-  result = solveCARNIVAL(solverPath = solverPath, netObj = res$inputs$network, 
-                         measObj = res$measurements, 
-                         inputObj = res$inputs$inputs, 
-                         weightObj = res$weights, parallelIdx1 = parallelIdx1, 
-                         parallelIdx2 = parallelIdx2, nodeID = nodeID, 
-                         UP2GS = UP2GS, DOTfig = DOTfig, timelimit = timelimit, 
-                         mipGAP = mipGAP, poolrelGAP = poolrelGAP, 
-                         limitPop = limitPop, poolCap = poolCap, 
-                         poolIntensity = poolIntensity, 
-                         poolReplace = poolReplace, alphaWeight = alphaWeight, 
-                         betaWeight = betaWeight, dir_name = dir_name, 
-                         solver = solver, 
-                         experimental_conditions = experimental_conditions, 
+  result = solveCARNIVAL(solverPath = solverPath, netObj = res$inputs$network,
+                         measObj = res$measurements,
+                         inputObj = res$inputs$inputs,
+                         weightObj = res$weights, parallelIdx1 = parallelIdx1,
+                         parallelIdx2 = parallelIdx2, nodeID = nodeID,
+                         UP2GS = UP2GS, DOTfig = DOTfig, timelimit = timelimit,
+                         mipGAP = mipGAP, poolrelGAP = poolrelGAP,
+                         limitPop = limitPop, poolCap = poolCap,
+                         poolIntensity = poolIntensity,
+                         poolReplace = poolReplace, alphaWeight = alphaWeight,
+                         betaWeight = betaWeight, dir_name = dir_name,
+                         solver = solver, dt = dt,
+                         experimental_conditions = experimental_conditions,
                          condition = res$condition, repIndex = res$repIndex)
-  
+
   return(result)
 
 }

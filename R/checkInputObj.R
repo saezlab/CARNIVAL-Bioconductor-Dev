@@ -6,29 +6,33 @@
 #'
 #'@export
 
-checkInputObj <- function(inputObj = inputObj, netObj = netObj){
-  
-  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]), 
+checkInputObj <- function(inputObj = inputObj, netObj = netObj, dt = dt){
+
+  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]),
                       as.character(as.matrix(netObj)[, 3])))
-  
+
   returnList = list()
-  
+
   if(is.null(inputObj)){
     print("inputObj set to NULL -- running InvCARNIVAL")
     MappedPertNode <- AddPerturbationNode(network = as.matrix(netObj))
     returnList = MappedPertNode
   } else {
+    if(nrow(inputObj) > 0 && dt){
+      stop("You are using CARNIVAL-dt and added multiple input lines.
+           CARNIVAL-dt with multiple conditions is not implemented yet.")
+    }
     if(ncol(inputObj)>0){
       mSpecies = colnames(inputObj)
     } else {
       stop("Something wrong with your measurements object. Please check.")
     }
-    
+
     idx = which(mSpecies%in%nSpecies)
     idx2rem = setdiff(1:length(mSpecies), idx)
-    
+
     if(length(idx2rem)==length(mSpecies)){
-      stop("Something wrong with your measurements object/network object. 
+      stop("Something wrong with your measurements object/network object.
            No input is present in the network")
     } else {
       if(length(idx2rem)>0){
@@ -44,7 +48,7 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
     returnList[[length(returnList)+1]] = netObj
     names(returnList) = c("inputs", "network")
   }
-  
+
   return(returnList)
-  
+
 }
