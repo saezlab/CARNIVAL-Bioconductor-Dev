@@ -27,4 +27,6 @@ toy_result <- runCARNIVAL(solverPath = solver_path,
                           poolrelGAP = 0,
                           DOTfig = TRUE,
                           # experimental_conditions = c(1, 2),
+                          dt = TRUE,
                           solver = "cplex")
+

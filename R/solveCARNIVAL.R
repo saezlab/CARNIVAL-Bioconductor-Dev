@@ -24,6 +24,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                           betaWeight = betaWeight,
                           dir_name = dir_name,
                           solver = solver,
+                          dt = dt,
                           experimental_conditions = experimental_conditions,
                           condition = condition,
                           repIndex = repIndex){
@@ -63,6 +64,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                  timelimit=timelimit,
                                  measWeights=measWeights,
                                  repIndex=repIndex,
+                                 dt = dt,
                                  condition = condition)
     } else {
 

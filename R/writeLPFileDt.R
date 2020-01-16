@@ -21,6 +21,7 @@ writeLPFileDt <-  function(data = data,
                            measWeights = NULL,
                            repIndex,
                            condition = "",
+                           dt = dt,
                            experimental_conditions) {
 
   dataMatrix <- buildDataMatrix(data = data,
@@ -32,7 +33,7 @@ writeLPFileDt <-  function(data = data,
   #   dataMatrix$dataMatrixSign[experimental_conditions, ]
 
   variables <- create_variables_all(pknList = pknList, dataMatrix = dataMatrix)
-  variables <- append_general_variables(variables = variables)
+  variables <- append_general_variables(variables = variables, dt = dt)
 
   oF <- write_objective_function_all(dataMatrix = dataMatrix,
                                      variables =
@@ -78,8 +79,7 @@ writeLPFileDt <-  function(data = data,
     write_loop_constraints(variables = variables[1:(length(variables) - 1)],
                            pknList = pknList,
                            inputs = inputs)
-  c10 <-
-    write_experimental_conditions_constraints(variables = variables)
+  c10 <- write_experimental_conditions_constraints(variables = variables)
 
   allC <-all_constraints_wLoop(c0 = c0,
                                c1 = c1,
