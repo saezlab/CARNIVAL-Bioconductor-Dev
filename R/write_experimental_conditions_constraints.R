@@ -7,44 +7,68 @@
 write_experimental_conditions_constraints <- function(variables = variables){
 
   constraint1 = c()
-  for(jj in 1:length(variables$reaction_variables$explanation)){
+  for(ii in 1:(length(variables)-1)){
+    for(jj in 1:length(variables[[ii]]$idxEdgesUp)){
+      # current_exp <- variables$reaction_variables$explanation[[jj]]
+      # ii <- strsplit(x = current_exp,
+      #                split = " ",
+      #                fixed = TRUE)[[1]]
+      # ii <- as.integer(ii[[length(ii)]])
 
-    for(ii in 1:(length(variables)-1)){
 
-      tt <-
-        strsplit(x = strsplit(
-          x = variables[[ii]]$exp[variables[[ii]]$idxEdgesUp[jj]], split = " ",
-          fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][2]
-      ss <-
-        strsplit(x = strsplit(
-          x = variables[[ii]]$exp[variables[[ii]]$idxEdgesUp[jj]], split = " ",
-          fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][1]
+      # for(ii in 1:(length(variables)-1)){
 
-      var_u_p <- variables[[ii]]$variables[variables[[ii]]$idxEdgesUp[jj]]
-      var_x_p <- variables[[ii]]$variables[which(variables[[ii]]$exp==
-                                                   paste0("SpeciesUP ",
-                                                          tt,
-                                                          " in experiment ",
-                                                          ii))]
+        # Get downstream node for upregulated edge number jj for t == ii
+        tt <-
+          strsplit(x = strsplit(x = variables[[ii]]$exp[variables[[ii]]$idxEdgesUp[jj]],
+                                split = " ",
+                                fixed = TRUE)[[1]][2],
+                   split = "=", fixed = TRUE)[[1]][2]
 
-      c1 = paste0("andP_", ss, "_", tt, "_", ii, " - ",
-                  var_u_p, " - ", var_x_p, " >= -1")
-      c2 = paste0("andP_", ss, "_", tt, "_", ii, " - ", var_u_p, " <= 0")
-      c3 = paste0("andP_", ss, "_", tt, "_", ii, " - ", var_x_p, " <= 0")
+        # Get upstream node for upregulated edge number jj for t == ii
+        ss <-
+          strsplit(x = strsplit(x = variables[[ii]]$exp[variables[[ii]]$idxEdgesUp[jj]],
+                                split = " ",
+                                fixed = TRUE)[[1]][2],
+                   split = "=", fixed = TRUE)[[1]][1]
 
-      var_u_m <- variables[[ii]]$variables[variables[[ii]]$idxEdgesDown[jj]]
-      var_x_m <- variables[[ii]]$variables[which(variables[[ii]]$exp==
-                                                   paste0("SpeciesDown ",
-                                                          tt,
-                                                          " in experiment ",
-                                                          ii))]
+        # Get CPLEX variables for u^(+)_(i,k) and x^(+)_(i,k)
+        var_u_p <- variables[[ii]]$variables[variables[[ii]]$idxEdgesUp[jj]]
+        var_x_p <- variables[[ii]]$variables[which(variables[[ii]]$exp==
+                                                     paste0("SpeciesUP ",
+                                                            tt,
+                                                            " in experiment ",
+                                                            ii))]
 
-      c4 = paste0("andM_", ss, "_", tt, "_", ii, " - ",
-                  var_u_m, " - ", var_x_m, " >= -1")
-      c5 = paste0("andM_", ss, "_", tt, "_", ii, " - ", var_u_m, " <= 0")
-      c6 = paste0("andM_", ss, "_", tt, "_", ii, " - ", var_x_m, " <= 0")
+        # + delta_(i,k) - u_(i,k) - x_(i,k) >= -1
+        c1 = paste0("andP_", ss, "_", tt, "_", ii, " - ",
+                    var_u_p, " - ", var_x_p, " >= -1")
 
-      constraint1 = c(constraint1, c(c1, c2, c3, c4, c5, c6))
+        # + delta_(i,k) - u_(i,k) <= 0
+        c2 = paste0("andP_", ss, "_", tt, "_", ii, " - ", var_u_p, " <= 0")
+
+        # + delta_(i,k) - x_(i,k) <= 0
+        c3 = paste0("andP_", ss, "_", tt, "_", ii, " - ", var_x_p, " <= 0")
+
+        # Get CPLEX variables for u^(-)_(i,k) and x^(-)_(i,k)
+        var_u_m <- variables[[ii]]$variables[variables[[ii]]$idxEdgesDown[jj]]
+        var_x_m <- variables[[ii]]$variables[which(variables[[ii]]$exp==
+                                                     paste0("SpeciesDown ",
+                                                            tt,
+                                                            " in experiment ",
+                                                            ii))]
+
+        # - delta_(i,k) - u_(i,k) - x_(i,k) >= -1
+        c4 = paste0("andM_", ss, "_", tt, "_", ii, " - ",
+                    var_u_m, " - ", var_x_m, " >= -1")
+
+        # - delta_(i,k) - u_(i,k) <= 0
+        c5 = paste0("andM_", ss, "_", tt, "_", ii, " - ", var_u_m, " <= 0")
+
+        # - delta_(i,k) - x_(i,k) <= 0
+        c6 = paste0("andM_", ss, "_", tt, "_", ii, " - ", var_x_m, " <= 0")
+
+        constraint1 = c(constraint1, c(c1, c2, c3, c4, c5, c6))
 
     }
 
