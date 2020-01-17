@@ -57,15 +57,15 @@ exportResultAllConditions <- function(cplexSolutionFileName =
           ss <- 
             strsplit(
               x = strsplit(
-                x = variables$`Reaction Variables`$Explanation[which(
-                  variables$`Reaction Variables`$Variables==edgesVar[jj])], 
+                x = variables$reaction_variables$explanation[which(
+                  variables$reaction_variables$variables==edgesVar[jj])], 
                 split = " ", fixed = TRUE)[[1]][2], 
               split = "=", fixed = TRUE)[[1]][1]
           tt <- 
             strsplit(
               x = strsplit(
-                x = variables$`Reaction Variables`$Explanation[which(
-                  variables$`Reaction Variables`$Variables==edgesVar[jj])], 
+                x = variables$reaction_variables$explanation[which(
+                  variables$reaction_variables$variables==edgesVar[jj])], 
                 split = " ", fixed = TRUE)[[1]][2], 
               split = "=", fixed = TRUE)[[1]][2]
           for(kk in 1:(length(variables)-1)){
@@ -181,17 +181,17 @@ exportResultAllConditions <- function(cplexSolutionFileName =
     
     vars <- solMatrix$name
     map_reac_vars = matrix(data = , nrow = 
-                             length(variables$`Reaction Variables`$Variables), 
+                             length(variables$reaction_variables$variables), 
                            ncol = 2)
-    map_reac_vars[, 1] = variables$`Reaction Variables`$Variables
-    map_reac_vars[, 2] = variables$`Reaction Variables`$Explanation
+    map_reac_vars[, 1] = variables$reaction_variables$variables
+    map_reac_vars[, 2] = variables$reaction_variables$explanation
     
     if(ncol(solMatrix)>1){
       
       idx = 
         intersect(x = which(solMatrix$solution==1), 
                   y = which(
-                    solMatrix$name%in%variables$`Reaction Variables`$Variables))
+                    solMatrix$name%in%variables$reaction_variables$variables))
       if(length(idx) > 0){
         
         reactions = map_reac_vars[which(

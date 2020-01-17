@@ -5,16 +5,16 @@
 
 append_binaries = function(binaries = binaries, variables = variables){
   
-  for(ii in 1:length(variables$`Reaction Variables`$Explanation)){
+  for(ii in 1:length(variables$reaction_variables$explanation)){
     
     ss <- strsplit(x = 
                      strsplit(
-                       x = variables$`Reaction Variables`$Explanation[ii], 
+                       x = variables$reaction_variables$explanation[ii], 
                        split = " ", fixed = TRUE)[[1]][2], 
                    split = "=", fixed = TRUE)[[1]][1]
     tt <- strsplit(x = 
                      strsplit(
-                       x = variables$`Reaction Variables`$Explanation[ii], 
+                       x = variables$reaction_variables$explanation[ii], 
                        split = " ", fixed = TRUE)[[1]][2], 
                    split = "=", fixed = TRUE)[[1]][2]
     

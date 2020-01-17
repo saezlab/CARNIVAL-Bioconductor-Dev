@@ -82,8 +82,8 @@ append_general_variables <- function(variables = variables,
   }
 
   # Label newly created fields
-  names(var) <- c(names(variables), "Reaction Variables")
-  names(var$`Reaction Variables`) <- c("Variables", "Explanation")
+  names(var) <- c(names(variables), "reaction_variables")
+  names(var$reaction_variables) <- c("variables", "explanation")
 
   return(var)
 
