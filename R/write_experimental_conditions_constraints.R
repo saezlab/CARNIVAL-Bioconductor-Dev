@@ -4,7 +4,8 @@
 #' conditions.
 #'
 
-write_experimental_conditions_constraints <- function(variables = variables){
+write_experimental_conditions_constraints <- function(variables = variables,
+                                                      dt = dt){
 
   constraint1 = c()
   for(ii in 1:(length(variables)-1)){
@@ -75,24 +76,34 @@ write_experimental_conditions_constraints <- function(variables = variables){
   }
 
   constraint2 = c()
-  for(jj in 1:length(variables$reaction_variables$explanation)){
+  for(ii in 1:(length(variables)-1)){
+    for(jj in 1:length(variables[[ii]]$idxEdgesUp)){
 
-    for(ii in 1:(length(variables)-1)){
-
+      # Get downstream node for upregulated edge number jj for t == ii
       ss <-
-        strsplit(x = strsplit(
-          x = variables[[ii]]$exp[variables[[ii]]$idxEdges[jj]], split = " ",
-          fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][1]
-      tt <-
-        strsplit(x = strsplit(
-          x = variables[[ii]]$exp[variables[[ii]]$idxEdges[jj]], split = " ",
-          fixed = TRUE)[[1]][2], split = "=", fixed = TRUE)[[1]][2]
+        strsplit(x = strsplit(x = variables[[ii]]$exp[variables[[ii]]$idxEdges[jj]],
+                              split = " ",
+                              fixed = TRUE)[[1]][2],
+                 split = "=", fixed = TRUE)[[1]][1]
 
+      # Get upstream node for upregulated edge number jj for t == ii
+      tt <-
+        strsplit(x = strsplit(x = variables[[ii]]$exp[variables[[ii]]$idxEdges[jj]],
+                              split = " ",
+                              fixed = TRUE)[[1]][2],
+                 split = "=", fixed = TRUE)[[1]][2]
+
+      # Bak
       c1 <- paste0(variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]],
-                   " - andP_", ss, "_", tt, "_", ii, " - andM_", ss, "_",
-                   tt, "_", ii, " <= 0")
+                   " - andP_", ss, "_", tt, "_", ii,
+                   " - andM_", ss, "_", tt, "_", ii,
+                   " <= 0")
+
+      # Bak
       c2 <- paste0(variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]],
                    " - andP_", ss, "_", tt, "_", ii, " >= 0")
+
+      # Bak
       c3 <- paste0(variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]],
                    " - andM_", ss, "_", tt, "_", ii, " >= 0")
 
@@ -102,24 +113,32 @@ write_experimental_conditions_constraints <- function(variables = variables){
 
   }
 
-  constraint3 = c()
-  for(jj in 1:length(variables$reaction_variables$explanation)){
+  if (dt) {
+    constraint3 = c()
 
-    c1 = variables$reaction_variables$variables[jj]
-    c2 = c()
 
-    for(ii in 1:(length(variables)-1)){
+  } else {
+    constraint3 = c()
+    for(jj in 1:length(variables$reaction_variables$explanation)){
 
-      c1 = paste0(c1, " - ",
-                  variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]])
-      c2 = c(c2, paste0(variables$reaction_variables$variables[jj], " - ",
-                        variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]],
-                        " >= ", 0))
+      c1 = variables$reaction_variables$variables[jj]
+      c2 = c()
+
+      for(ii in 1:(length(variables)-1)){
+
+        c1 = paste0(c1, " - ",
+                    variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]])
+        c2 = c(c2, paste0(variables$reaction_variables$variables[jj], " - ",
+                          variables[[ii]]$variables[variables[[ii]]$idxEdges[jj]],
+                          " >= ", 0))
+
+      }
+
+      c1 <- paste0(c1, " <= 0")
+      constraint3 <- c(constraint3, c(c1, c2))
 
     }
 
-    c1 <- paste0(c1, " <= 0")
-    constraint3 <- c(constraint3, c(c1, c2))
 
   }
 
