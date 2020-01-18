@@ -36,7 +36,8 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
   }
   
   if(!is.logical(DOTfig)){stop("For plotting: please choose whether to plot DOT 
-                                figure as an output with a logical value T/F")
+                                figure as an output with a logical value 
+                                TRUE/FALSE")
   }
   
   if(!is.numeric(timelimit)){
@@ -128,7 +129,7 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
   }
   
   if(!is.null(experimental_conditions)){
-    if(class(experimental_conditions) != "numeric"){
+    if(!is(experimental_conditions, "numeric")){
       stop("Error with the assignment of the experimental conditions. Please 
            provide this input as NULL or as a numeric vector")
     }

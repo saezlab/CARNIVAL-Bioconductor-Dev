@@ -32,7 +32,7 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
            No input is present in the network")
     } else {
       if(length(idx2rem)>0){
-        if((nrow(inputObj)==1) && (class(inputObj)=="matrix")){
+        if((nrow(inputObj)==1) && (is(inputObj, "matrix"))){
           inputObj = inputObj[, -idx2rem]
           inputObj = t(as.matrix(inputObj))
         } else {

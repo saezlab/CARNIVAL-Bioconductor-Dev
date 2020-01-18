@@ -117,13 +117,13 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       edgesDown[, 1] <- vars[idxEdgesDown]
       edgesDown[, 2] <- values[idxEdgesDown]
       
-      if(class(edgesDown) != "matrix"){
+      if(!is(edgesDown, "matrix")){
         
         edgesDown <- as.matrix(t(edgesDown))
         
       }
       
-      if(class(edgesUp) != "matrix"){
+      if(!is(edgesUp, "matrix")){
         
         edgesUp <- as.matrix(t(edgesUp))
         
@@ -499,13 +499,13 @@ exportResult <- function(cplexSolutionFileName = cplexSolutionFileName,
       edgesDown[, 1] <- vars[idxEdgesDown]
       edgesDown[, 2] <- as.numeric(values[idxEdgesDown])
       
-      if(class(edgesDown) != "matrix"){
+      if(!is(edgesDown, "matrix")){
         
         edgesDown <- as.matrix(t(edgesDown))
         
       }
       
-      if(class(edgesUp) != "matrix"){
+      if(!is(edgesUp, "matrix")){
         
         edgesUp <- as.matrix(t(edgesUp))
         

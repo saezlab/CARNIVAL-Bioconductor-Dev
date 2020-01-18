@@ -1,6 +1,7 @@
 #'\code{Uniprot2GeneSymbol}
 #'
-#' Conversion of Uniprot ID (e.g. from Omnipath) to official gene symbol in the plotting step
+#' Conversion of Uniprot ID (e.g. from Omnipath) to official gene symbol in the 
+#' plotting step
 #'
 
 Uniprot2GeneSymbol <- function(res){
@@ -8,8 +9,8 @@ Uniprot2GeneSymbol <- function(res){
   # Select mapping file
   IDmap <- 
     read.table(file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",
-                                  package="CARNIVAL"),header = F,sep = "\t",
-               stringsAsFactors = F)
+                                  package="CARNIVAL"),header = FALSE,sep = "\t",
+               stringsAsFactors = FALSE)
 
   ## Map each element in 'res' -> always take the first ID if there are many hit
   ## entries and collect unmapped nodes

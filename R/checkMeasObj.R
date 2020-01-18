@@ -14,8 +14,8 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
   if (is.null(measObj)) {
     stop("Please provide a valid measurement object.")
   } else {
-    allowedClass = c("matrix", "data.frame")
-    if(!(any(class(measObj)%in%allowedClass))){
+    ## allowedClass = c("matrix", "data.frame")
+    if((!is(measObj, "matrix")) && (!is(measObj, "data.frame"))){
       stop("Measurement object should either be of matrix or data.frame class")
     } else {
       if(ncol(measObj)>0){
@@ -29,7 +29,7 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
                No measurements is present in the network")
         } else {
           if(length(idx2rem)>0){
-            if((nrow(measObj)==1) && (class(measObj)=="matrix")){
+            if((nrow(measObj)==1) && (is(measObj, "matrix"))){
               measObj = measObj[, -idx2rem]
               measObj = t(as.matrix(measObj))
             } else {

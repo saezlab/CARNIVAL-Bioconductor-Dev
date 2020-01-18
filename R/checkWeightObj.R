@@ -15,8 +15,8 @@ checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
   if (is.null(weightObj)) {
     weightObj = "NULL"
   } else {
-    allowedClass = c("matrix", "data.frame")
-    if(!(any(class(weightObj)%in%allowedClass))){
+    ## allowedClass = c("matrix", "data.frame")
+    if((!is(weightObj, "matrix")) && (!is(weightObj, "data.frame"))){
       stop("Weight object should either be of matrix or data.frame class")
     } else {
       if(ncol(weightObj)>0){
@@ -31,7 +31,7 @@ checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
                You can set the weightObj to NULL.")
         } else {
           if(length(idx2rem)>0){
-            if((nrow(weightObj)==1) && (class(weightObj)=="matrix")){
+            if((nrow(weightObj)==1) && (is(weightObj, "matrix"))){
               weightObj = weightObj[, -idx2rem]
               weightObj = t(as.matrix(weightObj))
             } else {

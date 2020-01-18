@@ -1,7 +1,7 @@
 Package: CARNIVAL
 Type: Package
 Title: A CAusal Reasoning tool for Network Identification (from gene expression data) using Integer VALue programming
-Version: 1.0.0
+Version: 0.9.3
 Author: Enio Gjerga, Panuwat Trairatphisan 
 Maintainer: Enio Gjerga <enio.gjerga@gmail.com>
 Description: An upgraded causal reasoning tool from Melas et al in R with updated assignments of TFs' weights from PROGENy scores. 

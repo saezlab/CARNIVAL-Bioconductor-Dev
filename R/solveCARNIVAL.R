@@ -158,7 +158,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
     
   } else {
     
-    if(class(experimental_conditions) != "numeric"){
+    if(!is(experimental_conditions, "numeric")){
       stop("Error with the assignment of the experimental conditions. 
            Please provide this input as a numeric vector")
     }

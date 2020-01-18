@@ -17,7 +17,7 @@
 checkSolver <- function(solverPath = solverPath, solver = solver,
                         dir_name = dir_name){
   
-  if(!(class(solverPath)=="character")){
+  if(!is(solverPath, "character")){
     stop("SolverPath should be of type character")
   } else {
     if(!file.exists(solverPath)){
@@ -25,7 +25,7 @@ checkSolver <- function(solverPath = solverPath, solver = solver,
     }
   }
   
-  if(!(class(solver)=="character")){
+  if(!is(solver, "character")){
     stop("solver should be of type character")
   } else {
     # checking for solver validity (cplex/cbc)
@@ -37,7 +37,7 @@ checkSolver <- function(solverPath = solverPath, solver = solver,
   }
   
   if(!is.null(dir_name)){
-    if(!(class(dir_name)=="character")){
+    if(!is(dir_name, "character")){
       stop("dir_name should either be NULL or provided as a character")
     }
   }

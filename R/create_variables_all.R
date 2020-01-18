@@ -192,10 +192,6 @@ create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
 
   }
 
-  # ====================================== #
-  # ====================================== #
-  # ====================================== #
-
   res <- list()
   namesRes <- c()
 

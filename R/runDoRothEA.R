@@ -1,11 +1,14 @@
 #'\code{runDoRothEA}
 #'
-#' This function infers TF activities based on the DoRothEA regulon and the viper function.
+#' This function infers TF activities based on the DoRothEA regulon and the 
+#' viper function.
 #' The regulon can be filtered by confidence level (A-E).
 #'
-#' @param confidence_level A vector describing which confidence levels of the DoRothEA regulon to use
+#' @param confidence_level A vector describing which confidence levels of the 
+#' DoRothEA regulon to use
 #' @param regulon DoRothEA regulon list
-#' @param df A n*m dataframe describing the contrast t-statistics, where n is the number of genes and m the number of conditions.
+#' @param df A n*m dataframe describing the contrast t-statistics, where n is 
+#' the number of genes and m the number of conditions.
 #' @param write2file Path to outputfile for all TF_activities if desired
 #'
 #' @import viper
@@ -16,7 +19,8 @@
 #' @import tidyr
 #' @import tidyverse
 #'
-#' @return A n*m dataframe describing the inferred TF activities, where n is the number of Tfs and m the number of conditions.
+#' @return A n*m dataframe describing the inferred TF activities, where n is 
+#' the number of Tfs and m the number of conditions.
 #'
 #' @export
 
@@ -42,8 +46,8 @@ runDoRothEA<-function(df, regulon,
 
   TF_activities = as.data.frame(viper::viper(eset = df, 
                                              regulon = filtered_regulon, 
-                                             nes = T, method = 'none', 
-                                             minsize = 4, eset.filter = F))
+                                             nes = TRUE, method = 'none', 
+                                             minsize = 4, eset.filter = FALSE))
   if(!is.null(write2file)){write.csv2(TF_activities, file = write2file)}
 
     return(TF_activities)

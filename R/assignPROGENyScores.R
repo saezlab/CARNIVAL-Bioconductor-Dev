@@ -4,7 +4,8 @@
 #'@param progenyMembers Contains the list of members for each PROGENy pathway.
 #'@param id Contains the members identifiers (default: uniprot).
 #'
-#'@return This function is used to account for the PROGENy scores in the objective function.
+#'@return This function is used to account for the PROGENy scores in the 
+#'objective function.
 #'
 #'@export
 

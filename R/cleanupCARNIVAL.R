@@ -26,7 +26,7 @@ cleanupCARNIVAL <- function(condition=condition, repIndex=repIndex){
   }
   
   AllFiles <- list.files()
-  CloneFiles <- which(grepl(pattern = "clone",x = AllFiles,fixed = T))
+  CloneFiles <- which(grepl(pattern = "clone",x = AllFiles,fixed = TRUE))
   if (length(CloneFiles)>0) {
     for (counter in 1:length(CloneFiles)) {
       file.remove(AllFiles[CloneFiles[counter]])

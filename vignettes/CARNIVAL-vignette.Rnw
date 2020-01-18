@@ -3,8 +3,6 @@
 % with CARNIVAL
 %}
 
-%\VignetteEngine{knitr::knitr}
-
 %\VignettePackage{CARNIVAL}
 
 \documentclass{article}
@@ -198,7 +196,7 @@ After successfully installing \emph{CARNIVAL}, its documentation can be accessed
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 # Open vignette as pdf file
-vignette("CNORode-vignette")
+vignette("CARNIVAL-vignette")
 @
 
 \subsection{CARNIVAL settings}
@@ -312,7 +310,7 @@ factor (TF) normalised enrichment scores by applying the function
 \emph{runDoRothEA}. An example of the pipeline to generate a measurement file 
 for the Example 1 (SBVimprover-EGF) is shown as follows:
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 library(dplyr) # load dplyr library
 library(readr) # load readr library
@@ -342,7 +340,7 @@ calculated pathway scores by applying the function \emph{runPROGENy}. An example
 of the pipeline to generate a weight object file for Example 1 (SBVimprover-EGF)
 is shown as follows:
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 ## Loading weight matrix of PROGENy
 file.copy(from=system.file("model_NatComm+14_human.csv",package="CARNIVAL"),
           to=getwd(),overwrite=TRUE)
@@ -350,7 +348,7 @@ weight_matrix<-read.csv("model_NatComm+14_human.csv")
 df_genenames<-data.frame('gene'=rownames(df),df)
 
 ## Run PROGENy
-pathway_scores<-runPROGENy(df_genenames,weight_matrix, z_scores = F)
+pathway_scores<-runPROGENy(df_genenames,weight_matrix, z_scores = FALSE)
 @
 
 The results from DEG-preprocessing pipeline are saved in the directory 
@@ -375,7 +373,7 @@ Next, users can load the \emph{CARNIVAL} inputs for Example 1. The
 \emph{progenyMembers.RData}) of each of the pathways through 
 \emph{assignPROGENyScores} function. On this case:
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 ##
 # Example 1
 load(file = system.file("Ex2_inputs_SBV_EGF.RData",
@@ -482,10 +480,10 @@ to generate any \emph{.dot} figure, it can as well keep the default
 In case the target(s) of perturbation is unknown (e.g. in the case of 
 multi-factorial diseases or broad-spectrum drugs), users can choose the Inverse 
 CARNIVAL pipeline to exclusively build a sub-network without input's target(s) 
-information (i.e. inputFile = NULL, inverseCR=T). Note that the pathway scores 
-from PROGENy is highly recommended to be included once running the Inverse 
-CARNIVAL pipeline. Here we present Example 3 as a case study for the Inverse 
-CARNIVAL pipeline (to investigate downstream toxicity effects of 
+information (i.e. inputFile = NULL, inverseCR=TRUE). Note that the pathway 
+scores from PROGENy is highly recommended to be included once running the 
+Inverse CARNIVAL pipeline. Here we present Example 3 as a case study for the 
+Inverse CARNIVAL pipeline (to investigate downstream toxicity effects of 
 paracetamol/APAP on cellular processes). An example of R-code by is provided 
 below:
 

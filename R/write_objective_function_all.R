@@ -199,10 +199,6 @@ write_objective_function_all <- function(dataMatrix = dataMatrix,
     
   }
   
-  ## ====================================== ##
-  ## ====================================== ##
-  ## ====================================== ##
-  
   OF <- "Obj:\t "
   
   if(!is.null(measWeights)){
