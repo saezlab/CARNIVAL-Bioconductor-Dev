@@ -3,6 +3,8 @@
 % with CARNIVAL
 %}
 
+%\VignetteEngine{knitr::knitr}
+
 %\VignettePackage{CARNIVAL}
 
 \documentclass{article}
