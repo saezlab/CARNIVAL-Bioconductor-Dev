@@ -182,13 +182,13 @@ users will also need to download and install the Graph Visualization software
 \emph{CARNIVAL} is currently available for the installation as an R-package from our GitHub page.
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-# Install CARNIVAL from Github using devtools
+## Install CARNIVAL from Github using devtools
 # install.packages('devtools') # in case devtools hasn't been installed
 library(devtools)
 install_github('saezlab/CARNIVAL', build_vignettes = TRUE)
-# or download the source file from GitHub and install from source
-install.packages('path_to_extracted_CARNIVAL_directory', 
-                 repos = NULL, type="source")
+## or download the source file from GitHub and install from source
+# install.packages('path_to_extracted_CARNIVAL_directory', 
+#                  repos = NULL, type="source")
 @
 
 \subsection{Documentation}
@@ -364,7 +364,7 @@ The default installation path for each OS is as described in \emph{Section 1.2}.
 
 For this example, we can set:
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 solverPath = "~/Applications/IBM/ILOG/CPLEX_Studio1281/cplex/bin/x86-64_osx/cplex"
 @
 
@@ -525,7 +525,7 @@ result_cplex = runCARNIVAL(solverPath=solverPath,
 Training with \emph{Cbc} (1 single solution obtained and showed in Figure 
 \ref{fig:apap_cbc}):
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 library(dplyr) # load dplyr library
 library(readr) # load readr library
@@ -536,7 +536,11 @@ load(file = system.file("Ex3_measurement_APAP_TGG_24hrHighDose.RData",
                         package="CARNIVAL"))
 load(file = system.file("Ex3_network_APAP_TGG_Omnipath.RData",
                         package="CARNIVAL"))
+@
 
+Then we perform the analysis by running CARNIVAL with the CBC solver:
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 # cbc solver
 result_cbc = runCARNIVAL(solverPath=solverPath, 
                          netObj = Ex3_network_APAP_TGG_Omnipath, 
@@ -577,7 +581,7 @@ interactions.
 
 We train the network with \emph{CPLEX} as below:
 
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 library(dplyr) # load dplyr library
 library(readr) # load readr library
@@ -590,7 +594,12 @@ load(file = system.file("Ex1_measurements_Toy_mult.RData",
                         package="CARNIVAL"))
 load(file = system.file("Ex1_network_Toy_mult.RData",
                         package="CARNIVAL"))
+@
 
+The \emph{experimental_conditions} variable will then indicate which of the
+experimental conditions should be considered for the analysis:
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 # cplex solver
 result1 = runCARNIVAL(solverPath = "~/Documents/cplex",
                       netObj = Ex1_network_Toy_mult,
