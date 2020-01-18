@@ -106,3 +106,19 @@ variable which are also saved in the destined result folder
 Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL 
 built-in examples
 }
+\examples{
+## Running CARNIVAL
+result = runCARNIVAL(solverPath=solverPath,
+netObj = netObj,
+measObj = measObj,
+inputObj = inputObj,
+weightObj = NULL,
+timelimit = 3600,
+poolCap = 100,
+poolReplace = 2,
+limitPop = 500,
+nodeID = "uniprot",
+UP2GS = TRUE,
+DOTfig = TRUE,
+solver = "cplex")
+}
