@@ -26,6 +26,6 @@ Imports:
     UniProt.ws
 Suggests: knitr,
     rmarkdown
-VignetteBuilder:
+VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 biocViews: Transcriptomics, GeneExpression
