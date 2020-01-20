@@ -7,7 +7,7 @@
 write_loop_constraints <- function(variables=variables,
                                    pknList=pknList,
                                    inputs=inputs,
-                                   dt=dt) {
+                                   dt=FALSE) {
 
   M <- 101
   constraints1 <- c()

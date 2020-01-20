@@ -81,7 +81,8 @@ writeLPFileDt <-  function(data = data,
                            inputs = inputs,
                            dt = dt)
 
-  c10 <- write_experimental_conditions_constraints(variables = variables)
+  c10 <- write_experimental_conditions_constraints(variables = variables,
+                                                   dt = dt)
 
   allC <-all_constraints_wLoop(c0 = c0,
                                c1 = c1,
