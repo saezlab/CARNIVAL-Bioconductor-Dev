@@ -112,6 +112,9 @@ solveCARNIVAL <- function(solverPath = solverPath,
       resList <- list()
       if (file.exists(paste0("results_cplex_",condition,"_",repIndex,".txt"))) {
         for(i in 1:length(variables)){
+          if (i == length(variables) && dt) {
+            break
+          }
           res <- exportResult(cplexSolutionFileName = paste0("results_cplex_",
                                                              condition,"_",
                                                              repIndex,".txt"),
