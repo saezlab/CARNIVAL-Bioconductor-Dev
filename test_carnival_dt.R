@@ -14,9 +14,13 @@ base_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/
 data_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/data/test_data/"
 solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
 
-test_network <- readr::read_tsv(paste0(data_directory, "test_network.tsv"))
-test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements.tsv"))
-test_input <- readr::read_tsv(paste0(data_directory, "test_input.tsv"))
+# test_network <- readr::read_tsv(paste0(data_directory, "test_network.tsv"))
+# test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements.tsv"))
+# test_input <- readr::read_tsv(paste0(data_directory, "test_input.tsv"))
+
+test_network <- readr::read_tsv(paste0(data_directory, "test_network_big.tsv"))
+test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
+test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
 
 # cplex solver
 toy_result <- runCARNIVAL(solverPath = solver_path,
