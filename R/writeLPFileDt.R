@@ -74,7 +74,8 @@ writeLPFileDt <-  function(data = data,
   c8 <-
     write_constraints_8(variables = variables[1:(length(variables) - 1)],
                         inputs = inputs,
-                        pknList = pknList)
+                        pknList = pknList,
+                        dt = dt)
   c9 <-
     write_loop_constraints(variables = variables[1:(length(variables) - 1)],
                            pknList = pknList,
