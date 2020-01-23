@@ -92,6 +92,7 @@ write_experimental_conditions_constraints <- function(variables = variables,
 
         # All reactions in previous time point have to be included in current
         # y_(i,t) >= y_(i,t-1) for all t > 1
+        # expressed as y_(i,t) - y_(i,t-1) >= 0 for all t > 1
         if (ii > 1) {
           y_it_before <- variables$reaction_variables$variables[
             which(variables$reaction_variables$explanation ==
