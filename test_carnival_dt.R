@@ -9,18 +9,19 @@ library(dplyr) # load dplyr library
 library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
+library(tidyr)
 
 base_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/"
 data_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/data/test_data/"
 solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
 
-# test_network <- readr::read_tsv(paste0(data_directory, "test_network.tsv"))
-# test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements.tsv"))
-# test_input <- readr::read_tsv(paste0(data_directory, "test_input.tsv"))
+test_network <- readr::read_tsv(paste0(data_directory, "test_network.tsv"))
+test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements.tsv"))
+test_input <- readr::read_tsv(paste0(data_directory, "test_input.tsv"))
 
-test_network <- readr::read_tsv(paste0(data_directory, "test_network_big.tsv"))
-test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
-test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
+# test_network <- readr::read_tsv(paste0(data_directory, "test_network_big.tsv"))
+# test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
+# test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
 
 # cplex solver
 toy_result <- runCARNIVAL(solverPath = solver_path,
@@ -33,4 +34,15 @@ toy_result <- runCARNIVAL(solverPath = solver_path,
                           # experimental_conditions = c(1, 2),
                           dt = TRUE,
                           solver = "cplex")
+
+debug <- tibble(variable = character(),
+                explanation = character(),
+                time = integer())
+
+for (i in 1:length(toy_result$variables)) {
+  debug <- add_row(debug,
+                   variable = toy_result$variables[[i]][[1]],
+                   explanation = toy_result$variables[[i]][[2]],
+                   time = i)
+}
 

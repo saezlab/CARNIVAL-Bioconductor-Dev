@@ -1,10 +1,10 @@
 #'\code{write_constraints_3_all}
 #'
-#'This code writes the list of constraints (3) of the ILP problem for all the 
+#'This code writes the list of constraints (3) of the ILP problem for all the
 #'conditions.
 #'
 
-write_constraints_3_all <- function(variables=variables) {
+write_constraints_3_all <- function(variables=variables, dt = FALSE) {
 
   ## ======================================= ##
   ## ====== Load write_constraints_3.R ===== ##
@@ -13,9 +13,9 @@ write_constraints_3_all <- function(variables=variables) {
   write_constraints_3 <- function(variables=variables) {
 
     constraints3 <- paste0(
-      variables$variables[variables$idxEdgesUp], 
-      " + ", 
-      variables$variables[variables$idxEdgesDown], 
+      variables$variables[variables$idxEdgesUp],
+      " + ",
+      variables$variables[variables$idxEdgesDown],
       " <= 1")
 
     return(constraints3)
@@ -27,12 +27,21 @@ write_constraints_3_all <- function(variables=variables) {
   # ======================================= #
 
   constraints3 <- c()
+  dt <- FALSE
+  if (dt) {
 
-  for(i in 1:length(variables)){
+    constraints3 <- c(constraints3,
+                      write_constraints_3(variables = variables[[1]]))
 
-    var <- variables[[i]]
+  } else {
 
-    constraints3 <- c(constraints3, write_constraints_3(variables = var))
+    for(i in 1:length(variables)){
+
+      var <- variables[[i]]
+
+      constraints3 <- c(constraints3, write_constraints_3(variables = var))
+
+    }
 
   }
 

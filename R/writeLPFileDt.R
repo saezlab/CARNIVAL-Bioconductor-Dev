@@ -58,11 +58,13 @@ writeLPFileDt <-  function(data = data,
   c2 <-
     write_constraints_2_all(variables = variables[1:(length(variables) - 1)])
   c3 <-
-    write_constraints_3_all(variables = variables[1:(length(variables) - 1)])
+    write_constraints_3_all(variables = variables[1:(length(variables) - 1)],
+                            dt = dt)
   c4 <-
     write_constraints_4_all(variables = variables[1:(length(variables) - 1)])
   c5 <-
-    write_constraints_5_all(variables = variables[1:(length(variables) - 1)])
+    write_constraints_5_all(variables = variables[1:(length(variables) - 1)],
+                            dt = dt)
   c6 <-
     write_constraints_6(variables = variables[1:(length(variables) - 1)],
                         dataMatrix = dataMatrix,
@@ -84,6 +86,10 @@ writeLPFileDt <-  function(data = data,
 
   c10 <- write_experimental_conditions_constraints(variables = variables,
                                                    dt = dt)
+
+  # c3 <- NULL
+  # c8 <- NULL
+  # c9 <- NULL
 
   allC <-all_constraints_wLoop(c0 = c0,
                                c1 = c1,

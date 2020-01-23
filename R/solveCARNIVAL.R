@@ -111,10 +111,18 @@ solveCARNIVAL <- function(solverPath = solverPath,
       print("Writing result files...")
       resList <- list()
       if (file.exists(paste0("results_cplex_",condition,"_",repIndex,".txt"))) {
+        if (dt) {
+          res <- exportResult(cplexSolutionFileName = paste0("results_cplex_",
+                                                             condition,"_",
+                                                             repIndex,".txt"),
+                              variables = variables,
+                              pknList = pknList,
+                              conditionIDX = length(variables) - 1,
+                              inputs=inputObj,
+                              measurements=measObj)
+        }
+
         for(i in 1:length(variables)){
-          if (i == length(variables) && dt) {
-            break
-          }
           res <- exportResult(cplexSolutionFileName = paste0("results_cplex_",
                                                              condition,"_",
                                                              repIndex,".txt"),
@@ -139,7 +147,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
       }
       Elapsed_3 <- proc.time() - ptm
 
-      cleanupCARNIVAL(condition = condition, repIndex = repIndex)
+      # cleanupCARNIVAL(condition = condition, repIndex = repIndex)
 
       ## Remove global variable
       objs <- ls(pos = ".GlobalEnv")
@@ -150,6 +158,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
       print(" ")
 
       result = resList[[1]]
+      result$variables <- variables
 
       return(result)
 
