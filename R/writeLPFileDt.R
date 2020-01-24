@@ -45,7 +45,7 @@ writeLPFileDt <-  function(data = data,
 
   bounds <- write_boundaries_all_conditions(variables = variables, oF = oF)
   bounds <- append_bounds(bounds = bounds, variables = variables)
-  binaries <- write_binaries_all_conditions(variables = variables)
+  binaries <- write_binaries_all_conditions(variables = variables, dt = dt)
   binaries <- append_binaries(binaries = binaries, variables = variables)
   generals <- write_generals_all_conditions(variables = variables, oF = oF)
 
