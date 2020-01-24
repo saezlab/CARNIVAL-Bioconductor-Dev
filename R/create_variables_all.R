@@ -172,13 +172,13 @@ create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
     # Get CPLEX variable indices
     # for the potential of reactions to up/downregulate
     # Indices correspond to CPLEX variable name: xbINDEX_k
-    # for nodes u^+_(j,k)
+    # for nodes u^+_(i,k)
     idxEdgesUp <- (length(nodesALL)+1):(length(nodesALL)+
                                           1+
                                           nrow(pknList)*
                                           nrow(dataMatrix$dataMatrix)-1)
 
-    # for nodes u^+_(j,k)
+    # for nodes u^+_(i,k)
     idxEdgesDown <- (length(nodesALL)+
                        1+nrow(pknList)*nrow(dataMatrix$dataMatrix)):
       (length(nodesALL)+1+nrow(pknList)*nrow(dataMatrix$dataMatrix)+
