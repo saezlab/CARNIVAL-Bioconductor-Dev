@@ -82,7 +82,7 @@ write_constraints_4 <- function(variables=variables,
                            # get associated u^-(i,k) from right side of uTable
                            variables$uTable[, 1]), 2],
 
-    " >= 0")
+    " <= 0")
 
   return(constraints4)
 
