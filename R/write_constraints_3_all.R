@@ -3,6 +3,9 @@
 #'This code writes the list of constraints (3) of the ILP problem for all the
 #'conditions.
 #'
+#' u^+_(i,k) <= 1 - u^-_(i,k)
+#' u^+_(i,k) + u^-(i,k) <= 1
+#'
 
 write_constraints_3_all <- function(variables=variables, dt = FALSE) {
 
@@ -13,9 +16,15 @@ write_constraints_3_all <- function(variables=variables, dt = FALSE) {
   write_constraints_3 <- function(variables=variables) {
 
     constraints3 <- paste0(
+
+      # u^+_(i,k)
       variables$variables[variables$idxEdgesUp],
+
       " + ",
+
+      # u^-_(i,k)
       variables$variables[variables$idxEdgesDown],
+
       " <= 1")
 
     return(constraints3)
@@ -28,6 +37,8 @@ write_constraints_3_all <- function(variables=variables, dt = FALSE) {
 
   constraints3 <- c()
   dt <- FALSE
+
+  # Add this constraint only in the first timepoint in case dt
   if (dt) {
 
     constraints3 <- c(constraints3,
