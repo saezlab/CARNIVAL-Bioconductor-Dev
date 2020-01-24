@@ -61,7 +61,8 @@ writeLPFileDt <-  function(data = data,
     write_constraints_3_all(variables = variables[1:(length(variables) - 1)],
                             dt = dt)
   c4 <-
-    write_constraints_4_all(variables = variables[1:(length(variables) - 1)])
+    write_constraints_4_all(variables = variables[1:(length(variables) - 1)],
+                            dt = dt)
   c5 <-
     write_constraints_5_all(variables = variables[1:(length(variables) - 1)],
                             dt = dt)

@@ -36,7 +36,7 @@ write_constraints_3_all <- function(variables=variables, dt = FALSE) {
   # ======================================= #
 
   constraints3 <- c()
-  dt <- FALSE
+  # dt <- FALSE
 
   # Add this constraint only in the first timepoint in case dt
   if (dt) {

@@ -1,10 +1,11 @@
 #'\code{write_constraints_4_all}
 #'
-#' This code writes the list of constraints (4) of the ILP problem for all the 
+#' This code writes the list of constraints (4) of the ILP problem for all the
 #' conditions.
-#' 
+#'
 
-write_constraints_4_all <- function(variables=variables) {
+write_constraints_4_all <- function(variables=variables,
+                                    dt = FALSE) {
 
   constraints4 <- c()
 
@@ -12,8 +13,12 @@ write_constraints_4_all <- function(variables=variables) {
 
     var <- variables[[i]]
 
-    constraints4 <- c(constraints4, write_constraints_4(variables = var, 
+    constraints4 <- c(constraints4, write_constraints_4(variables = var,
                                                         conditionIDX = i))
+
+    if (dt) {
+      break
+    }
 
   }
 
