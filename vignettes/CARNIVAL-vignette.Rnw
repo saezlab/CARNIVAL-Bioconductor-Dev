@@ -384,13 +384,13 @@ The CARNIVAL results for the Toy Example - 2 are as shown in
 \begin{figure*}
 \centerline{\includegraphics[width=\textwidth]{toy_network_ex2.jpeg}}
 \caption{Prior Knowledge Network of Toy Example - 2}
-\label{fig:toy_network_ex1}
+\label{fig:toy_network_ex2}
 \end{figure*}
 
 \begin{figure*}
 \centerline{\includegraphics[width=\textwidth]{toy_network_ex2_solution.jpeg}}
 \caption{Solution network of Toy Example - 2}
-\label{fig:toy_network_ex1_solution}
+\label{fig:toy_network_ex2_solution}
 \end{figure*}
 
 \begin{thebibliography}{}
