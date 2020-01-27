@@ -3,6 +3,7 @@
 #' This code writes the list of constraints (8) of the ILP problem for all the 
 #' conditions.
 #' 
+#' Enio Gjerga, 2020
 
 write_constraints_8 <- function(variables=variables, 
                                 inputs=inputs, 

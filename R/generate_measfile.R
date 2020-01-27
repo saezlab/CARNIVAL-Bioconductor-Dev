@@ -17,6 +17,7 @@
 #' 
 #' @export
 #' 
+#' Enio Gjerga, 2020
 
 generate_measfile<-function(measurements, 
                             topnumber=NULL, write2folder="./measurements"){

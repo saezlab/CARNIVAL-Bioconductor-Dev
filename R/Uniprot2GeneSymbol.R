@@ -3,6 +3,7 @@
 #' Conversion of Uniprot ID (e.g. from Omnipath) to official gene symbol in the 
 #' plotting step
 #'
+#'Panuwat Trairatphisan, 2020
 
 Uniprot2GeneSymbol <- function(res){
 

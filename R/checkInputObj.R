@@ -5,6 +5,8 @@
 #'@return Error message in case of errors in the inputs
 #'
 #'@export
+#'
+#'Enio Gjerga, 2020
 
 checkInputObj <- function(inputObj = inputObj, netObj = netObj){
   

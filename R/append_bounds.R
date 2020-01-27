@@ -2,6 +2,7 @@
 #'
 #' Appending the bounds for each condition
 #' 
+#' Enio Gjerga, 2020
 
 append_bounds = function(bounds = bounds, variables = variables){
   

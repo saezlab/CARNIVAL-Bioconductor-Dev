@@ -8,6 +8,7 @@
 #'objective function.
 #'
 #'@export
+#'Enio Gjerga & Panuwat Trairatphisan, 2020
 
 assignPROGENyScores <- function(progeny = progeny, 
                                 progenyMembers = progenyMembers, 

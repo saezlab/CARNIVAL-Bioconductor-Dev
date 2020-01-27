@@ -23,7 +23,8 @@ Imports:
     tibble,
     tidyr,    
     ggplot2,
-    UniProt.ws
+    UniProt.ws,
+    lpSolve
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

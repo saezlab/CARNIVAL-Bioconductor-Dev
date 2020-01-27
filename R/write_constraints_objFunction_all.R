@@ -4,6 +4,7 @@
 #' Difference' variables and which measure the mis-fit between inferred and 
 #' measured data.
 #' 
+#' Enio Gjerga, 2020
 
 write_constraints_objFunction_all <- function(variables=variables, 
                                               dataMatrix=dataMatrix) {

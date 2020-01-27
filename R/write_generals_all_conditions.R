@@ -5,6 +5,8 @@
 #'@param oF Is the objective function of the formulation.
 #'
 #'@return This code writes all the variables.
+#'
+#'Enio Gjerga, 2020
 
 write_generals_all_conditions <- function(variables=variables, oF=oF){
   

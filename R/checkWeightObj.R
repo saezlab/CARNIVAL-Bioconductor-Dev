@@ -6,6 +6,7 @@
 #'
 #'@export
 #'
+#'Enio Gjerga, 2020
 
 checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
   

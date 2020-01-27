@@ -3,6 +3,7 @@
 #' This code writes the list of constraints (1) of the ILP problem for one 
 #' conditions.
 #' 
+#' Enio Gjerga, 2020
 
 write_constraints_1 <- function(variables=variables, 
                                 conditionIDX=conditionIDX) {

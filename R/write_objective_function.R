@@ -13,6 +13,8 @@
 #'
 #'@return This code writes the objective function of the ILP problem for one 
 #'specific condition.
+#'
+#'Enio Gjerga, 2020
 
 write_objective_function <- function(dataMatrix = dataMatrix, 
                                      variables = variables, 
