@@ -106,3 +106,40 @@ variable which are also saved in the destined result folder
 Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL 
 built-in examples
 }
+\examples{
+
+## loading libraries
+library(CARNIVAL) # load CARNIVAL library
+library(dplyr) # load dplyr library
+library(readr) # load readr library
+library(igraph) # load igraph library
+library(readxl) # load readxl library
+library(lpSolve)
+
+## loading toy example 1
+
+load(file = system.file("toy_inputs_ex1.RData",
+package="CARNIVAL"))
+load(file = system.file("toy_measurements_ex1.RData",
+package="CARNIVAL"))
+load(file = system.file("toy_network_ex1.RData",
+package="CARNIVAL"))
+
+## lpSolve
+res1 = runCARNIVAL(netObj = toy_network_ex1, measObj = toy_measurements_ex1,
+                      inputObj = toy_inputs_ex1)
+
+## cbc
+res2 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
+                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
+                      solver = "cbc")
+                      
+## cplex
+res3 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
+                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
+                      solver = "cplex")
+
+}
+\author{
+Enio Gjerga
+}
