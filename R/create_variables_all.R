@@ -4,6 +4,7 @@
 #'formulation together with an explanation about the meaning of each of them. 
 #'Also it returns a list of useful identifiers.
 #'
+#'Enio Gjerga, 2020
 
 create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
 
@@ -191,10 +192,6 @@ create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
     return(res)
 
   }
-
-  # ====================================== #
-  # ====================================== #
-  # ====================================== #
 
   res <- list()
   namesRes <- c()

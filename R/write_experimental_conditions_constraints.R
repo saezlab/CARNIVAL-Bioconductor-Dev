@@ -3,6 +3,7 @@
 #' Writing the additional constraints when considering the multiple experimental 
 #' conditions.
 #'
+#'Enio Gjerga, 2020
  
 write_experimental_conditions_constraints <- function(variables = variables){
   

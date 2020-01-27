@@ -3,6 +3,7 @@
 #' This function writes the constraints preventing self-activation of nodes in 
 #' the network due to positive feedback loops.
 #' 
+#' Enio Gjerga, 2020
 
 write_loop_constraints <- function(variables=variables, 
                                    pknList=pknList, 

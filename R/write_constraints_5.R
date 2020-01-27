@@ -3,6 +3,7 @@
 #' This code writes the list of constraints (5) of the ILP problem for one 
 #' condition.
 #' 
+#' Enio Gjerga, 2020
 
 write_constraints_5 <- function(variables=variables, 
                                 conditionIDX=conditionIDX) {
@@ -60,7 +61,7 @@ write_constraints_5 <- function(variables=variables,
     " - ",
     variables$uTable[match(
       variables$variables[variables$idxEdgesDown[idx2]], 
-      variables$uTable[, 2]), 1], " >= 0")
+      variables$uTable[, 2]), 1], " <= 0")
   
   return(constraints1)
   

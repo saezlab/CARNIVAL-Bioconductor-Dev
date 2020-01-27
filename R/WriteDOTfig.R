@@ -3,9 +3,10 @@
 #' This function takes results from ILP optimisation and write out a figure in 
 #' DOT format
 #'
+#'Panuwat Trairatphisan, 2020
 
 WriteDOTfig <- function(res, idxModel=0, dir_name, 
-                        inputs, measurements, UP2GS=F){
+                        inputs, measurements, UP2GS=FALSE){
 
   if(!is.null(UP2GS)){UP2GStag <- ifelse (UP2GS,"GeneSymbol","Uniprot")}
 
@@ -81,8 +82,8 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
         IDmap <- 
           read.table(file = 
                        system.file("HUMAN_9606_idmapping_onlyGeneName.dat",
-                                   package="CARNIVAL"), header = F, sep = "\t",
-                     stringsAsFactors = F)
+                                   package="CARNIVAL"), header = FALSE, 
+                     sep = "\t", stringsAsFactors = FALSE)
         for (counter in 1:length(inputsName)) {
           ## check first if the ID could be mapped
           if (length(which(IDmap[,1] == inputsName[counter])>0)) {
@@ -149,8 +150,8 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
         IDmap <- 
           read.table(
             file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",
-                               package="CARNIVAL"),header = F,sep = "\t",
-            stringsAsFactors = F)
+                               package="CARNIVAL"),header = FALSE,sep = "\t",
+            stringsAsFactors = FALSE)
         for (counter in 1:length(AllMeas)) {
           ## check first if the ID could be mapped
           if (length(which(IDmap[,1] == AllMeas[counter])>0)) {

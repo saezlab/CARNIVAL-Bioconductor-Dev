@@ -3,6 +3,7 @@
 #'This function returns the data matrix containing the data for running CARNIVAL 
 #'and a set of identifiers for Targets, Measured and Un-measured nodes.
 #'
+#'Enio Gjerga, 2020
 
 buildDataMatrix <- function(data = data, pknList = pknList, inputs = inputs) {
 
