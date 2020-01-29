@@ -132,13 +132,19 @@ based on the operating system. The default installation path for each OS is as
 follows:
 
 For Mac OS:
-\emph{~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex}
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+# ~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex
+@
 
 For Linux:
-\emph{/opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex}
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+# /opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex
+@
 
 For Windows:
-\emph{C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe}
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+# C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
+@
 
 Note that the version of \emph{CPLEX} has to be changed accordingly (the latest 
 current version is CPLEX-Studio129).
