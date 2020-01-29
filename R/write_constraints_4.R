@@ -17,7 +17,7 @@ write_constraints_4 <- function(variables=variables,
   idx1 <- which(variables$signs==1)
   idx2 <- which(variables$signs==-1)
 
-  #
+  # sigma_i == 1
   constraints4[idx1] <- paste0(
 
     # u^+_(i,k)
@@ -51,6 +51,7 @@ write_constraints_4 <- function(variables=variables,
 
     " <= 0")
 
+  # sigma_i == -1
   constraints4[idx2] <- paste0(
 
     # u^+_(i,k)
@@ -79,7 +80,7 @@ write_constraints_4 <- function(variables=variables,
 
     # u^-_(i,k)
     variables$uTable[match(variables$variables[variables$idxEdgesUp[idx2]],
-                           # get associated u^-(i,k) from right side of uTable
+                           # get associated u^-_(i,k) from right side of uTable
                            variables$uTable[, 1]), 2],
 
     " <= 0")
