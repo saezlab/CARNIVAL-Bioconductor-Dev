@@ -102,6 +102,7 @@ in the objective function.
 \begin{figure}[ht]
 \includegraphics[height=10cm, width=16.5cm]{carnival_pipeline}
 \caption{\emph{CARNIVAL} pipeline}
+\label{fig:carnival_pipeline}
 \end{figure}
 \end{center}
 
@@ -131,21 +132,16 @@ based on the operating system. The default installation path for each OS is as
 follows:
 
 For Mac OS:
-<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-# ~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex
-@
+\emph{~/Applications/IBM/ILOG/CPLEX_Studio129/cplex/bin/x86-64_osx/cplex}
 
 For Linux:
-<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-# /opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex
-@
+\emph{/opt/ibm/ILOG/CPLEX_Studio129/cplex/bin/x86-64_linux/cplex}
 
 For Windows:
-<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-# C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe
-@
+\emph{C:/Program Files/IBM/ILOG/CPLEX_Studio129/cplex/bin/x64_win64/cplex.exe}
 
-Note that the version of \emph{CPLEX} has to be changed accordingly (the latest version is CPLEX-Studio129).
+Note that the version of \emph{CPLEX} has to be changed accordingly (the latest 
+current version is CPLEX-Studio129).
 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
@@ -161,11 +157,11 @@ A tutorial for preparing \emph{CARNIVAL} input files starting from
 differentially gene expression (DEG) and for running the \emph{CARNIVAL} 
 pipeline are provided as vignettes in R-Markdown, R-script and HTML formats. The 
 wrapper script \emph{runCARNIVAL} was introduced to take input arguments, 
-pre-process input descriptions, run optimisation and export results as network 
-figures. Three built-in \emph{CARNIVAL} examples are also supplied as case 
-studies for users. Moreover processed gene expression values (besides 
-differential values) can also be used as an input to \emph{CARNIVAL} but 
-examples are not provided in this vignette.
+pre-process input descriptions, run optimisation and export results as a list 
+and network figures. Three built-in \emph{CARNIVAL} examples are also supplied 
+as case studies for users. Moreover processed gene expression values (besides 
+differential values) from RNA-seq can also be used as an input to 
+\emph{CARNIVAL} but examples are not provided in this vignette.
 
 \subsection{Prerequisites}
 Besides the above mentioned solvers, users need also to install the following 
@@ -173,32 +169,12 @@ R-package dependencies: \emph{readr}(see
 \url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}
 (see \url{https://igraph.org/r/}); \emph{readxl}(see 
 \url{https://readxl.tidyverse.org/}); \emph{dplyr}(see 
-\url{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8}).
+\url{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8});
+\emph{lpSolve}(see \url{https://cran.r-project.org/web/packages/lpSolve/index.html})
 
 In order to visualize the automatically generated \emph{CARNIVAL} networks, 
 users will also need to download and install the Graph Visualization software 
 \emph{graphviz}(see \url{https://www.graphviz.org/}).
-
-\subsection{Installation}
-\emph{CARNIVAL} is currently available for the installation as an R-package from our GitHub page.
-
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-# Install CARNIVAL from Github using devtools
-# install.packages('devtools') # in case devtools hasn't been installed
-library(devtools)
-install_github('saezlab/CARNIVAL', build_vignettes = TRUE)
-# or download the source file from GitHub and install from source
-install.packages('path_to_extracted_CARNIVAL_directory', 
-                 repos = NULL, type="source")
-@
-
-\subsection{Documentation}
-After successfully installing \emph{CARNIVAL}, its documentation can be accessed as follows.
-
-<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
-# Open vignette as pdf file
-vignette("CARNIVAL-vignette")
-@
 
 \subsection{CARNIVAL settings}
 The main function of the \emph{CARNIVAL} package is \emph{runCARNIVAL}. This 
@@ -239,7 +215,8 @@ seconds)
 the best solution (fraction; default: 0.05 = 5 percents).
 
 - \emph{poolrelGAP}: Optimization parameter: Allowed relative gap of accepted 
-solution comparing within the pool of accepted solution (fraction; Default set to 0.0001)
+solution comparing within the pool of accepted solution (fraction; Default set 
+to 0.0001)
 
 - \emph{limitPop}: CPLEX parameter: Allowed number of solutions to be generated 
 (Default set to 500)
