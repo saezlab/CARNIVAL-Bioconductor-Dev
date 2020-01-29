@@ -28,7 +28,7 @@ write_constraints_6 <- function(variables=variables,
     idx1 <- which(rowSums(adj)==0)
     idx2 <- setdiff(1:nrow(adj), idx1)
 
-    if(length(idx1)>0){
+    if (length(idx1)>0){
 
       # Find all x^+_(i,k) with no incoming u^+_(i,k) from upstream
       # Constrain their x^+_(i,k) <= 0
@@ -39,7 +39,6 @@ write_constraints_6 <- function(variables=variables,
                                    rownames(adj)[idx1],
                                    " in experiment ", ii))],
                           " <= 0"))
-
     }
 
     # x^+_(j,k) - (sum_all_incoming(u^+_(i,k))) <= 0
@@ -63,7 +62,8 @@ write_constraints_6 <- function(variables=variables,
                    variables[[ii]]$exp %in%
                      paste0("ReactionUp ",
                             colnames(adj)[which(adj[idx2[i], ] > 0)],
-                            "=", rownames(adj)[idx2[i]],
+                            "=",
+                            rownames(adj)[idx2[i]],
                             " in experiment ",
                             ii)
                  )]
