@@ -11,13 +11,11 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     doParallel,
-    igraph,
     viper,
     IRanges,
     AnnotationDbi,
     genefilter,   
     Category,
-    purrr,
     tibble,
     tidyr,    
     ggplot2,

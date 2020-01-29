@@ -57,7 +57,6 @@
 #'as a variable which are also saved in the destined result folder
 #'
 #'@import doParallel
-#'@import igraph
 #'@import CARNIVAL
 #'@import readr
 #'@import readxl
