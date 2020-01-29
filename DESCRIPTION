@@ -15,7 +15,6 @@ Imports:
     viper,
     IRanges,
     AnnotationDbi,
-    GSEABase, 
     genefilter,   
     Category,
     dplyr,
