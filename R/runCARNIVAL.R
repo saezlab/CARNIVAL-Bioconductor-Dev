@@ -60,7 +60,6 @@
 #'@import igraph
 #'@import CARNIVAL
 #'@import readr
-#'@import dplyr
 #'@import readxl
 #'@import lpSolve
 #'

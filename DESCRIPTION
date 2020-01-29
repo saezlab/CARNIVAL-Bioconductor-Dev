@@ -17,7 +17,6 @@ Imports:
     AnnotationDbi,
     genefilter,   
     Category,
-    dplyr,
     purrr,
     tibble,
     tidyr,    
