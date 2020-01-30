@@ -75,20 +75,30 @@ runCARNIVAL <- function(solverPath=NULL,
 
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
 
-  result = solveCARNIVAL(solverPath = solverPath, netObj = res$inputs$network,
+  result = solveCARNIVAL(solverPath = solverPath,
+                         netObj = res$inputs$network,
                          measObj = res$measurements,
                          inputObj = res$inputs$inputs,
-                         weightObj = res$weights, parallelIdx1 = parallelIdx1,
-                         parallelIdx2 = parallelIdx2, nodeID = nodeID,
-                         UP2GS = UP2GS, DOTfig = DOTfig, timelimit = timelimit,
-                         mipGAP = mipGAP, poolrelGAP = poolrelGAP,
-                         limitPop = limitPop, poolCap = poolCap,
+                         weightObj = res$weights,
+                         parallelIdx1 = parallelIdx1,
+                         parallelIdx2 = parallelIdx2,
+                         nodeID = nodeID,
+                         UP2GS = UP2GS,
+                         DOTfig = DOTfig,
+                         timelimit = timelimit,
+                         mipGAP = mipGAP,
+                         poolrelGAP = poolrelGAP,
+                         limitPop = limitPop,
+                         poolCap = poolCap,
                          poolIntensity = poolIntensity,
-                         poolReplace = poolReplace, alphaWeight = alphaWeight,
-                         betaWeight = betaWeight, dir_name = dir_name,
+                         poolReplace = poolReplace,
+                         alphaWeight = alphaWeight,
+                         betaWeight = betaWeight,
+                         dir_name = dir_name,
                          solver = solver, dt = dt,
                          experimental_conditions = experimental_conditions,
-                         condition = res$condition, repIndex = res$repIndex)
+                         condition = res$condition,
+                         repIndex = res$repIndex)
 
   return(result)
 
