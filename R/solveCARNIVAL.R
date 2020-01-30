@@ -41,7 +41,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
 
   ## Extracted sign of measurement for ILP fitting
   measurements <- sign(measObj)
-  measWeights <- abs(measObj)
+  measWeights <- abs(measObj * alphaWeight)
 
   ## Check the weight
   if(weightObj[1]=="NULL"){weightObj=NULL}
@@ -53,6 +53,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
       variables <- writeLPFileDt(data=measurements,
                                  pknList=pknList,
                                  inputs=inputObj,
+                                 alphaWeight = alphaWeight,
                                  betaWeight=betaWeight,
                                  scores=weightObj,
                                  mipGAP=mipGAP,
@@ -71,6 +72,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
       variables <- writeLPFile(data=measurements,
                                pknList=pknList,
                                inputs=inputObj,
+                               alphaWeight = alphaWeight,
                                betaWeight=betaWeight,
                                scores=weightObj,
                                mipGAP=mipGAP,
