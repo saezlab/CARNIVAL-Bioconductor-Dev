@@ -6,16 +6,16 @@
 #'(netObj and measObj) are set to NULL or CARNIVAL_example is set to NULL to 
 #'execute
 #'
-#'@param solverPath Path to executable cbc/cplex file - default set to NULL, in
-#'which case the solver from lpSolve package is used
-#'@param netObj Data frame of the prior knowledge network - always required
-#'@param measObj Data frame of the measurement file (i.e. DoRothEA normalised 
-#'enrichment scores) - always required
 #'@param inputObj Data frame of the list for target of perturbation - optional 
 #'or default set to NULL to run invCARNIVAL when inputs are not known
+#'@param measObj Data frame of the measurement file (i.e. DoRothEA normalised 
+#'enrichment scores) - always required
+#'@param netObj Data frame of the prior knowledge network - always required
 #'@param weightObj Data frame of the additional weight (i.e. PROGENy pathway 
 #'score or measured protein activities) - optional or default set as NULL to run
 #'CARNIVAL without weights
+#'@param solverPath Path to executable cbc/cplex file - default set to NULL, in
+#'which case the solver from lpSolve package is used
 #'@param solver Solver type that user wishes to use: lpSolve/cbc/cplex 
 #'(default set to lpSolve). The lpSolve does not require installation of any 
 #'solver and it can give only one solution and it is not optimal for modelling 
@@ -66,11 +66,11 @@
 #'
 #'Enio Gjerga, 2020
 
-runCARNIVAL <- function(solverPath=NULL,
-                        netObj=netObj,
+runCARNIVAL <- function(inputObj=NULL,
                         measObj=measObj,
-                        inputObj=NULL,
+                        netObj=netObj,
                         weightObj=NULL,
+                        solverPath=NULL,
                         solver="lpSolve",
                         DOTfig=FALSE,
                         timelimit=3600,

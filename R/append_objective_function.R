@@ -2,6 +2,7 @@
 #'
 #' Appending the of formulation for each condition
 #' 
+#' Enio Gjerga, 2020
 
 append_objective_function = function(oF = oF, variables = variables, 
                                      deltaWeight = 0.0001){

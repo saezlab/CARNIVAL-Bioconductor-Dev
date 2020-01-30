@@ -3,6 +3,7 @@
 #' Extract and export the optimisation results from the cplex solution file 
 #' (XML) as files and variables for further plotting functions - lpSolve
 #'
+#'Enio gjerga, 2020
 
 exportResultLPSolve <- function(variables = variables, 
                                 conditionIDX = conditionIDX,

@@ -3,6 +3,7 @@
 #' Extract and export the optimisation results from the cplex solution file 
 #' (XML) as files and variables for further plotting functions
 #'
+#'Enio Gjerga, 2020
 
 exportResultAllConditions <- function(cplexSolutionFileName = 
                                         cplexSolutionFileName, 

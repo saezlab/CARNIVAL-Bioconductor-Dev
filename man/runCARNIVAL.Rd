@@ -4,28 +4,29 @@
 \alias{runCARNIVAL}
 \title{\code{runCARNIVAL}}
 \usage{
-runCARNIVAL(solverPath=NULL, netObj=netObj, measObj=measObj, inputObj=NULL,
-            weightObj=NULL, solver="lpSolve", DOTfig=FALSE, timelimit=600,
+runCARNIVAL(inputObj=NULL, measObj=measObj, netObj=netObj, weightObj=NULL,
+            solverPath=NULL, solver="lpSolve", DOTfig=FALSE, timelimit=3600,
             mipGAP=0.05, poolrelGAP=0.0001, limitPop=500, poolCap=100,
             poolIntensity=4, poolReplace=2, alphaWeight=1, betaWeight=0.2,
             dir_name=paste0(getwd(), "/DOTfigures"))
 }
 \arguments{
-\item{solverPath}{Path to executable cbc/cplex file - default set to NULL, in
-                  which case the solver from lpSolve package is used}
-
-\item{netObj}{Data frame of the prior knowledge network - always required}
-
-\item{measObj}{Data frame of the measurement file (i.e. DoRothEA normalised 
-               enrichment scores) - always required}
 
 \item{inputObj}{Data frame of the list for target of perturbation - optional 
                 or default set to NULL to run invCARNIVAL when inputs are not 
                 known}
 
+\item{measObj}{Data frame of the measurement file (i.e. DoRothEA normalised 
+               enrichment scores) - always required}
+               
+\item{netObj}{Data frame of the prior knowledge network - always required}
+
 \item{weightObj}{Data frame of the additional weight (i.e. PROGENy pathway 
                  score or measured protein activities) - optional or default set 
                  as NULL to run CARNIVAL without weights}
+                 
+\item{solverPath}{Path to executable cbc/cplex file - default set to NULL, in
+                  which case the solver from lpSolve package is used}
                  
 \item{solver}{Solver to use: lpSolve/cplex/cbc (Default set to lpSolve)}
 
@@ -79,15 +80,6 @@ Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL
 built-in examples
 }
 \examples{
-
-## loading libraries
-library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
-
 ## loading toy example 1
 
 load(file = system.file("toy_inputs_ex1.RData",
@@ -98,18 +90,18 @@ load(file = system.file("toy_network_ex1.RData",
 package="CARNIVAL"))
 
 ## lpSolve
-res1 = runCARNIVAL(netObj = toy_network_ex1, measObj = toy_measurements_ex1,
-                      inputObj = toy_inputs_ex1)
+res1 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1)
 
 ## cbc
-res2 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
-                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
+res2 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
                       solver = "cbc")
                       
 ## cplex
-res3 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
-                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
-                      solver = "cplex")
+res3 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
+                      solver = "cbc")
 
 }
 \author{

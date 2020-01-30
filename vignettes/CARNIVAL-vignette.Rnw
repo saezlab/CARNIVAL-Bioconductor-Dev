@@ -149,25 +149,24 @@ For Windows:
 Note that the version of \emph{CPLEX} has to be changed accordingly (the latest 
 current version is CPLEX-Studio129).
 
+The  \emph{lpSolve} solver can be used after downloading and installing the
+\emph{lpSolve} R-package (see 
+\url{https://cran.r-project.org/web/packages/lpSolve/index.html}). This solver
+only works for smaller examples and it can give only one optimal solution. For
+larger real-case examples, the users can use \emph{cbc} or \emph{cplex} solvers.
+
+While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX} 
+solver is more computationally efficient and is able to provide multiple 
+equivalent solutions which are then combined. The  \emph{mipGAP}, 
+\emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} 
+make sense only if \emph{CPLEX} solver is used to train the networks.
+
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
 
 Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to 
 causal pathways: contextualizing large signaling networks with CARNIVAL. npj 
 Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z
-
-\clearpage
-
-\section{Getting Started}
-A tutorial for preparing \emph{CARNIVAL} input files starting from 
-differentially gene expression (DEG) and for running the \emph{CARNIVAL} 
-pipeline are provided as vignettes in R-Markdown, R-script and HTML formats. The 
-wrapper script \emph{runCARNIVAL} was introduced to take input arguments, 
-pre-process input descriptions, run optimisation and export results as a list 
-and network figures. Three built-in \emph{CARNIVAL} examples are also supplied 
-as case studies for users. Moreover processed gene expression values (besides 
-differential values) from RNA-seq can also be used as an input to 
-\emph{CARNIVAL} but examples are not provided in this vignette.
 
 \subsection{Prerequisites}
 Besides the above mentioned solvers, users need also to install the following 
@@ -182,83 +181,6 @@ In order to visualize the automatically generated \emph{CARNIVAL} networks,
 users will also need to download and install the Graph Visualization software 
 \emph{graphviz}(see \url{https://www.graphviz.org/}).
 
-\subsection{CARNIVAL settings}
-The main function of the \emph{CARNIVAL} package is \emph{runCARNIVAL}. This 
-function runs the pipeline by using the user-provided list of inputs or run 
-CARNIVAL built-in examples. These inputs are:
-
-- \emph{solverPath}: Path to executable cbc/cplex file - default set to NULL, in
-which case the solver from lpSolve package is used.
-
-- \emph{netObj}: A matrix or data-frame object containing the prior knowledge 
-networks as a list of directed and signed protein interactions. The first column 
-should contain the source node, the second column should contain the sign of the 
-interaction and the third column should contain the target node.
-
-- \emph{measObj}:  A matrix or data-frame object containing the measurements 
-(either gene expressions or estimated transcription factor activities).
-
-- \emph{inputObj}: A matrix or data-frame object containing the experimental 
-perturbation targets. The values can either be 1 (for activatory perturbations), 
--1 (for inhibitory effects of a perturbation) or NA (when we know that a protein 
-is being targeted but we are not sure about the effect - in this case 
-\emph{CARNIVAL} will try to infer the most likely effect). Default set to NULL 
-(in this case we run \emph{InvCARNIVAL}).
-
-- \emph{weightObj}: A matrix or data-frame object containing the pathway 
-activity scores as inferred from \emph{runPROGENy}. Default set to NULL.
-
-- \emph{solver}: Solver to use: \emph{lpSolve}, \emph{cplex} or \emph{cbc} 
-(Default set to \emph{lpSolve}).
-
-- \emph{DOTfig}: For plotting: define if DOT figure will be exported in the 
-result folder (logical T/F). Default set to FALSE
-
-- \emph{timelimit}: Optimization parameter: Time limit of optimisation (in 
-seconds)
-
-- \emph{mipGAP}: CPLEX parameter: Allowed gap of accepted solution comparing to 
-the best solution (fraction; default: 0.05 = 5 percents).
-
-- \emph{poolrelGAP}: Optimization parameter: Allowed relative gap of accepted 
-solution comparing within the pool of accepted solution (fraction; Default set 
-to 0.0001)
-
-- \emph{limitPop}: CPLEX parameter: Allowed number of solutions to be generated 
-(Default set to 500)
-
-- \emph{poolCap}: CPLEX parameter: Allowed number of solution to be kept in the 
-pool of solution (Default set to 100)
-
-- \emph{poolIntensity}: CPLEX parameter: Intensity of solution searching 
-(0,1,2,3,4 - Default set to 4)
-
-- \emph{poolReplace}: CPLEX parameter: Replacement strategy of solutions in the 
-pool (0,1,2 - Default set to 2 = most diversified solutions)
-
-- \emph{alphaWeight}: Objective function: weight for mismatch penalty (Default 
-set to 1 - will only be applied once measurement file only contains discrete 
-values).
-
-- \emph{betaWeight}: Objective function: weight for node penalty (Default set to
-0.2)
-
-- \emph{dir name}: Directory name where the users wishes to save the plotted 
-network as a .DOT figure (in case if DOTfig=TRUE). By default it will be stored 
-on a DOTfigure folder within the current working directory.
-
-The  \emph{lpSolve} solver can be used after downloading and installing the
-\emph{lpSolve} R-package (see 
-\url{https://cran.r-project.org/web/packages/lpSolve/index.html}). This solver
-only works for smaller examples and it can give only one optimal solution. For
-larger real-case examples, the users can use \emph{cbc} or \emph{cplex} solvers.
-
-While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX} 
-solver is more computationally efficient and is able to provide multiple 
-equivalent solutions which are then combined. The  \emph{mipGAP}, 
-\emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} 
-make sense only if \emph{CPLEX} solver is used to train the networks.
-
 \clearpage
 
 \section{Running CARNIVAL}
@@ -266,9 +188,9 @@ make sense only if \emph{CPLEX} solver is used to train the networks.
 In the CARNIVAL package, built-in examples are available as the test cases as 
 follows:
 
-1. A small toy example where the inputs are known (stdCARNIVAL)
+1. A small toy example where the inputs are known (\emph{stdCARNIVAL})
 
-2. A small toy example where the inputs are not known (invCARNVAL)
+2. A small toy example where the inputs are not known (\emph{invCARNVAL})
 
 \subsection{Toy Example - 1}
 
@@ -280,12 +202,7 @@ interactions as activatory besides the connection connecting \emph{I2} with
 Users can run the CARNIVAL analysis with the free solver as follows:
 
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
+library(CARNIVAL)
 
 load(file = system.file("toy_inputs_ex1.RData",
                         package="CARNIVAL"))
@@ -295,8 +212,8 @@ load(file = system.file("toy_network_ex1.RData",
                         package="CARNIVAL"))
 
 # lpSolve
-result = runCARNIVAL(netObj = toy_network_ex1, measObj = toy_measurements_ex1, 
-                     inputObj = toy_inputs_ex1)
+result = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                     netObj = toy_network_ex1)
 
 print(result)
 @
@@ -344,11 +261,6 @@ follows:
 
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
 
 load(file = system.file("toy_measurements_ex2.RData",
                         package="CARNIVAL"))
@@ -356,7 +268,7 @@ load(file = system.file("toy_network_ex2.RData",
                         package="CARNIVAL"))
 
 # lpSolve
-result = runCARNIVAL(netObj = toy_network_ex2, measObj = toy_measurements_ex2)
+result = runCARNIVAL(measObj = toy_measurements_ex2, netObj = toy_network_ex2)
 
 print(result)
 @
