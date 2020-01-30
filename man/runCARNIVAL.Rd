@@ -79,15 +79,6 @@ Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL
 built-in examples
 }
 \examples{
-
-## loading libraries
-library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
-
 ## loading toy example 1
 
 load(file = system.file("toy_inputs_ex1.RData",
