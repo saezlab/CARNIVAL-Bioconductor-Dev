@@ -40,6 +40,7 @@ toy_result <- runCARNIVAL(solverPath = solver_path,
                           mipGAP = 0,
                           poolrelGAP = 0,
                           DOTfig = TRUE,
+                          alphaWeight = 100,
                           # experimental_conditions = c(1, 2),
                           dt = TRUE,
                           solver = "cplex")
