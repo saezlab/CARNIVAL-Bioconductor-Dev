@@ -15,7 +15,6 @@ Imports:
     viper,
     IRanges,
     AnnotationDbi,
-    genefilter,   
     Category,
     tibble,
     tidyr,    
