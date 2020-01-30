@@ -90,18 +90,18 @@ load(file = system.file("toy_network_ex1.RData",
 package="CARNIVAL"))
 
 ## lpSolve
-res1 = runCARNIVAL(netObj = toy_network_ex1, measObj = toy_measurements_ex1,
-                      inputObj = toy_inputs_ex1)
+res1 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1)
 
 ## cbc
-res2 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
-                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
+res2 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
                       solver = "cbc")
                       
 ## cplex
-res3 = runCARNIVAL(solverPath = solverPath, netObj = toy_network_ex1, 
-                      measObj = toy_measurements_ex1, inputObj = toy_inputs_ex1,
-                      solver = "cplex")
+res3 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
+                      solver = "cbc")
 
 }
 \author{

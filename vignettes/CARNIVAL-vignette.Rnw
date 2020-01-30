@@ -204,12 +204,7 @@ interactions as activatory besides the connection connecting \emph{I2} with
 Users can run the CARNIVAL analysis with the free solver as follows:
 
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
+library(CARNIVAL)
 
 load(file = system.file("toy_inputs_ex1.RData",
                         package="CARNIVAL"))
@@ -219,8 +214,8 @@ load(file = system.file("toy_network_ex1.RData",
                         package="CARNIVAL"))
 
 # lpSolve
-result = runCARNIVAL(netObj = toy_network_ex1, measObj = toy_measurements_ex1, 
-                     inputObj = toy_inputs_ex1)
+result = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                     netObj = toy_network_ex1)
 
 print(result)
 @
@@ -268,11 +263,6 @@ follows:
 
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
-library(dplyr) # load dplyr library
-library(readr) # load readr library
-library(igraph) # load igraph library
-library(readxl) # load readxl library
-library(lpSolve)
 
 load(file = system.file("toy_measurements_ex2.RData",
                         package="CARNIVAL"))
@@ -280,7 +270,7 @@ load(file = system.file("toy_network_ex2.RData",
                         package="CARNIVAL"))
 
 # lpSolve
-result = runCARNIVAL(netObj = toy_network_ex2, measObj = toy_measurements_ex2)
+result = runCARNIVAL(measObj = toy_measurements_ex2, netObj = toy_network_ex2)
 
 print(result)
 @
