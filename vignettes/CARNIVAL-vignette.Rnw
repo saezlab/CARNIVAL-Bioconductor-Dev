@@ -168,8 +168,6 @@ Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to
 causal pathways: contextualizing large signaling networks with CARNIVAL. npj 
 Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z
 
-\clearpage
-
 \subsection{Prerequisites}
 Besides the above mentioned solvers, users need also to install the following 
 R-package dependencies: \emph{readr}(see 
