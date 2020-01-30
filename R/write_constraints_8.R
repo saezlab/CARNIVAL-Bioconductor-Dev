@@ -51,6 +51,19 @@ write_constraints_8 <- function(variables=variables,
 
     if (ii > 1) {
       print(variables)
+
+      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes],
+                   " - ",
+                   variables[[ii]]$variables[variables[[ii]]$idxNodesUp],
+                   " <= 0")
+      constraints8 <- c(constraints8, cc)
+
+      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes],
+                   " + ",
+                   variables[[ii]]$variables[variables[[ii]]$idxNodesDown],
+                   " >= 0")
+      constraints8 <- c(constraints8, cc)
+
     }
 
     ## B_(j,k) = 0 for non input species
