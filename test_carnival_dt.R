@@ -23,14 +23,26 @@ solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/c
 # test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
 # test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
 
-test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2", "N3"),
-                       Effect = c(1, 1, -1, 1, 1, 1),
-                       Target = c("N1", "M1", "N2", "M2", "N3", "N1"))
+# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2", "N3", "M3"),
+#                        Effect = c(1, 1, -1, 1, 1, 1, 1),
+#                        Target = c("N1", "M1", "N2", "M2", "N3", "M3", "N1"))
+#
+# test_measurements <- tibble(M1 = c(1, -1),
+#                             M2 = c(-1, 1),
+#                             M3 = c(-1, 1))
+
+# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2", "N3"),
+#                        Effect = c(1, 1, -1, 1, 1, 1),
+#                        Target = c("N1", "M1", "N2", "M2", "N3", "N1"))
 
 
 # test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
 #                        Effect = c(1, 1, -1, 1, 1),
 #                        Target = c("N1", "M1", "N2", "M2", "N3"))
+
+test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+                       Effect = c(1, 1, -1, 1, 1),
+                       Target = c("N1", "M1", "N2", "M2", "N1"))
 
 test_measurements <- tibble(M1 = c(1, -1),
                             M2 = c(-1, 1))
