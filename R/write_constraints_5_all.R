@@ -16,9 +16,9 @@ write_constraints_5_all <- function(variables=variables,
     constraints5 <- c(constraints5, write_constraints_5(variables = var,
                                                         conditionIDX = i))
 
-    if (dt) {
-      break
-    }
+    # if (dt) {
+    #   break
+    # }
 
   }
 

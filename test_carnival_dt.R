@@ -27,6 +27,11 @@ test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2", "N3"),
                        Effect = c(1, 1, -1, 1, 1, 1),
                        Target = c("N1", "M1", "N2", "M2", "N3", "N1"))
 
+
+# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+#                        Effect = c(1, 1, -1, 1, 1),
+#                        Target = c("N1", "M1", "N2", "M2", "N3"))
+
 test_measurements <- tibble(M1 = c(1, -1),
                             M2 = c(-1, 1))
 
@@ -41,6 +46,7 @@ toy_result <- runCARNIVAL(solverPath = solver_path,
                           poolrelGAP = 0,
                           DOTfig = TRUE,
                           alphaWeight = 100,
+                          betaWeight = 0,
                           # experimental_conditions = c(1, 2),
                           dt = TRUE,
                           solver = "cplex")

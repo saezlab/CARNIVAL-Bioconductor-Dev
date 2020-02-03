@@ -13,6 +13,7 @@
 write_constraints_8 <- function(variables=variables,
                                 inputs=inputs,
                                 pknList=pknList,
+                                measurements,
                                 dt = FALSE){
 
   constraints8 <- c()
@@ -50,17 +51,35 @@ write_constraints_8 <- function(variables=variables,
     # print(variables)
 
     if (ii > 1) {
-      print(variables)
+    # if (FALSE) {
+      # print(variables)
 
-      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes],
+      # get input species (perturbation nodes)
+      kk <- paste0("Species ", colnames(inputs), " in experiment ", ii)
+      # get measurement species (measured nodes)
+      mm <- paste0("Species ", colnames(measurements), " in experiment ", ii)
+
+      # Getting indices of nodes that are neither in inputs nor measurements
+      # nodes not %in% input - nodes %in% measurements
+      # idxUndetNodes <- setdiff(
+      #
+      #   # Get indices of not input nodes
+      #   which(!(variables[[ii]]$exp[variables[[ii]]$idxNodes] %in% kk)),
+      #
+      #   # Get indices of measurement nodes
+      #   which((variables[[ii]]$exp[variables[[ii]]$idxNodes] %in% mm)))
+
+      idxUndetNodes <- which(!(variables[[ii]]$exp[variables[[ii]]$idxNodes] %in% kk))
+
+      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes][idxUndetNodes],
                    " - ",
-                   variables[[ii]]$variables[variables[[ii]]$idxNodesUp],
+                   variables[[ii]]$variables[variables[[ii]]$idxNodesUp][idxUndetNodes],
                    " <= 0")
       constraints8 <- c(constraints8, cc)
 
-      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes],
+      cc <- paste0(variables[[ii]]$variables[variables[[ii]]$idxNodes][idxUndetNodes],
                    " + ",
-                   variables[[ii]]$variables[variables[[ii]]$idxNodesDown],
+                   variables[[ii]]$variables[variables[[ii]]$idxNodesDown][idxUndetNodes],
                    " >= 0")
       constraints8 <- c(constraints8, cc)
 
