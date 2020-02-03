@@ -44,8 +44,8 @@ test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
                        Effect = c(1, 1, -1, 1, 1),
                        Target = c("N1", "M1", "N2", "M2", "N1"))
 
-test_measurements <- tibble(M1 = c(1, -1),
-                            M2 = c(-1, 1))
+test_measurements <- tibble(M1 = c(1, 0),
+                            M2 = c(0, 1))
 
 test_input <- tibble(P = c(1))
 
