@@ -54,6 +54,9 @@ with CARNIVAL
 }
 \author[1,2]{Enio Gjerga \thanks{enio.gjerga@gmail.com}}
 \author[2]{Panuwat Trairatphisan}
+\author[2]{Anika Liu}
+\author[2]{Alberto Valdeolivas}
+\author[2]{Nicolas Peschke}
 
 \affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for 
 Computational Biomedicine (JRC-COMBINE), 52074, Aachen, Germany}
@@ -159,7 +162,7 @@ While \emph{Cbc} is open-source and can be used from any user, the \emph{CPLEX}
 solver is more computationally efficient and is able to provide multiple 
 equivalent solutions which are then combined. The  \emph{mipGAP}, 
 \emph{limitPop}, \emph{poolCap}, \emph{poolIntensity} and \emph{poolReplace} 
-make sense only if \emph{CPLEX} solver is used to train the networks.
+work only if \emph{CPLEX} solver is used to train the networks.
 
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
