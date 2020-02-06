@@ -18,10 +18,10 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj, dt = dt){
     MappedPertNode <- AddPerturbationNode(network = as.matrix(netObj))
     returnList = MappedPertNode
   } else {
-    if(nrow(inputObj) > 1 && dt){
-      stop("You are using CARNIVAL-dt and added multiple input lines.
-           CARNIVAL-dt with multiple conditions is not implemented yet.")
-    }
+    # if(nrow(inputObj) > 1 && dt){
+    #   stop("You are using CARNIVAL-dt and added multiple input lines.
+    #        CARNIVAL-dt with multiple conditions is not implemented yet.")
+    # }
     if(ncol(inputObj)>0){
       mSpecies = colnames(inputObj)
     } else {

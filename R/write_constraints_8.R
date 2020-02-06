@@ -118,6 +118,8 @@ write_constraints_8 <- function(variables=variables,
         input_row <- ii
       }
 
+      # input_row <- ii
+
       # get species name
       cName = strsplit(x = kk[jj], split = " ")[[1]][2]
 

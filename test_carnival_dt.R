@@ -11,17 +11,17 @@ library(igraph) # load igraph library
 library(readxl) # load readxl library
 library(tidyr)
 
-# base_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/"
-# data_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/data/test_data/"
+base_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/"
+data_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/data/test_data/"
 solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
 
 # test_network <- readr::read_tsv(paste0(data_directory, "test_network.tsv"))
 # test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements.tsv"))
 # test_input <- readr::read_tsv(paste0(data_directory, "test_input.tsv"))
 
-# test_network <- readr::read_tsv(paste0(data_directory, "test_network_big.tsv"))
-# test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
-# test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
+test_network <- readr::read_tsv(paste0(data_directory, "test_network_big.tsv"))
+test_measurements <- readr::read_tsv(paste0(data_directory, "test_measurements_big.tsv"))
+test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
 
 # test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2", "N3", "M3"),
 #                        Effect = c(1, 1, -1, 1, 1, 1, 1),
@@ -39,21 +39,22 @@ solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/c
 # test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
 #                        Effect = c(1, 1, -1, 1, 1),
 #                        Target = c("N1", "M1", "N2", "M2", "N3"))
-
-test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
-                       Effect = c(1, 1, -1, 1, 1),
-                       Target = c("N1", "M1", "N2", "M2", "N1"))
-
-test_measurements <- tibble(M1 = c(1, 0),
-                            M2 = c(0, 1))
-
-test_input <- tibble(P = c(1))
+#
+# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+#                        Effect = c(1, 1, -1, 1, 1),
+#                        Target = c("N1", "M1", "N2", "M2", "N1"))
+#
+# test_measurements <- tibble(M1 = c(1, -1),
+#                             M2 = c(-1, 1))
+#
+# test_input <- tibble(P = c(1, 0))
 
 # cplex solver
 toy_result <- runCARNIVAL(solverPath = solver_path,
                           netObj = test_network,
                           measObj = test_measurements,
-                          inputObj = test_input,
+                          inputObj = NULL,
+                          # inputObj = test_input,
                           mipGAP = 0,
                           poolrelGAP = 0,
                           DOTfig = TRUE,
