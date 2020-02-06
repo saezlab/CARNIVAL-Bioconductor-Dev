@@ -9,8 +9,7 @@
 #'
 
 write_constraints_6 <- function(variables=variables,
-                                dataMatrix=dataMatrix,
-                                inputs = inputs) {
+                                dataMatrix=dataMatrix) {
 
   library(igraph)
   constraints6 <- c()
