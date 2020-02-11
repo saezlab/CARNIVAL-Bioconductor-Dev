@@ -26,6 +26,7 @@ checkInputs <- function(solverPath=NULL,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cbc",
                         dt = FALSE,
+                        threads = threads,
                         experimental_conditions = NULL){
 
   returnList = list()
