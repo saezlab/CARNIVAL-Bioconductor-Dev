@@ -145,6 +145,13 @@ create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
 
     dist <- paste0("dist_", sapply(strsplit(expNodesALL[idxNodes], 
                                             split = " "), "[[", 2))
+    
+    dist <- gsub(pattern = "-", replacement = "a", x = dist, fixed = TRUE)
+    dist <- gsub(pattern = "+", replacement = "b", x = dist, fixed = TRUE)
+    dist <- gsub(pattern = "*", replacement = "c", x = dist, fixed = TRUE)
+    dist <- gsub(pattern = "<", replacement = "d", x = dist, fixed = TRUE)
+    dist <- gsub(pattern = ">", replacement = "e", x = dist, fixed = TRUE)
+    dist <- gsub(pattern = " ", replacement = "f", x = dist, fixed = TRUE)
 
     distExp <- paste0("Distance ", sapply(strsplit(expNodesALL[idxNodes],
                                                    split = " "), "[[", 2))
@@ -154,6 +161,14 @@ create_variables_all <- function(pknList=pknList, dataMatrix=dataMatrix){
 
     varB <- paste0("B_", sapply(strsplit(expNodes, split = " "),
                                 function(x) x[2]), "_", conditionIDX)
+    
+    varB <- gsub(pattern = "-", replacement = "a", x = varB, fixed = TRUE)
+    varB <- gsub(pattern = "+", replacement = "b", x = varB, fixed = TRUE)
+    varB <- gsub(pattern = "*", replacement = "c", x = varB, fixed = TRUE)
+    varB <- gsub(pattern = "<", replacement = "d", x = varB, fixed = TRUE)
+    varB <- gsub(pattern = ">", replacement = "e", x = varB, fixed = TRUE)
+    varB <- gsub(pattern = " ", replacement = "f", x = varB, fixed = TRUE)
+    
     expVarB <- paste0("B variable for ", sapply(strsplit(expNodes, split = " "),
                                                 function(x) x[2]), 
                       " in experiment ", conditionIDX)
