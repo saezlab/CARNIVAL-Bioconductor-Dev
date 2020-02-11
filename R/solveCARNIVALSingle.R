@@ -4,7 +4,8 @@
 #'
 #'Enio Gjerga, 2020
 
-solveCARNIVALSingle <- function(data = data, pknList = pknList, inputs = inputs,
+solveCARNIVALSingle <- function(data = data, pknList = pknList,
+                                inputs = inputs, alphaWeight = alphaWeight,
                                 betaWeight = betaWeight, scores = scores,
                                 mipGAP = mipGAP, poolrelGAP = poolrelGAP,
                                 limitPop = limitPop, poolCap = poolCap,
@@ -17,7 +18,8 @@ solveCARNIVALSingle <- function(data = data, pknList = pknList, inputs = inputs,
                                 measObj = measObj, inputObj = inputObj, 
                                 dir_name = dir_name){
   
-  variables <- writeLPFile(data = data, pknList = pknList, inputs = inputs,
+  variables <- writeLPFile(data = data, pknList = pknList,
+                           inputs = inputs, alphaWeight = alphaWeight,
                            betaWeight = betaWeight, scores = scores,
                            mipGAP = mipGAP, poolrelGAP = poolrelGAP,
                            limitPop = limitPop, poolCap = poolCap,
