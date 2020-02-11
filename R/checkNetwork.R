@@ -53,6 +53,8 @@ checkNetwork <- function(netObj = netObj){
     }
   }
   
+  netObj = controlNodeIdentifiers(netObj = netObj)
+  
   return(netObj)
   
 }
