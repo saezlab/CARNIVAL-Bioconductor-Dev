@@ -4,11 +4,16 @@
 #'@param progenyMembers Contains the list of members for each PROGENy pathway.
 #'@param id Contains the members identifiers (default: uniprot).
 #'
-#'@return This function is used to account for the PROGENy scores in the objective function.
+#'@return This function is used to account for the PROGENy scores in the 
+#'objective function.
 #'
 #'@export
+#'
+#'Enio Gjerga & Panuwat Trairatphisan, 2020
 
-assignPROGENyScores <- function(progeny = progeny, progenyMembers = progenyMembers, id = "uniprot"){
+assignPROGENyScores <- function(progeny = progeny, 
+                                progenyMembers = progenyMembers, 
+                                id = "uniprot"){
   
   if(id=="uniprot"){
     
@@ -45,7 +50,9 @@ assignPROGENyScores <- function(progeny = progeny, progenyMembers = progenyMembe
   
   for(i in 1:ncol(scores)){
     
-    scores[1, i] <- as.numeric(progeny[1, members[which(members[, 2]==colnames(scores)[i]), 1]])
+    scores[1, i] <- 
+      as.numeric(
+        progeny[1, members[which(members[, 2]==colnames(scores)[i]), 1]])
     
   }
   

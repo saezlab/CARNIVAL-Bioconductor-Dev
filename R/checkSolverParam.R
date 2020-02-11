@@ -2,10 +2,9 @@
 #'
 #'Checking solver parameters
 #'
+#'Enio Gjerga, 2020
 
-checkSolverParam <- function(parallelIdx1=parallelIdx1, 
-                             parallelIdx2=parallelIdx2,
-                             DOTfig=DOTfig,
+checkSolverParam <- function(DOTfig=DOTfig,
                              timelimit=timelimit,
                              mipGAP=mipGAP,
                              poolrelGAP=poolrelGAP,
@@ -13,13 +12,13 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
                              poolCap=poolCap,
                              poolIntensity=poolIntensity,
                              poolReplace=poolReplace,
-                             alphaWeight=alphaWeight,
-                             betaWeight=betaWeight,
-                             UP2GS = UP2GS,
                              threads=threads,
-                             experimental_conditions = experimental_conditions){
+                             alphaWeight=alphaWeight,
+                             betaWeight=betaWeight){
   
   returnList = NULL
+  parallelIdx1=1
+  parallelIdx2=1
   if(!is.numeric(parallelIdx1) | !is.numeric(parallelIdx2)){
     stop("Please set numbers on the parameters 'parallelIdx1' and 'parallelIdx2' 
          for running CARNIVAL in parallelisation ")
@@ -37,7 +36,8 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
   }
   
   if(!is.logical(DOTfig)){stop("For plotting: please choose whether to plot DOT 
-                                figure as an output with a logical value T/F")
+                                figure as an output with a logical value
+                                TRUE/FALSE")
   }
   
   if(!is.numeric(timelimit)){
@@ -128,19 +128,6 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
   if(!is.numeric(betaWeight)){
     stop("Objective Function: Please set a weight for node penalty")
   }
-  
-  if(!is.null(UP2GS)){
-    if(!is.logical(UP2GS)){
-      stop("UP2GS should either be left NULL or set as a logical")
-    }
-  }
-  
-  if(!is.null(experimental_conditions)){
-    if(class(experimental_conditions) != "numeric"){
-      stop("Error with the assignment of the experimental conditions. Please 
-           provide this input as NULL or as a numeric vector")
-    }
-  }
-  
+
   return(returnList)
 }

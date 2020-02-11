@@ -13,23 +13,27 @@
 #'@return Error message in case of errors in the inputs
 #'
 #'@export
+#'
+#'Enio Gjerga, 2020
 
 checkSolver <- function(solverPath = solverPath, solver = solver,
                         dir_name = dir_name){
   
-  if(!(class(solverPath)=="character")){
-    stop("SolverPath should be of type character")
-  } else {
-    if(!file.exists(solverPath)){
-      stop("Please provide a valid path to interactive solver")
+  if(!is.null(solverPath)){
+    if(!is(solverPath, "character")){
+      stop("SolverPath should be of type character")
+    } else {
+      if(!file.exists(solverPath)){
+        stop("Please provide a valid path to interactive solver")
+      }
     }
   }
   
-  if(!(class(solver)=="character")){
+  if(!is(solver, "character")){
     stop("solver should be of type character")
   } else {
-    # checking for solver validity (cplex/cbc)
-    valid_solver_list <- c("cplex", "cbc")
+    ## checking for solver validity (cplex/cbc/lpSolve)
+    valid_solver_list <- c("cplex", "cbc", "lpSolve")
     if (!(solver %in% valid_solver_list)){
       stop(paste0("Select a valid solver option (", 
                   paste(valid_solver_list, collapse=", "), ")"))
@@ -37,7 +41,7 @@ checkSolver <- function(solverPath = solverPath, solver = solver,
   }
   
   if(!is.null(dir_name)){
-    if(!(class(dir_name)=="character")){
+    if(!is(dir_name, "character")){
       stop("dir_name should either be NULL or provided as a character")
     }
   }
