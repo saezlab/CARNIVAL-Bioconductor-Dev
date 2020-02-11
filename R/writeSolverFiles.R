@@ -8,6 +8,7 @@ writeSolverFiles <- function(condition=condition, repIndex=repIndex, oF=oF,
                              generals=generals, mipGAP=mipGAP, 
                              poolrelGAP=poolrelGAP, poolReplace=poolReplace,
                              limitPop=limitPop, poolCap=poolCap,
+                             threads = threads,
                              poolIntensity=poolIntensity, timelimit=timelimit){
   
   ## write the .lp file
@@ -43,6 +44,7 @@ writeSolverFiles <- function(condition=condition, repIndex=repIndex, oF=oF,
   write(paste0("set mip pool intensity ",poolIntensity), 
         cplexCommand, append = TRUE)
   write(paste0("set timelimit ",timelimit), cplexCommand, append = TRUE)
+  write(paste0("set threads ", threads), cplexCommand, append = TRUE)
   write("populate", cplexCommand, append = TRUE)
   write(paste0("write results_cplex_", condition,"_",repIndex,".txt sol all"), 
         cplexCommand, append = TRUE)

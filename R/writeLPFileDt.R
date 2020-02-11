@@ -22,7 +22,7 @@ writeLPFileDt <-  function(data = data,
                            repIndex,
                            condition = "",
                            dt = dt,
-                           experimental_conditions) {
+                           threads = threads) {
 
   dataMatrix <- buildDataMatrix(data = data,
                                 pknList = pknList,
@@ -115,6 +115,7 @@ writeLPFileDt <-  function(data = data,
                    limitPop = limitPop,
                    poolCap = poolCap,
                    poolIntensity = poolIntensity,
+                   threads = threads,
                    timelimit = timelimit)
 
   return(variables)

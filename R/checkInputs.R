@@ -35,12 +35,21 @@ checkInputs <- function(solverPath=NULL,
   measObj = checkMeasObj(measObj = measObj, netObj = netObj, dt = dt)
   inputObj = checkInputObj(inputObj = inputObj, netObj = netObj, dt = dt)
   weightObj = checkWeightObj(weightObj = weightObj, netObj = netObj)
-  pp = checkSolverParam(parallelIdx1=parallelIdx1, parallelIdx2=parallelIdx2,
-                   DOTfig=DOTfig, timelimit=timelimit, mipGAP=mipGAP,
-                   poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
-                   poolIntensity=poolIntensity, poolReplace=poolReplace,
-                   alphaWeight=alphaWeight, betaWeight=betaWeight, UP2GS=UP2GS,
-                   experimental_conditions=experimental_conditions)
+  pp = checkSolverParam(parallelIdx1=parallelIdx1,
+                        parallelIdx2=parallelIdx2,
+                        DOTfig=DOTfig,
+                        timelimit=timelimit,
+                        mipGAP=mipGAP,
+                        poolrelGAP=poolrelGAP,
+                        limitPop=limitPop,
+                        poolCap=poolCap,
+                        poolIntensity=poolIntensity,
+                        poolReplace=poolReplace,
+                        alphaWeight=alphaWeight,
+                        betaWeight=betaWeight,
+                        UP2GS=UP2GS,
+                        threads = threads,
+                        experimental_conditions=experimental_conditions)
 
   returnList[[length(returnList)+1]] = inputObj$network
   returnList[[length(returnList)+1]] = measObj

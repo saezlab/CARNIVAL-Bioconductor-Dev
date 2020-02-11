@@ -13,6 +13,7 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
                              poolCap=poolCap,
                              poolIntensity=poolIntensity,
                              poolReplace=poolReplace,
+                             threads=threads,
                              alphaWeight=alphaWeight,
                              betaWeight=betaWeight,
                              UP2GS = UP2GS,
@@ -107,7 +108,14 @@ checkSolverParam <- function(parallelIdx1=parallelIdx1,
            First Out")
     }
   }
-  
+
+  if(!is.null(threads)){
+    if(!(threads >= 0)){
+      stop("CPLEX parameter: Please set the number of threads to 0 for automatic
+           detection or any value > 0 for a specific number of threads.")
+    }
+  }
+
   if(is.null(poolReplace)){
     poolReplace=0
   }

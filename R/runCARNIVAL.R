@@ -58,6 +58,7 @@ runCARNIVAL <- function(solverPath=NULL,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cplex",
                         dt=FALSE,
+                        threads=0,
                         experimental_conditions = NULL)
 {
 
@@ -70,7 +71,7 @@ runCARNIVAL <- function(solverPath=NULL,
                     poolCap = poolCap, poolIntensity = poolIntensity,
                     poolReplace = poolReplace, alphaWeight = alphaWeight,
                     betaWeight = betaWeight, dir_name = dir_name,
-                    solver = solver, dt = dt,
+                    solver = solver, dt = dt, threads = threads,
                     experimental_conditions = experimental_conditions)
 
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
@@ -95,7 +96,9 @@ runCARNIVAL <- function(solverPath=NULL,
                          alphaWeight = alphaWeight,
                          betaWeight = betaWeight,
                          dir_name = dir_name,
-                         solver = solver, dt = dt,
+                         solver = solver,
+                         dt = dt,
+                         threads = threads,
                          experimental_conditions = experimental_conditions,
                          condition = res$condition,
                          repIndex = res$repIndex)

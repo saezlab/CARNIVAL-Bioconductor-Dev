@@ -7,7 +7,7 @@
 
 writeLPFileMulti <- function(data = data, pknList = pknList, inputs = inputs, 
                              alphaWeight=1, betaWeight=0.2, scores=scores, 
-                             mipGAP=0.1, poolrelGAP=0.01, 
+                             mipGAP=0.1, poolrelGAP=0.01, threads = threads,
                              limitPop=100, poolCap=100, poolIntensity=0, 
                              poolReplace=2,timelimit=1800,measWeights=NULL, 
                              repIndex, condition="", experimental_conditions) {
@@ -55,7 +55,7 @@ writeLPFileMulti <- function(data = data, pknList = pknList, inputs = inputs,
                    allC=allC, bounds=bounds, binaries=binaries,
                    generals=generals, mipGAP=mipGAP, 
                    poolrelGAP=poolrelGAP, poolReplace=poolReplace,
-                   limitPop=limitPop, poolCap=poolCap,
+                   limitPop=limitPop, poolCap=poolCap, threads = threads,
                    poolIntensity=poolIntensity, timelimit=timelimit)
   
   return(variables)

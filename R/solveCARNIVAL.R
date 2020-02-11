@@ -24,6 +24,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                           betaWeight = betaWeight,
                           dir_name = dir_name,
                           solver = solver,
+                          threads = threads,
                           dt = dt,
                           experimental_conditions = experimental_conditions,
                           condition = condition,
@@ -66,6 +67,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                  measWeights=measWeights,
                                  repIndex=repIndex,
                                  dt = dt,
+                                 threads = threads,
                                  condition = condition)
     } else {
 
@@ -84,6 +86,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                timelimit=timelimit,
                                measWeights=measWeights,
                                repIndex=repIndex,
+                               threads = threads,
                                condition = condition)
     }
 
@@ -212,7 +215,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                   poolCap=poolCap,poolIntensity=poolIntensity,
                                   poolReplace=poolReplace,timelimit=timelimit,
                                   measWeights=measWeights,repIndex=repIndex,
-                                  condition = condition,
+                                  condition = condition, threads = threads,
                                   experimental_conditions)
     Elapsed_1 <- proc.time() - ptm
 
