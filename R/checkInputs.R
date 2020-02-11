@@ -21,6 +21,7 @@ checkInputs <- function(solverPath=NULL,
                         poolReplace=2,
                         alphaWeight=1,
                         betaWeight=0.2,
+                        threads=0,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cbc"){
   
@@ -31,24 +32,25 @@ checkInputs <- function(solverPath=NULL,
   inputObj = checkInputObj(inputObj = inputObj, netObj = netObj)
   weightObj = checkWeightObj(weightObj = weightObj, netObj = netObj)
   pp = checkSolverParam(DOTfig=DOTfig, timelimit=timelimit, mipGAP=mipGAP,
-                   poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
-                   poolIntensity=poolIntensity, poolReplace=poolReplace,
-                   alphaWeight=alphaWeight, betaWeight=betaWeight)
-  
+                        poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
+                        poolIntensity=poolIntensity, poolReplace=poolReplace,
+                        threads=threads,
+                        alphaWeight=alphaWeight, betaWeight=betaWeight)
+
   if(weightObj!="NULL"){
     if(nrow(weightObj)!=nrow(measObj)){
       stop("Number of rows provided for the weightObj is different to measObj.
            Please check your inputs again.")
     }
   }
-  
+
   if(!is.null(inputObj$inputs)){
     if(nrow(inputObj$inputs)!=nrow(measObj)){
       stop("Number of rows provided for the weightObj is different to measObj.
            Please check your inputs again.")
     }
   }
-  
+
   if(nrow(measObj)==1){
     experimental_conditions = "NULL"
   } else {
@@ -62,7 +64,7 @@ checkInputs <- function(solverPath=NULL,
   returnList[[length(returnList)+1]] = pp$condition
   returnList[[length(returnList)+1]] = pp$repIndex
   returnList[[length(returnList)+1]] = experimental_conditions
-  names(returnList) = c("network", "measurements", "inputs", 
+  names(returnList) = c("network", "measurements", "inputs",
                         "weights", "condition", "repIndex", "exp")
   
   return(returnList)
