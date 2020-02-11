@@ -37,7 +37,7 @@ checkInputs <- function(solverPath=NULL,
                         threads=threads,
                         alphaWeight=alphaWeight, betaWeight=betaWeight)
 
-  if(weightObj!="NULL"){
+  if(weightObj[1]!="NULL"){
     if(nrow(weightObj)!=nrow(measObj)){
       stop("Number of rows provided for the weightObj is different to measObj.
            Please check your inputs again.")

@@ -47,7 +47,7 @@ solveCARNIVALSingle <- function(data = data, pknList = pknList,
     }
     
     ## Write result files in the results folder
-    print("Writing result files...")
+    print("Saving results...")
     resList <- list()
     if (file.exists(paste0("results_cplex_",condition,"_",repIndex,".txt"))) {
       for(i in 1:length(variables)){

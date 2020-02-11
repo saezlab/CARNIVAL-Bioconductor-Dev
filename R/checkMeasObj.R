@@ -45,6 +45,23 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
     }
   }
   
+  colnames(measObj) <- gsub(pattern = "-", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = "+", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = "*", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = "/", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = "<", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = ">", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = "=", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  colnames(measObj) <- gsub(pattern = " ", replacement = "_", 
+                            x = colnames(measObj), fixed = TRUE)
+  
   return(measObj)
   
 }

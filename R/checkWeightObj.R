@@ -21,6 +21,24 @@ checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
       stop("Weight object should either be of matrix or data.frame class")
     } else {
       if(ncol(weightObj)>0){
+        
+        colnames(weightObj) <- gsub(pattern = "-", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = "+", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = "*", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = "/", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = "<", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = ">", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = "=", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        colnames(weightObj) <- gsub(pattern = " ", replacement = "_", 
+                                   x = colnames(weightObj), fixed = TRUE)
+        
         mSpecies = colnames(weightObj)
         
         idx = which(mSpecies%in%nSpecies)
