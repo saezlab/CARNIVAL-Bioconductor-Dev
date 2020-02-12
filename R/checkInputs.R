@@ -46,7 +46,7 @@ checkInputs <- function(solverPath=NULL,
 
   if(!is.null(inputObj$inputs)){
     if(nrow(inputObj$inputs)!=nrow(measObj)){
-      stop("Number of rows provided for the weightObj is different to measObj.
+      stop("Number of rows provided for the inputObj is different to measObj.
            Please check your inputs again.")
     }
   }
