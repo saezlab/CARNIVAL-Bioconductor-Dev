@@ -39,6 +39,12 @@ checkWeightObj <- function(weightObj = weightObj, netObj = netObj){
         colnames(weightObj) <- gsub(pattern = " ", replacement = "_", 
                                    x = colnames(weightObj), fixed = TRUE)
         
+        ## now checking for allowed values
+        absVals <- as.numeric(abs(weightObj[1, ]))
+        if(any(absVals>1)){
+          stop("Error on weightObj. Weights should be between -1 and 1.")
+        }
+        
         mSpecies = colnames(weightObj)
         
         idx = which(mSpecies%in%nSpecies)
