@@ -136,7 +136,7 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
     sif <- matrix(data = "", nrow = 1, ncol = 3)
     colnames(sif) <- colnames(pknList)
     
-    kk1 <- as.numeric(which(edgesUp[, 2] == 1))
+    kk1 <- as.numeric(which(edgesUp[, 2] >= 0.99))
     if(length(kk1) > 0){
       
       for(i in 1:length(kk1)){
@@ -155,12 +155,12 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
               split = " ")[[1]][2], split = "=")[[1]][2]
         
         
-        if(as.numeric(edgesUp[kk1[i], 2])==
-           as.numeric(nodesUp[which(nodesUp[, 1]==
+        if(round(as.numeric(edgesUp[kk1[i], 2]))==
+           round(as.numeric(nodesUp[which(nodesUp[, 1]==
                                     variables[[conditionIDX]]$variables[which(
                                       variables[[conditionIDX]]$exp==paste0(
                                         "SpeciesUP ", tt, " in experiment ", 
-                                        conditionIDX))]), 2])){
+                                        conditionIDX))]), 2]))){
           
           sif <- rbind(sif, pknList[kk1[i], ])
           
@@ -171,7 +171,7 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
     }
     
     
-    kk1 <- as.numeric(which(edgesDown[, 2] == 1))
+    kk1 <- as.numeric(which(edgesDown[, 2] >= 0.99))
     if(length(kk1) > 0){
       
       for(i in 1:length(kk1)){
@@ -187,12 +187,12 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
               variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
             split = " ")[[1]][2], split = "=")[[1]][2]
         
-        if(as.numeric(edgesDown[kk1[i], 2])==
-           as.numeric(nodesDown[which(
+        if(round(as.numeric(edgesDown[kk1[i], 2]))==
+           round(as.numeric(nodesDown[which(
              nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
                variables[[conditionIDX]]$exp==paste0("SpeciesDown ", tt, 
                                                      " in experiment ", 
-                                                     conditionIDX))]), 2])){
+                                                     conditionIDX))]), 2]))){
           
           sif <- rbind(sif, pknList[kk1[i], ])
           
