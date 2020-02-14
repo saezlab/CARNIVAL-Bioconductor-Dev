@@ -156,11 +156,11 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
         
         
         if(round(as.numeric(edgesUp[kk1[i], 2]))==
-           as.numeric(nodesUp[which(nodesUp[, 1]==
+           round(as.numeric(nodesUp[which(nodesUp[, 1]==
                                     variables[[conditionIDX]]$variables[which(
                                       variables[[conditionIDX]]$exp==paste0(
                                         "SpeciesUP ", tt, " in experiment ", 
-                                        conditionIDX))]), 2])){
+                                        conditionIDX))]), 2]))){
           
           sif <- rbind(sif, pknList[kk1[i], ])
           
@@ -188,11 +188,11 @@ exportResultCPLEX <- function(cplexSolutionFileName = cplexSolutionFileName,
             split = " ")[[1]][2], split = "=")[[1]][2]
         
         if(round(as.numeric(edgesDown[kk1[i], 2]))==
-           as.numeric(nodesDown[which(
+           round(as.numeric(nodesDown[which(
              nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
                variables[[conditionIDX]]$exp==paste0("SpeciesDown ", tt, 
                                                      " in experiment ", 
-                                                     conditionIDX))]), 2])){
+                                                     conditionIDX))]), 2]))){
           
           sif <- rbind(sif, pknList[kk1[i], ])
           
