@@ -119,7 +119,7 @@ exportResultCBC <- function(cplexSolutionFileName = cplexSolutionFileName,
     sif <- matrix(data = "", nrow = 1, ncol = 3)
     colnames(sif) <- colnames(pknList)
     
-    kk1 <- as.numeric(which(edgesUp[, 2] == 1))
+    kk1 <- as.numeric(which(edgesUp[, 2] >= 0.99))
     if(length(kk1) > 0){
       
       for(i in 1:length(kk1)){
@@ -154,7 +154,7 @@ exportResultCBC <- function(cplexSolutionFileName = cplexSolutionFileName,
     }
     
     
-    kk1 <- as.numeric(which(edgesDown[, 2] == 1))
+    kk1 <- as.numeric(which(edgesDown[, 2] >= 0.99))
     if(length(kk1) > 0){
       
       for(i in 1:length(kk1)){
