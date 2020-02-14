@@ -138,7 +138,7 @@ exportResultCBC <- function(cplexSolutionFileName = cplexSolutionFileName,
               split = " ")[[1]][2], split = "=")[[1]][2]
         
         
-        if(as.numeric(edgesUp[kk1[i], 2])==as.numeric(
+        if(round(as.numeric(edgesUp[kk1[i], 2]))==as.numeric(
           nodesUp[which(
             nodesUp[, 1]==variables[[conditionIDX]]$variables[which(
               variables[[conditionIDX]]$exp==paste0("SpeciesUP ", tt, 
@@ -170,7 +170,7 @@ exportResultCBC <- function(cplexSolutionFileName = cplexSolutionFileName,
               variables[[conditionIDX]]$variables==edgesDown[kk1[i], 1])], 
             split = " ")[[1]][2], split = "=")[[1]][2]
         
-        if(as.numeric(edgesDown[kk1[i], 2])==as.numeric(
+        if(round(as.numeric(edgesDown[kk1[i], 2]))==as.numeric(
           nodesDown[which(
             nodesDown[, 1]==variables[[conditionIDX]]$variables[which(
               variables[[conditionIDX]]$exp==paste0("SpeciesDown ", tt, 
