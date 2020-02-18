@@ -53,7 +53,7 @@ test_input <- readr::read_tsv(paste0(data_directory, "test_input_big.tsv"))
 toy_result <- runCARNIVAL(solverPath = solver_path,
                           netObj = test_network,
                           measObj = test_measurements,
-                          inputObj = NULL,
+                          inputObj = test_input,
                           # inputObj = test_input,
                           mipGAP = 0,
                           poolrelGAP = 0,
