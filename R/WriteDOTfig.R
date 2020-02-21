@@ -1,16 +1,16 @@
 #'\code{WriteDOTfig}
 #'
-#' This function takes results from ILP optimisation and write out a figure in 
+#' This function takes results from ILP optimisation and write out a figure in
 #' DOT format
 #'
 
-WriteDOTfig <- function(res, idxModel=0, dir_name, 
+WriteDOTfig <- function(res, idxModel=0, dir_name,
                         inputs, measurements, UP2GS=F){
 
   if(!is.null(UP2GS)){UP2GStag <- ifelse (UP2GS,"GeneSymbol","Uniprot")}
 
   sif_input=NULL;act_input=NULL
-  ## default case; if idxModel is not provided, plot the combined and average 
+  ## default case; if idxModel is not provided, plot the combined and average
   ## network
   if (sum(idxModel==0)>0) {
     sif_input <- res$weightedSIF
@@ -38,8 +38,8 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
     }
 
     act <- act_all[,c(1,2)]
-    act[,2] <- 
-      sign(as.numeric(act_all[,which(colnames(act_all)=="AvgAct" | 
+    act[,2] <-
+      sign(as.numeric(act_all[,which(colnames(act_all)=="AvgAct" |
                                        colnames(act_all)=="Activity")]))
     if (length(which(as.numeric(act[,2])==0))>0) {
       act <- act[-which(as.numeric(act[,2])==0),] ## remove zero entries
@@ -48,12 +48,12 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
     ## Check for Perturbation node -> if 0 then still add back (required)
     if (length(which(act_all[,1]=="Perturbation"))>0) {
       if (act_all[which(act_all[,1]=="Perturbation"),
-                  which(colnames(act_all)=="AvgAct" | 
+                  which(colnames(act_all)=="AvgAct" |
                         colnames(act_all)=="Activity")]==0) {
         act <- rbind(act,
                      c("Perturbation",
                        act_all[which(act_all[,1]=="Perturbation"),
-                               which(colnames(act_all)=="AvgAct" | 
+                               which(colnames(act_all)=="AvgAct" |
                                        colnames(act_all)=="Activity")]))
       }
     }
@@ -78,15 +78,15 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
     inputsName <- colnames(inputs)
     if(!is.null(UP2GS)){
       if (UP2GS) {
-        IDmap <- 
-          read.table(file = 
+        IDmap <-
+          read.table(file =
                        system.file("HUMAN_9606_idmapping_onlyGeneName.dat",
                                    package="CARNIVAL"), header = F, sep = "\t",
                      stringsAsFactors = F)
         for (counter in 1:length(inputsName)) {
           ## check first if the ID could be mapped
           if (length(which(IDmap[,1] == inputsName[counter])>0)) {
-            inputsName[counter] <- IDmap[which(IDmap[,1] == 
+            inputsName[counter] <- IDmap[which(IDmap[,1] ==
                                                  inputsName[counter]),3][1]
           }
         }
@@ -146,7 +146,7 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
     AllMeas <- colnames(measurements)
     if(!is.null(UP2GS)){
       if (UP2GS) {
-        IDmap <- 
+        IDmap <-
           read.table(
             file = system.file("HUMAN_9606_idmapping_onlyGeneName.dat",
                                package="CARNIVAL"),header = F,sep = "\t",
@@ -168,18 +168,20 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
     }
 
     for (counter in 1:length(measName)) {
-      if (abs(as.numeric(act[which(measName[counter]==act[,1]),2][1]))>0) {
-        IdxMeas <- which(measName[counter]==act[,1])[1]
-        Dot_text <- c(Dot_text,paste0(measName[counter],
-                                      " [style=filled, color=",
-                                      if (act[IdxMeas,2]>0) {paste0(
-                                        ColorNode[1],", fillcolor=",
-                                        ColorNodeAll[1])}
-                                      else if (act[IdxMeas,2]<0) {paste0(
-                                        ColorNode[2],", fillcolor=",
-                                        ColorNodeAll[2])},
-                                      ", shape=doublecircle];"))
-        IdxMapped <- c(IdxMapped, IdxMeas)
+      if (measName[counter] %in% act[,1]) {
+        if (abs(as.numeric(act[which(measName[counter] == act[,1]), 2][1])) > 0) {
+          IdxMeas <- which(measName[counter]==act[,1])[1]
+          Dot_text <- c(Dot_text,paste0(measName[counter],
+                                        " [style=filled, color=",
+                                        if (act[IdxMeas,2]>0) {paste0(
+                                          ColorNode[1],", fillcolor=",
+                                          ColorNodeAll[1])}
+                                        else if (act[IdxMeas,2]<0) {paste0(
+                                          ColorNode[2],", fillcolor=",
+                                          ColorNodeAll[2])},
+                                        ", shape=doublecircle];"))
+          IdxMapped <- c(IdxMapped, IdxMeas)
+        }
       }
     }
 
@@ -209,7 +211,7 @@ WriteDOTfig <- function(res, idxModel=0, dir_name,
                              if (act[RemainingNodeIdx[counter],2]>0) {
                                ColorNodeAll[1]}
                                       else if (
-                                        act[RemainingNodeIdx[counter],2]<0) 
+                                        act[RemainingNodeIdx[counter],2]<0)
                                         {ColorNodeAll[2]},"];"))
       }
     }
