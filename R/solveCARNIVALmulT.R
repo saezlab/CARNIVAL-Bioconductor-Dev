@@ -29,12 +29,12 @@ solveCARNIVALmulT <- function(data = measurements,
                               DOTfig = DOTfig,
                               dir_name = dir_name) {
 
-  variables <- writeLPFileMulT(data = measurements,
+  variables <- writeLPFileMulT(data = data,
                                pknList = pknList,
                                inputs = inputObj,
                                alphaWeight = alphaWeight,
                                betaWeight = betaWeight,
-                               scores = weightObj,
+                               scores = scores,
                                mipGAP = mipGAP,
                                poolrelGAP = poolrelGAP,
                                limitPop = limitPop,
@@ -83,18 +83,11 @@ solveCARNIVALmulT <- function(data = measurements,
       resList[[length(resList) + 1]] <- res
 
       if (!is.null(res)) {
-        if (!is.null(UP2GS)) {
-          if (UP2GS) {
-            res <- Uniprot2GeneSymbol(res)
-          }
-        }
-
         if (DOTfig) {
           WriteDOTfig(res = res,
                       dir_name = dir_name,
                       inputs = inputObj,
-                      measurements = measObj,
-                      UP2GS = UP2GS)
+                      measurements = measObj)
         }
       }
     } else {
