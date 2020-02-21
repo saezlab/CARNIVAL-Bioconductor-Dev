@@ -1,8 +1,11 @@
 #'\code{write_binaries_all_conditions}
 #'
-#'@param variables Contains the list of variables as used to formulate the ILP problem, explanations for each variable and a list of useful indices.
+#'@param variables Contains the list of variables as used to formulate the ILP
+#'problem, explanations for each variable and a list of useful indices.
 #'
 #'@return This code writes the list of binary variables (xp, xm, up & um).
+#'
+#'Enio Gjerga, 2020
 
 write_binaries_all_conditions <- function(variables=variables,
                                           dt = FALSE){
@@ -16,27 +19,39 @@ write_binaries_all_conditions <- function(variables=variables,
       # Marking CPLEX variables as binary in the lp file
 
       # x^+_(j,k)
-      binaries <- c(binaries, paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesUp]))
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesUp]))
 
       # x^-_(j,k)
-      binaries <- c(binaries, paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesDown]))
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesDown]))
 
 
       # u^+_(i,k)
-      binaries <- c(binaries, paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesUp]))
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesUp]))
 
       # u^-_(i,k)
-      binaries <- c(binaries, paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesDown]))
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesDown]))
 
       if (!dt) {
         # additional edges in case not dt
-        binaries <- c(binaries, paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdges]))
+        binaries <-
+          c(binaries,
+            paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdges]))
       }
 
     } else {
 
       # y_(i,t)
-      binaries <- c(binaries, paste0("\t", variables[[i]]$variables))
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables))
 
     }
 

@@ -14,6 +14,8 @@
 #' @import dplyr
 #'
 #' @export
+#' 
+#' Panuwat Trairatphisan, 2020
 
 GeneSymbol2Uniprot=function(df, map, geneID=1, uniprotID=2){
   

@@ -2,6 +2,7 @@
 #'
 #' Appending the general variables for each condition
 #'
+#' Enio Gjerga, 2020
 
 append_general_variables <- function(variables = variables,
                                      dt = dt){

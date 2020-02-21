@@ -3,11 +3,12 @@
 #' This function writes the constraints preventing self-activation of nodes in
 #' the network due to positive feedback loops.
 #'
+#' Enio Gjerga, 2020
 
 write_loop_constraints <- function(variables=variables,
                                    pknList=pknList,
                                    inputs=inputs,
-                                   dt=FALSE) {
+                                   mulT=FALSE) {
 
   M <- 101
   constraints1 <- c()
@@ -80,9 +81,9 @@ write_loop_constraints <- function(variables=variables,
                         function(x) x[2]), " <= ", M-1)
     constraints2 <- c(constraints2, cc)
 
-    # In case of CARNIVAL-dt write loop constraints only for first timepoint
+    # In case of CARNIVAL-mulT write loop constraints only for first timepoint
     # Thus breaking after the first iteration of the loop
-    if(dt){
+    if(mulT){
       break
     }
   }

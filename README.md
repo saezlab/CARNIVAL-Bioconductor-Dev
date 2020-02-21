@@ -60,6 +60,6 @@ Distributed under the GNU GPLv3 License. See accompanying file [LICENSE.txt](htt
 
 ## Acknowledgement
 
-CARNIVAL has been developed as a computational tool to analyse -omics data within the [TransQST Consortium](https://transqst.org)
+CARNIVAL has been developed as a computational tool to analyse -omics data within the [TransQST Consortium](https://transqst.org) and [H2020 Symbiosys ITN Training Network](https://www.h2020symbiosys.eu/).
 
-"This project has received funding from the Innovative Medicines Initiative 2 Joint Undertaking under grant agreement No 116030. The Joint Undertaking receives support from the European Union's Horizon 2020 research and innovation programme and EFPIA."
+"This project has received funding by the European Union’s H2020 program (675585 Marie-Curie ITN ‘‘SymBioSys’’) and the Innovative Medicines Initiative 2 Joint Undertaking under grant agreement No 116030. The Joint Undertaking receives support from the European Union's Horizon 2020 research and innovation programme and EFPIA."

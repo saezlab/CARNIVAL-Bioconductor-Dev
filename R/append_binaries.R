@@ -3,6 +3,7 @@
 #' Appending the binaries for each condition
 #' Marking delta variables as binary
 #'
+#' Enio Gjerga, 2020
 
 append_binaries = function(binaries = binaries, variables = variables){
 

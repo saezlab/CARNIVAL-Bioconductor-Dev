@@ -61,7 +61,7 @@ toy_result <- runCARNIVAL(solverPath = solver_path,
                           alphaWeight = 100,
                           betaWeight = 0,
                           # experimental_conditions = c(1, 2),
-                          dt = TRUE,
+                          mulT = TRUE,
                           solver = "cplex")
 
 debug <- tibble(variable = character(),

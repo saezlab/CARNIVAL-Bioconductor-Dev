@@ -4,59 +4,36 @@
 \alias{runCARNIVAL}
 \title{\code{runCARNIVAL}}
 \usage{
-runCARNIVAL(solverPath=NULL, netObj=NULL, measObj=NULL, inputObj=NULL,
-            weightObj=NULL, parallelIdx1=1, parallelIdx2=1, nodeID="uniprot",
-            UP2GS=NULL, DOTfig=T, timelimit=600, mipGAP=0.05, poolrelGAP=0.0001,
-            limitPop=500, poolCap=100, poolIntensity=4, poolReplace=2,
-            alphaWeight=1, betaWeight=0.2,
-            dir_name=paste0(getwd(), "/DOTfigures"), solver="cbc", 
-            experimental_conditions = NULL)
+runCARNIVAL(inputObj=NULL, measObj=measObj, netObj=netObj, weightObj=NULL,
+            solverPath=NULL, solver="lpSolve", DOTfig=FALSE, timelimit=3600,
+            mipGAP=0.05, poolrelGAP=0.0001, limitPop=500, poolCap=100,
+            poolIntensity=4, poolReplace=2, alphaWeight=1, betaWeight=0.2,
+            dir_name=paste0(getwd(), "/DOTfigures"))
 }
 \arguments{
-\item{solverPath}{Path to executable cbc/cplex file - always required}
 
-\item{netObj}{Prior knowledge network object (class data.frame/matrix) - 
-              always required}
+\item{inputObj}{Data frame of the list for target of perturbation - optional 
+                or default set to NULL to run invCARNIVAL when inputs are not 
+                known}
 
-\item{measObj}{Measurement object (class data.frame/matrix, here we suggest to
-               use DoRothEA normalised enrichment scores but can as well be gene
-               expression values) - always required}
+\item{measObj}{Data frame of the measurement file (i.e. DoRothEA normalised 
+               enrichment scores) - always required}
+               
+\item{netObj}{Data frame of the prior knowledge network - always required}
 
-\item{inputObj}{Perturbation targets (class data.frame/matrix where column names
-                represent the perturbation target ID's and matrix elements 
-                represent the corresponding perturbation effect: 1 for 
-                activation, -1 for inhibition annd NaN if the effect is un-known
-                - optional or set as NULL to run the InvCARNIVAL}
-
-\item{weightObj}{Weight object (here we suggest PROGENy pathway scores but can
-                 as well be normalized measured protein activities from -1 to 1) 
-                 - optional and default set as NULL to run CARNIVAL without
-                 weighting proteins}
-
-\item{parallelIdx1}{First index number suitable for parallelisation (numeric - 
-                    set to 1 by default)}
-
-\item{parallelIdx2}{Second index number suitable for parallelisation (numeric - 
-                    set to 1 by default)}
-
-\item{nodeID}{Define the input format of nodes in the network (either 'uniprot' 
-              or 'gene' symbol). Default set to 'uniprot' ID's for humans. If
-              you using other identifiers/organisms or not sure about this
-              variable, leave to default}
-
-\item{UP2GS}{For plotting: define if Human Uniprot ID will be converted to gene 
-             symbols for better readability (logical T/F). Default set to NULL
-             and if you using other identifiers/organisms or not sure about this
-              variable, leave to default}
+\item{weightObj}{Data frame of the additional weight (i.e. PROGENy pathway 
+                 score or measured protein activities) - optional or default set 
+                 as NULL to run CARNIVAL without weights}
+                 
+\item{solverPath}{Path to executable cbc/cplex file - default set to NULL, in
+                  which case the solver from lpSolve package is used}
+                 
+\item{solver}{Solver to use: lpSolve/cplex/cbc (Default set to lpSolve)}
 
 \item{DOTfig}{For plotting: define if DOT figure will be exported in the result 
               folder (logical T/F). Default set to TRUE. If this the case, the
               plotted DOT figures will be saved in the defined dir_name 
               directory}
-              
-\item{dir_name}{Specify directory name to store results. by default it will
-                create a /DOTfigures directory within the current working
-                directory}
 
 \item{timelimit}{CPLEX/Cbc parameter: Time limit of CPLEX optimisation (in 
                  seconds)}
@@ -89,20 +66,44 @@ runCARNIVAL(solverPath=NULL, netObj=NULL, measObj=NULL, inputObj=NULL,
 
 \item{betaWeight}{Objective function: weight for node penalty (defaul: 0.2)}
 
-\item{solver}{Solver to use: CPLEX or CbC (Default set to CPLEX)}
-
-\item{experimental_conditions}{In the case when the user wishes to combine 
-information from multiple experimental conditions, it has to specify which 
-experimental conditions wishes to use. Default set to NULL - in which case 
-CARNIVAL will generate as many network solutions as there are rows in the
-measObj, inputObj and/or weightObj}
+\item{dir_name}{Specify directory name to store results. by default it will
+                create a /DOTfigures directory within the current working
+                directory}
 
 }
 \value{
 The networks and predicted node activities from the CARNIVAL pipeline as a 
-variable which are also saved in the destined result folder
+variable which are also optionally saved in the destined result folder
 }
 \description{
 Run CARNIVAL pipeline using to the user-provided list of inputs or run CARNIVAL 
 built-in examples
+}
+\examples{
+## loading toy example 1
+
+load(file = system.file("toy_inputs_ex1.RData",
+package="CARNIVAL"))
+load(file = system.file("toy_measurements_ex1.RData",
+package="CARNIVAL"))
+load(file = system.file("toy_network_ex1.RData",
+package="CARNIVAL"))
+
+## lpSolve
+res1 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1)
+
+## cbc
+res2 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
+                      solver = "cbc")
+                      
+## cplex
+res3 = runCARNIVAL(inputObj = toy_inputs_ex1, measObj = toy_measurements_ex1, 
+                      netObj = toy_network_ex1, solverPath = solverPath,
+                      solver = "cbc")
+
+}
+\author{
+Enio Gjerga
 }

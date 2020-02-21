@@ -7,6 +7,7 @@
 #'
 #' x^+_(j,k) - (sum_all_incoming(u^+_(i,k))) <= 0
 #'
+#' Enio Gjerga, 2020
 
 write_constraints_6 <- function(variables=variables,
                                 dataMatrix=dataMatrix) {

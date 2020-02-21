@@ -7,6 +7,7 @@
 #'
 #' u^+_(i,k) - sigma_i * x_(j,k) - u^-_(i,k) <= 0
 #'
+#' Enio Gjerga, 2020
 
 write_constraints_4 <- function(variables=variables,
                                 conditionIDX=conditionIDX) {

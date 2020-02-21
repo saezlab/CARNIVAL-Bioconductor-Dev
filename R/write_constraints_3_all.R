@@ -6,8 +6,10 @@
 #' u^+_(i,k) <= 1 - u^-_(i,k)
 #' u^+_(i,k) + u^-(i,k) <= 1
 #'
+#'Enio Gjerga, 2020
 
-write_constraints_3_all <- function(variables=variables, dt = FALSE) {
+write_constraints_3_all <- function(variables=variables,
+                                    mulT = FALSE) {
 
   ## ======================================= ##
   ## ====== Load write_constraints_3.R ===== ##
@@ -31,15 +33,11 @@ write_constraints_3_all <- function(variables=variables, dt = FALSE) {
 
   }
 
-  # ======================================= #
-  # ======================================= #
-  # ======================================= #
-
   constraints3 <- c()
-  dt <- FALSE
+  mulT <- FALSE
 
   # Add this constraint only in the first timepoint in case dt
-  if (dt) {
+  if (mulT) {
 
     constraints3 <- c(constraints3,
                       write_constraints_3(variables = variables[[1]]))

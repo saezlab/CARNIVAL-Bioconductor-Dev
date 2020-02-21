@@ -5,6 +5,7 @@
 #'
 #' u^+_(i,k) >= sigma_i * x_(j,k)
 #'
+#' Enio Gjerga, 2020
 
 write_constraints_1 <- function(variables=variables,
                                 conditionIDX=conditionIDX) {

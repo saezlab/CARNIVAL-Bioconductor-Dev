@@ -3,6 +3,7 @@
 #'This code writes the objective function of the ILP problem for all the 
 #'conditions.
 #'
+#'Enio Gjerga, 2020
 
 write_objective_function_all <- function(dataMatrix = dataMatrix, 
                                          variables = variables, 
@@ -198,10 +199,6 @@ write_objective_function_all <- function(dataMatrix = dataMatrix,
     }
     
   }
-  
-  ## ====================================== ##
-  ## ====================================== ##
-  ## ====================================== ##
   
   OF <- "Obj:\t "
   

@@ -5,16 +5,18 @@
 #'@return Error message in case of errors in the inputs
 #'
 #'@export
+#'
+#'Enio Gjerga, 2020
 
 checkNetwork <- function(netObj = netObj){
   
-  allowedClass = c("matrix", "data.frame")
-  if(!(any(class(netObj)%in%allowedClass))){
+  ## allowedClass = c("matrix", "data.frame")
+  if((!is(netObj, "matrix")) && (!is(netObj, "data.frame"))){
     stop("Network object should either be of matrix or data.frame class")
   } else {
     
     colnames(netObj) = c("source", "Interaction", "target")
-    if("data.frame"%in%class(netObj)){
+    if("data.frame"%in%is(netObj)){
       netObj$source = as.character(netObj$source)
       netObj$Interaction = as.numeric(as.character(netObj$Interaction))
       netObj$target = as.character(netObj$target)
@@ -37,9 +39,9 @@ checkNetwork <- function(netObj = netObj){
       stop("network object should have three columns: source node, interaction 
             sign and target node")
     } else {
-      if(((class(netObj$source)!="character") 
-          || (class(netObj$Interaction)!="numeric") 
-          || (class(netObj$target)!="character"))){
+      if(((!is(netObj$source, "character")) 
+          || (!is(netObj$Interaction, "numeric")) 
+          || (!is(netObj$target, "character")))){
         stop("Source and target node columns (1 & 3) should be of a 
               character type, while interaction column (2) should be of a
               numeric type")
@@ -50,6 +52,8 @@ checkNetwork <- function(netObj = netObj){
       }
     }
   }
+  
+  netObj = controlNodeIdentifiers(netObj = netObj)
   
   return(netObj)
   

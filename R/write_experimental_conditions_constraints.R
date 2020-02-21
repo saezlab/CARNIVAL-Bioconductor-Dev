@@ -3,9 +3,10 @@
 #' Writing the additional constraints when considering the multiple experimental
 #' conditions.
 #'
+#'Enio Gjerga, 2020
 
 write_experimental_conditions_constraints <- function(variables = variables,
-                                                      dt = dt){
+                                                      mulT = mulT){
 
   constraint1 = c()
   time_constraint = c()
@@ -79,7 +80,7 @@ write_experimental_conditions_constraints <- function(variables = variables,
 
       constraint1 = c(constraint1, c(c1, c2, c3, c4, c5, c6))
 
-      if (dt) {
+      if (mulT) {
         # get current reaction variable (y_(i,t))
         y_it <- variables$reaction_variables$variables[
           which(variables$reaction_variables$explanation ==
@@ -112,7 +113,7 @@ write_experimental_conditions_constraints <- function(variables = variables,
     }
   }
 
-  if (dt) {
+  if (mulT) {
     constraints <- c(constraint1, time_constraint)
   } else {
     constraint2 = c()

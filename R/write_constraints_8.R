@@ -9,12 +9,13 @@
 #'
 #'
 #'
+#' Enio Gjerga, 2020
 
-write_constraints_8 <- function(variables=variables,
-                                inputs=inputs,
-                                pknList=pknList,
+write_constraints_8 <- function(variables = variables,
+                                inputs = inputs,
+                                pknList = pknList,
                                 measurements,
-                                dt = FALSE){
+                                mulT = FALSE){
 
   constraints8 <- c()
 
@@ -22,7 +23,7 @@ write_constraints_8 <- function(variables=variables,
 
     ## x^+_(j,k) - x^-_(j,k) + B_(j_k) - x_(j,k) = 0
     # only
-    if ((dt && (ii == 1)) || !dt)  {
+    if ((mulT && (ii == 1)) || !mulT)  {
       cc <- paste0(
 
         # x+_(j,k)
@@ -106,13 +107,13 @@ write_constraints_8 <- function(variables=variables,
     # get input species (perturbation nodes)
     kk <- paste0("Species ", colnames(inputs), " in experiment ", ii)
 
-    cc= c()
+    cc = c()
 
     for(jj in 1:length(kk)){
 
-      # in case dt there are no perturbations over time in the inputs
+      # in case mulT there are no perturbations over time in the inputs
       # thus, always take the first first row in the input
-      if (dt) {
+      if (mulT) {
         input_row <- 1
       } else {
         input_row <- ii

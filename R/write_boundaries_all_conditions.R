@@ -3,6 +3,7 @@
 #'
 #' This code writes the boundaries of each variable.
 #'
+#' Enio Gjerga, 2020
 
 write_boundaries_all_conditions <- function(variables=variables, oF=oF){
 

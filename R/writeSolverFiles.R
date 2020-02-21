@@ -2,6 +2,7 @@
 #'
 #' Returning result object after solving with CARNIVAL
 #'
+#'Enio Gjerga, 2020
 
 writeSolverFiles <- function(condition=condition, repIndex=repIndex, oF=oF,
                              allC=allC, bounds=bounds, binaries=binaries,
