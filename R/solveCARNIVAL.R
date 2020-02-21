@@ -64,10 +64,14 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                 alphaWeight = alphaWeight,
                                 threads = threads,
                                 mulT = mulT,
-                                repIndex = repIndex, condition = condition,
-                                solver = solver, solverPath = solverPath,
-                                variables = variables, measObj = measObj,
-                                inputObj = inputObj, DOTfig = DOTfig,
+                                repIndex = repIndex,
+                                condition = condition,
+                                solver = solver,
+                                solverPath = solverPath,
+                                variables = variables,
+                                measObj = measObj,
+                                inputObj = inputObj,
+                                DOTfig = DOTfig,
                                 dir_name = dir_name)
   }
 
