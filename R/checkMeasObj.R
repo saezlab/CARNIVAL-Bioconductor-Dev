@@ -21,7 +21,7 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj, mulT = mulT){
       stop("Measurement object should either be of matrix or data.frame class")
     } else {
       if(nrow(measObj) == 1 && mulT){
-        stop("You are using CARNIVAL-dt but only specified one timepoint in
+        stop("You are using CARNIVAL-mulT but only specified one timepoint in
              measObject. Add a line per timepoint to measObject.")
       }
 

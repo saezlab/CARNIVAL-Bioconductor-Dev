@@ -8,7 +8,7 @@
 #'Enio Gjerga, 2020
 
 write_binaries_all_conditions <- function(variables=variables,
-                                          dt = FALSE){
+                                          mulT = FALSE){
 
   binaries <- c()
 
@@ -39,8 +39,8 @@ write_binaries_all_conditions <- function(variables=variables,
         c(binaries,
           paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesDown]))
 
-      if (!dt) {
-        # additional edges in case not dt
+      if (!mulT) {
+        # additional edges in case not mulT
         binaries <-
           c(binaries,
             paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdges]))

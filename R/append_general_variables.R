@@ -5,14 +5,14 @@
 #' Enio Gjerga, 2020
 
 append_general_variables <- function(variables = variables,
-                                     dt = dt){
+                                     mulT = mulT){
 
   var = variables
 
   # append a field for reaction variables
   var[[length(var)+1]] <- list()
 
-  if(dt){
+  if(mulT){
 
     y_cplex <- list()
     exp_y <- list()

@@ -1,5 +1,5 @@
-# Title     : CARNIVAL example to test dt function
-# Objective : Runs CARNIVAL-dt toy model
+# Title     : CARNIVAL example to test mulT function
+# Objective : Runs CARNIVAL-mulT toy model
 # Created by: Nicolas Peschke
 # Created on: 16.01.2020
 

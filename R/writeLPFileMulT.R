@@ -33,7 +33,7 @@ writeLPFileMulT <- function(data = data,
   #   dataMatrix$dataMatrixSign[experimental_conditions, ]
 
   variables <- create_variables_all(pknList = pknList, dataMatrix = dataMatrix)
-  variables <- append_general_variables(variables = variables, dt = mulT)
+  variables <- append_general_variables(variables = variables, mulT = mulT)
 
   oF <- write_objective_function_all(dataMatrix = dataMatrix,
                                      variables =
@@ -45,7 +45,7 @@ writeLPFileMulT <- function(data = data,
 
   bounds <- write_boundaries_all_conditions(variables = variables, oF = oF)
   bounds <- append_bounds(bounds = bounds, variables = variables)
-  binaries <- write_binaries_all_conditions(variables = variables, dt = mulT)
+  binaries <- write_binaries_all_conditions(variables = variables, mulT = mulT)
   binaries <- append_binaries(binaries = binaries, variables = variables)
   generals <- write_generals_all_conditions(variables = variables, oF = oF)
 

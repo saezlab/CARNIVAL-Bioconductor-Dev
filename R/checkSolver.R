@@ -41,7 +41,7 @@ checkSolver <- function(solverPath = solverPath, solver = solver,
   }
 
   if(solver == "cbc" && mulT){
-    stop("CARNIVAL-dt is not yet implemented with the cbc solver.
+    stop("CARNIVAL-mulT is not yet implemented with the cbc solver.
          Use CPLEX instead.")
   }
 
