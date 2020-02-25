@@ -279,20 +279,6 @@ print(result)
 The CARNIVAL results for the Toy Example - 2 are as shown in
 \ref{fig:toy_network_ex2_solution}.
 
-<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
-library(CARNIVAL) # load CARNIVAL library
-
-load(file = system.file("toy_measurements_ex2.RData",
-                        package="CARNIVAL"))
-load(file = system.file("toy_network_ex2.RData",
-                        package="CARNIVAL"))
-
-# lpSolve
-result = runCARNIVAL(measObj = toy_measurements_ex2, netObj = toy_network_ex2)
-
-print(result)
-@
-
 \begin{figure*}
 \centerline{\includegraphics[width=\textwidth]{toy_network_ex2.jpeg}}
 \caption{Prior Knowledge Network of Toy Example - 2}
