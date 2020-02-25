@@ -429,11 +429,13 @@ res <- runCARNIVAL(measObj = tfList[[1]], netObj = netObj,
 The solution network of this small real-case application is as shown in 
 \ref{real_case}.
 
-\begin{figure*}
-\centerline{\includegraphics[width=\textwidth]{real_case}}
-\caption{Solution network of the real-case study}
+\begin{center}
+\begin{figure}[ht]
+\includegraphics[height=6cm, width=4cm]{real_case}
+\caption{Solution to the real case example}
 \label{fig:real_case}
-\end{figure*}
+\end{figure}
+\end{center}
 
 \begin{thebibliography}{}
 
