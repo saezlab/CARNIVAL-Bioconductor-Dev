@@ -279,6 +279,19 @@ print(result)
 The CARNIVAL results for the Toy Example - 2 are as shown in
 \ref{fig:toy_network_ex2_solution}.
 
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+library(CARNIVAL) # load CARNIVAL library
+
+load(file = system.file("toy_measurements_ex2.RData",
+                        package="CARNIVAL"))
+load(file = system.file("toy_network_ex2.RData",
+                        package="CARNIVAL"))
+
+# lpSolve
+result = runCARNIVAL(measObj = toy_measurements_ex2, netObj = toy_network_ex2)
+
+print(result)
+@
 
 \begin{figure*}
 \centerline{\includegraphics[width=\textwidth]{toy_network_ex2.jpeg}}
@@ -290,6 +303,136 @@ The CARNIVAL results for the Toy Example - 2 are as shown in
 \centerline{\includegraphics[width=\textwidth]{toy_network_ex2_solution.jpeg}}
 \caption{Solution network of Toy Example - 2}
 \label{fig:toy_network_ex2_solution}
+\end{figure*}
+
+\subsection{Real Case Example}
+Now we show an example about how we can run CARNIVAL on a real case-study. We 
+will show step-by-step how we can build a prior knowledge of signalling and a 
+DoRothEA regulon list from ~\emph{OmniPath}~\cite{OmniPath} (see 
+\url{https://github.com/saezlab/OmnipathR} for the R-package). Next we show how
+we can esti mate pathway activities via PROGENy (see 
+\url{https://github.com/saezlab/progeny} for the R-package). Next we will 
+demonstrate how we can use the \emph{viper}~\cite{viper} (see 
+\url{https://www.bioconductor.org/packages/release/bioc/html/viper.html} for the
+R-package). Finally we will show how we can use CARNIVAL to combine all this 
+information in order to infer the causal regulatory network.
+
+Through \emph{OmnipathR} package, we build the network object needed for 
+contextualizing the signalling network with CARNIVAL.
+
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+library(OmnipathR) # load OmnipathR library
+
+##importing interactions from SignaLink3, PhosphoSite and Signor
+interactions <- 
+  import_Omnipath_Interactions(filter_databases=c("SignaLink3","PhosphoSite", 
+                                                  "Signor"))
+
+## keeping the directed interactions
+interactions <- interactions[which(interactions$is_directed==1), ]
+
+# keeping signed interactions only
+interactions <- 
+  interactions[which((interactions$is_stimulation+
+                        interactions$is_inhibition)==1), ]
+
+## now building the network data-frame and keeping it as netObj
+network <- matrix(data = , nrow = nrow(interactions), ncol = 3)
+network[, 1] <- interactions$source_genesymbol
+network[which(interactions$is_stimulation==1), 2] <- "1"
+network[which(interactions$is_inhibition==1), 2] <- "-1"
+network[, 3] <- interactions$target_genesymbol
+
+netObj <- as.data.frame(network)
+@
+
+For the analysis we consider the expression data example from the \emph{progeny} 
+R-package (see \url{https://github.com/saezlab/progeny}). We estimate normalized
+(from -1 to 1) pathway activity scores via the \emph{progeny} function for the 
+first sample and then we assign the inferred activities as node weights to the 
+progeny members from the \emph{progenyMembers} object loaded from 
+\emph{CARNIVAL} package. Users can estimate the pathway activities for any 
+sample they wish (see documentation of \emph{assignPROGENyScores()} function)
+
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+library(progeny)
+library(CARNIVAL)
+
+expr <- as.matrix(read.csv(system.file("extdata", "human_input.csv", 
+                                              package = "progeny"), 
+                                              row.names = 1))
+
+human_def_act <- progeny(expr, scale = TRUE,  organism = "Human", top = 100, 
+                         perm = 10000, z_scores = FALSE)
+
+
+## loading the progeny members to assign the weights
+load(file = system.file("progenyMembers.RData",package="CARNIVAL"))
+
+## now assigning the PROGENy weights to pathway members only for the first 
+## sample which we can consider for the CARNIVAL analysis
+weightObj <- assignPROGENyScores(progeny = human_def_act, 
+                                 progenyMembers = progenyMembers, 
+                                 id = "gene", access_idx = 1)
+@
+
+Next we can retrieve regulons from OmniPath and create the regulon table. From
+there we obtain the \emph{viper} regulon list through the 
+\emph{createRegulonList} function (see documentation for more details).
+
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+regulon_df <- 
+  import_TFregulons_Interactions(select_organism = 9606)
+
+regulon_df <- 
+  regulon_df[which((regulon_df$is_stimulation+regulon_df$is_inhibition)==1), ]
+
+regulon_table <- matrix(data = , nrow = nrow(regulon_df), ncol = 3)
+regulon_table[, 1] <- regulon_df$source_genesymbol
+regulon_table[which(regulon_df$is_stimulation==1), 2] = "1"
+regulon_table[which(regulon_df$is_inhibition==1), 2] = "-1"
+regulon_table[, 3] <- regulon_df$target_genesymbol
+
+regulons <- createRegulonList(regulon_table = regulon_table)
+@
+
+From here we can estimate the TF activities and generate the continuos 
+measurement inputs for CARNIVAL.
+
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+library(viper)
+
+TF_activities = as.data.frame(viper::viper(eset = expr, 
+                                           regulon = regulons, nes = T, 
+                                           method = 'none', minsize = 4, 
+                                           eset.filter = F))
+
+tfList <- generateTFList(df = TF_activities, top = "all", access_idx = 1)
+@
+
+So far we have generated the prior knowledge network which will be used to 
+contextualize the regulatory signalling network (\emph{netObj}) as well as a 
+list object containing the progeny weights (\emph{weightObj}) and the TF 
+activities (\emph{tfList} to be assigned to the \emph{measObj}). For running CARNIVAL we have to access one element at the time from the \emph{weightObj} and \emph{tfList}. We use all this as inputs to run the CARNIVAL analysis
+through the \emph{runCARNIVAL} function.
+
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
+
+##users need to define the path to the cplex solver
+
+res <- runCARNIVAL(measObj = tfList[[1]], netObj = netObj, 
+                   weightObj = weightObj[[1]], solverPath = solverPath, 
+                   solver = "cplex", DOTfig = TRUE)
+
+@
+
+The solution network of this small real-case application is as shown in 
+\ref{realCase}.
+
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{real_case.jpg}}
+\caption{Solution network of the real-case study}
+\label{fig:realCase}
 \end{figure*}
 
 \begin{thebibliography}{}
@@ -322,6 +465,19 @@ M.J.~Garnett, N.~Bluthgen and J.~Saez-Rodriguez
 \newblock Perturbation-response genes reveal signaling footprints in cancer gene 
 expression
 \newblock {Nat Commun. 2018;9(1):20.}
+
+\bibitem{OmniPath}
+D.~Turei, T.~Korcsmáros, and J.~Saez-Rodriguez
+\newblock OmniPath: guidelines and gateway for literature-curated signaling 
+pathway resources.
+\newblock {Nat Methods 2016 Nov 29;13(12):966-967}
+
+\bibitem{viper}
+M.J.~Alvarez, Y.~Shen, F.M.~Giorgi, A.~Lachman, B.B.~Ding, B.H.~Ye and 
+A.~Califano
+\newblock Functional characterization of somatic mutations in cancer using 
+network-based inference of protein activity
+\newblock {Nat Genetics volume 48, pages838–847(2016)}
 
 \end{thebibliography}
 
