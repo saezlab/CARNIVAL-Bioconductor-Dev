@@ -58,12 +58,13 @@ with CARNIVAL
 \author[2]{Alberto Valdeolivas}
 \author[2]{Nicolas Peschke}
 
-\affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for 
+\affil[1]{RWTH Aachen University, Faculty of Medicine, Joint Research Centre for
 Computational Biomedicine (JRC-COMBINE), 52074, Aachen, Germany}
-\affil[2]{Heidelberg University, Faculty of Medicine, and Heidelberg University 
+\affil[2]{Heidelberg University, Faculty of Medicine, and Heidelberg University
 Hospital, Institute of Computational Biomedicine, Bioquant, 69120, Heidelberg, Germany}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 
 \tableofcontents
@@ -76,28 +77,28 @@ options(width=70, useFancyQuotes="UTF-8", prompt=" ", continue="  ")
 \section{Introduction}
 
 While gene expression profiling is commonly used to gain an overview of cellular
-processes, the identification of upstream processes that drive expression 
-changes remains a challenge. To address this issue, we introduce 
-\emph{CARNIVAL}~\cite{CARNIVAL}, a causal network contextualization tool which 
-derives network architectures from gene expression footprints. \emph{CARNIVAL} 
-(CAusal Reasoning pipeline for Network identification using Integer VALue 
+processes, the identification of upstream processes that drive expression
+changes remains a challenge. To address this issue, we introduce
+\emph{CARNIVAL}~\cite{CARNIVAL}, a causal network contextualization tool which
+derives network architectures from gene expression footprints. \emph{CARNIVAL}
+(CAusal Reasoning pipeline for Network identification using Integer VALue
 programming)(see \url{https://saezlab.github.io/CARNIVAL/}) integrates different
-sources of prior knowledge including signed and directed protein–protein 
+sources of prior knowledge including signed and directed protein–protein
 interactions, transcription factor targets, and pathway signatures.
 
 \subsection{CARNIVAL pipeline}
 
-CARNIVAL refines a quantitative objective function for ILP problem by 
-incorporating TF and pathway activities on a continuous scale. In addition, the 
-CARNIVAL framework allows us to contextualize the network with or without known 
-targets of perturbations. The implementation is separated into two pipelines 
-which will be referred henceforth as Standard CARNIVAL \emph{StdCARNIVAL} (with 
-known perturbation targets as an input) and Inverse CARNIVAL \emph{InvCARNIVAL} 
-(without information on targets of perturbation), see Figure 
-\ref{fig:carnival_pipeline}. The differential gene expression is used to infer 
-transcription factor (TF) activities with DoRothEA, which are subsequently 
-discretized in order to formulate ILPconstraints. As a result, CARNIVAL derives 
-a family of highest scoring networks which best explain theinferred TF 
+CARNIVAL refines a quantitative objective function for ILP problem by
+incorporating TF and pathway activities on a continuous scale. In addition, the
+CARNIVAL framework allows us to contextualize the network with or without known
+targets of perturbations. The implementation is separated into two pipelines
+which will be referred henceforth as Standard CARNIVAL \emph{StdCARNIVAL} (with
+known perturbation targets as an input) and Inverse CARNIVAL \emph{InvCARNIVAL}
+(without information on targets of perturbation), see Figure
+\ref{fig:carnival_pipeline}. The differential gene expression is used to infer
+transcription factor (TF) activities with DoRothEA, which are subsequently
+discretized in order to formulate ILPconstraints. As a result, CARNIVAL derives
+a family of highest scoring networks which best explain theinferred TF
 activities. Continuous pathway and TF activities can be additionally considered
 in the objective function.
 
@@ -110,14 +111,14 @@ in the objective function.
 \end{center}
 
 \subsection{ILP solvers}
-\emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning 
-method from Melas et al.~\cite{Melas}.The network inference process is swiftly 
-performed with an Integer Linear Programming (ILP) formulation of causal 
+\emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning
+method from Melas et al.~\cite{Melas}.The network inference process is swiftly
+performed with an Integer Linear Programming (ILP) formulation of causal
 reasoning using three solvers: the \emph{R-CRAN lpSolve} free software used for
 solving linear problems; the open-source mixed integer programming solver
-\emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc}); 
-or the \emph{CPLEX optimizer} from \emph{IBM} (see 
-\url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for 
+\emph{Cbc} (Coin-or branch and cut)(see \url{https://projects.coin-or.org/Cbc});
+or the \emph{CPLEX optimizer} from \emph{IBM} (see
+\url{https://www.ibm.com/analytics/cplex-optimizer}) which can be obtained for
 free through the Academic Initiative. To perform the analysis with \emph{cplex}
 or \emph{cbc}, the users will then need to store the binary \emph{cbc} or
 \emph{cplex} executables on any  directory they wish. The binary files of
@@ -127,11 +128,11 @@ unzip the download and from there save the \emph{cbc} executable (which can be
 found on the \emph{bin} directory) file on any of the direcotries they wish of
 their machines. As for the \emph{cplex}, the executable file can be obtained
 after registration on the \emph{ILOG CPLEX Optimization Studio} here:
-\url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}. 
-Similar like before, users will have to find the \emph{cplex} executable binary 
-file and save on a directory of their own wish or keep them on their default 
-installation paths. The path to interactive version of \emph{CPLEX} is differed 
-based on the operating system. The default installation path for each OS is as 
+\url{https://my15.digitalexperience.ibm.com/b73a5759-c6a6-4033-ab6b-d9d4f9a6d65b/dxsites/151914d1-03d2-48fe-97d9-d21166848e65/technology/data-science}.
+Similar like before, users will have to find the \emph{cplex} executable binary
+file and save on a directory of their own wish or keep them on their default
+installation paths. The path to interactive version of \emph{CPLEX} is differed
+based on the operating system. The default installation path for each OS is as
 follows:
 
 For Mac OS:
@@ -167,33 +168,36 @@ work only if \emph{CPLEX} solver is used to train the networks.
 \subsection{Citation}
 \emph{CARNIVAL} can be cited as follows:
 
-Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to 
-causal pathways: contextualizing large signaling networks with CARNIVAL. npj 
+Liu, A., Trairatphisan, P., Gjerga, E. et al. From expression footprints to
+causal pathways: contextualizing large signaling networks with CARNIVAL. npj
 Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z
 
 \subsection{Prerequisites}
-Besides the above mentioned solvers, users need also to install the following 
-R-package dependencies: \emph{readr}(see 
+Besides the above mentioned solvers, users need also to install the following
+R-package dependencies: \emph{readr}(see
 \url{https://cran.r-project.org/web/packages/readr/index.html}); \emph{igraph}
-(see \url{https://igraph.org/r/}); \emph{readxl}(see 
-\url{https://readxl.tidyverse.org/}); \emph{dplyr}(see 
+(see \url{https://igraph.org/r/}); \emph{readxl}(see
+\url{https://readxl.tidyverse.org/}); \emph{dplyr}(see
 \url{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8});
 \emph{lpSolve}(see \url{https://cran.r-project.org/web/packages/lpSolve/index.html})
 
-In order to visualize the automatically generated \emph{CARNIVAL} networks, 
-users will also need to download and install the Graph Visualization software 
+In order to visualize the automatically generated \emph{CARNIVAL} networks,
+users will also need to download and install the Graph Visualization software
 \emph{graphviz}(see \url{https://www.graphviz.org/}).
 
 \clearpage
 
 \section{Running CARNIVAL}
 
-In the CARNIVAL package, built-in examples are available as the test cases as 
+In the CARNIVAL package, built-in examples are available as the test cases as
 follows:
 
 1. A small toy example where the inputs are known (\emph{stdCARNIVAL})
 
 2. A small toy example where the inputs are not known (\emph{invCARNVAL})
+
+3. A small toy example where measurements for multiple timepoints are available
+(\emph{CARNIVAL-mulT})
 
 \subsection{Toy Example - 1}
 
@@ -292,34 +296,73 @@ The CARNIVAL results for the Toy Example - 2 are as shown in
 \label{fig:toy_network_ex2_solution}
 \end{figure*}
 
+\subsection{Toy Example - 3}
+DUMMY TEXT
+<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+library(CARNIVAL) # load CARNIVAL library
+library(lpSolve)
+
+# load(file = system.file("toy_measurements_ex3.RData",
+#                         package="CARNIVAL"))
+# load(file = system.file("toy_network_ex3.RData",
+#                         package="CARNIVAL"))
+# load(file = system.file("toy_input_ex3.RData",
+#                         package="CARNIVAL"))
+
+# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+#                        Effect = c(1, 1, -1, 1, 1),
+#                        Target = c("N1", "M1", "N2", "M2", "N3"))
+
+toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+                       Effect = c(1, 1, -1, 1, 1),
+                       Target = c("N1", "M1", "N2", "M2", "N1"))
+
+toy_measurements_ex3 <- tibble(M1 = c(1, -1),
+                            M2 = c(-1, 1))
+
+toy_input_ex3 <- tibble(P = c(1, 1))
+
+
+# lpSolve
+result = runCARNIVAL(inputObj = toy_input_ex3,
+                     measObj = toy_measurements_ex3,
+                     netObj = toy_network_ex3,
+                     mulT = TRUE)
+
+print(result)
+@
+DUMMY TEXT
+
+
+
 \begin{thebibliography}{}
 
 \bibitem{CARNIVAL}
-A.~Liu, P.~Trairatphisan, E.~Gjerga, A.~Didangelos, J.~Barratt and 
+A.~Liu, P.~Trairatphisan, E.~Gjerga, A.~Didangelos, J.~Barratt and
 J.~Saez-Rodriguez.
-\newblock From expression footprints to causal pathways: contextualizing large 
+\newblock From expression footprints to causal pathways: contextualizing large
 signaling networks with CARNIVAL.
 \newblock {npj Syst Biol Appl 5, 40 (2019) doi:10.1038/s41540-019-0118-z.}
 
 \bibitem{Melas}
-I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh, 
+I.N.~Melas, T.~Sakellaropoulos, F.~Iorio, L.G.~Alexopoulos, W.~Loh,
 D.A.~Lauffenburger, J.~Saez-Rodriguez and J.P.F.~Bai
-\newblock Identification of drug-specific pathways based on gene expression 
+\newblock Identification of drug-specific pathways based on gene expression
 data: application to drug induced lung injury.
 \newblock {Integr Biol (Camb). 2015 Aug;7(8):904-20. doi: 10.1039/c4ib00294f.}
 
 \bibitem{dorothea}
-L.~Garcia-Alonso, F.~Iorio, A.~Matchan, N.~Fonseca, P.~Jaaks, G.~Peat, 
-M.~Pignatelli, F.~Falcone, C.H.~Benes, I.~Dunham, G.R.~Bignell, S.~McDade, 
+L.~Garcia-Alonso, F.~Iorio, A.~Matchan, N.~Fonseca, P.~Jaaks, G.~Peat,
+M.~Pignatelli, F.~Falcone, C.H.~Benes, I.~Dunham, G.R.~Bignell, S.~McDade,
 M.J.~Garnett and J.~Saez-Rodriguez
-\newblock Transcription Factor Activities Enhance Markers of Drug Sensitivity in 
+\newblock Transcription Factor Activities Enhance Markers of Drug Sensitivity in
 Cancer.
 \newblock {Cancer Research, 78(3), 769–780.}
 
 \bibitem{progeny}
-M.~Schubert, B.~Klinger, M.~Klunemann, A.~Sieber, F.~Uhlitz, S.~Sauer, 
+M.~Schubert, B.~Klinger, M.~Klunemann, A.~Sieber, F.~Uhlitz, S.~Sauer,
 M.J.~Garnett, N.~Bluthgen and J.~Saez-Rodriguez
-\newblock Perturbation-response genes reveal signaling footprints in cancer gene 
+\newblock Perturbation-response genes reveal signaling footprints in cancer gene
 expression
 \newblock {Nat Commun. 2018;9(1):20.}
 

@@ -111,6 +111,36 @@ solveCARNIVALmulT <- function(data = measurements,
 
     return(result)
 
+  } else if (solver == "lpSolve") {
+    lpForm <- prepareLPMatrixSingle(variables = variables, measObj = measObj)
+
+    lpResult <- lp(direction = "min",
+                   objective.in = lpForm$obj,
+                   const.mat = lpForm$con,
+                   const.dir = lpForm$dir,
+                   const.rhs = lpForm$rhs,
+                   int.vec = lpForm$ints,
+                   binary.vec = lpForm$bins,
+                   all.int = TRUE)
+
+    lpSolution <- lpResult$solution
+
+    res <- exportResult(cplexSolutionFileName = NULL, variables = variables,
+                        pknList = pknList, inputs = inputObj,
+                        measurements = measObj, solver = solver,
+                        lpSolution = lpSolution, mt = lpForm$mt,
+                        conditionIDX = 1)
+
+    if (!is.null(res)) {
+      if (DOTfig) {WriteDOTfig(res=res,
+                               dir_name=dir_name,
+                               inputs=inputObj,
+                               measurements=measObj,
+                               UP2GS=FALSE)}
+    }
+
+    return(res)
+
   } else {
     stop("CARNIVAL mulT not yet implemented with solvers other than CPLEX")
   }

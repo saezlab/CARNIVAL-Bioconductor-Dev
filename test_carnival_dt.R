@@ -10,6 +10,7 @@ library(readr) # load readr library
 library(igraph) # load igraph library
 library(readxl) # load readxl library
 library(tidyr)
+library(tibble)
 
 base_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/"
 data_directory <- "D:/MoBi_Studium/Master/internships/saez/gitRepos/CARNIVAL_dt/data/test_data/"
@@ -68,7 +69,7 @@ debug <- tibble(variable = character(),
                 explanation = character(),
                 time = integer())
 
-for (i in 1:length(toy_result$variables)) {
+for (i in seq_along(toy_result$variables)) {
   debug <- add_row(debug,
                    variable = toy_result$variables[[i]][[1]],
                    explanation = toy_result$variables[[i]][[2]],
