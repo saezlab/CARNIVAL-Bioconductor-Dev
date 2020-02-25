@@ -413,8 +413,11 @@ tfList <- generateTFList(df = TF_activities, top = "all", access_idx = 1)
 So far we have generated the prior knowledge network which will be used to 
 contextualize the regulatory signalling network (\emph{netObj}) as well as a 
 list object containing the progeny weights (\emph{weightObj}) and the TF 
-activities (\emph{tfList} to be assigned to the \emph{measObj}). For running CARNIVAL we have to access one element at the time from the \emph{weightObj} and \emph{tfList}. We use all this as inputs to run the CARNIVAL analysis
-through the \emph{runCARNIVAL} function.
+activities (\emph{tfList} to be assigned to the \emph{measObj}). For running 
+CARNIVAL we have to access one element at the time from the \emph{weightObj} and
+\emph{tfList}. We use all this as inputs to run the CARNIVAL analysis through 
+the \emph{runCARNIVAL} function. Since the input targets are not known, we 
+perform the \emph{invCARNIVAL} analysis.
 
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 
@@ -427,15 +430,13 @@ res <- runCARNIVAL(measObj = tfList[[1]], netObj = netObj,
 @
 
 The solution network of this small real-case application is as shown in 
-\ref{real_case}.
+\ref{fig:real_case}.
 
-\begin{center}
-\begin{figure}[ht]
-\includegraphics[height=6cm, width=4cm]{real_case}
-\caption{Solution to the real case example}
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{real_case.jpg}}
+\caption{Solution for the real case example}
 \label{fig:real_case}
-\end{figure}
-\end{center}
+\end{figure*}
 
 \begin{thebibliography}{}
 
