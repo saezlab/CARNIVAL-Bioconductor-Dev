@@ -67,11 +67,9 @@ writeLPFileMulT <- function(data = data,
     write_constraints_5_all(variables = variables[1:(length(variables) - 1)],
                             mulT = mulT)
   c6 <-
-    write_constraints_6(variables = variables[1:(length(variables) - 1)],
-                        dataMatrix = dataMatrix)
+    write_constraints_6(variables = variables[1:(length(variables) - 1)])
   c7 <-
-    write_constraints_7(variables = variables[1:(length(variables) - 1)],
-                        dataMatrix = dataMatrix)
+    write_constraints_7(variables = variables[1:(length(variables) - 1)])
   c8 <-
     write_constraints_8(variables = variables,
                         inputs = inputs,

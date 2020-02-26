@@ -9,8 +9,7 @@
 #'
 #' Enio Gjerga, 2020
 
-write_constraints_6 <- function(variables=variables,
-                                dataMatrix=dataMatrix) {
+write_constraints_6 <- function(variables=variables) {
 
   library(igraph)
   constraints6 <- c()
