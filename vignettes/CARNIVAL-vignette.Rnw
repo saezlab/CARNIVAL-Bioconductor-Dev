@@ -431,41 +431,56 @@ The solution network of this small real-case application is as shown in
 \end{figure*}
 
 \subsection{Toy Example - 3}
-DUMMY TEXT
+In case data with measurements of node activities at multiple time points is
+available, CARNIVAL-mulT can use the additional information to refine the
+network. To run CARNIVAL-mulT, the additional time points are added as
+new rows into \emph{measObj}. The first row corresponds to the first time
+point.
+
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 library(lpSolve)
 
-# load(file = system.file("toy_measurements_ex3.RData",
-#                         package="CARNIVAL"))
-# load(file = system.file("toy_network_ex3.RData",
-#                         package="CARNIVAL"))
-# load(file = system.file("toy_input_ex3.RData",
-#                         package="CARNIVAL"))
+load(file = system.file("toy_measurements_ex3.RData",
+                        package="CARNIVAL"))
+load(file = system.file("toy_network_ex3.RData",
+                        package="CARNIVAL"))
+load(file = system.file("toy_input_ex3.RData",
+                        package="CARNIVAL"))
 
-# test_network <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+# toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
 #                        Effect = c(1, 1, -1, 1, 1),
 #                        Target = c("N1", "M1", "N2", "M2", "N3"))
-
-toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
-                       Effect = c(1, 1, -1, 1, 1),
-                       Target = c("N1", "M1", "N2", "M2", "N1"))
-
-toy_measurements_ex3 <- tibble(M1 = c(1, -1),
-                            M2 = c(-1, 1))
-
-toy_input_ex3 <- tibble(P = c(1, 1))
+#
+solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
+#
+# # toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
+# #                        Effect = c(1, 1, -1, 1, 1),
+# #                        Target = c("N1", "M1", "N2", "M2", "N1"))
+#
+# toy_measurements_ex3 <- tibble(M1 = c(1, -1),
+#                             M2 = c(-1, 1))
+#
+# toy_input_ex3 <- tibble(P = c(1, 1))
 
 
 # lpSolve
 result = runCARNIVAL(inputObj = toy_input_ex3,
                      measObj = toy_measurements_ex3,
                      netObj = toy_network_ex3,
-                     mulT = TRUE)
+                     mulT = TRUE,
+                     solver = "cplex",
+                     solverPath = solver_path,
+                     alphaWeight = 1,
+                     betaWeight = 0)
 
-print(result)
+print(result$weightedSIF)
 @
-DUMMY TEXT
+\begin{figure*}
+\centerline{\includegraphics[width=\textwidth]{mulT.png}}
+\caption{Solution for the multiple time point test case.}
+\label{fig:mulT}
+\end{figure*}
 
 
 
