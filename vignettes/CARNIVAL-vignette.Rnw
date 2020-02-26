@@ -439,7 +439,6 @@ point.
 
 <<eval=TRUE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
-library(lpSolve)
 
 load(file = system.file("toy_measurements_ex3.RData",
                         package="CARNIVAL"))
@@ -448,23 +447,9 @@ load(file = system.file("toy_network_ex3.RData",
 load(file = system.file("toy_input_ex3.RData",
                         package="CARNIVAL"))
 
-# toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
-#                        Effect = c(1, 1, -1, 1, 1),
-#                        Target = c("N1", "M1", "N2", "M2", "N3"))
-#
-solver_path <- "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
-#
-# # toy_network_ex3 <- tibble(Source = c("P", "N1", "M1", "N2", "M2"),
-# #                        Effect = c(1, 1, -1, 1, 1),
-# #                        Target = c("N1", "M1", "N2", "M2", "N1"))
-#
-# toy_measurements_ex3 <- tibble(M1 = c(1, -1),
-#                             M2 = c(-1, 1))
-#
-# toy_input_ex3 <- tibble(P = c(1, 1))
+solver_path <-
+  "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
 
-
-# lpSolve
 result = runCARNIVAL(inputObj = toy_input_ex3,
                      measObj = toy_measurements_ex3,
                      netObj = toy_network_ex3,
@@ -477,7 +462,7 @@ result = runCARNIVAL(inputObj = toy_input_ex3,
 print(result$weightedSIF)
 @
 \begin{figure*}
-\centerline{\includegraphics[width=\textwidth]{mulT.png}}
+\centerline{\includegraphics[width=0.35\textwidth]{mulT.png}}
 \caption{Solution for the multiple time point test case.}
 \label{fig:mulT}
 \end{figure*}
