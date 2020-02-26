@@ -19,7 +19,13 @@ write_constraints_8 <- function(variables = variables,
 
   constraints8 <- c()
 
-  for(ii in 1:(length(variables) - 1)){
+  if (mulT) {
+    iterator <- seq_along(variables[-1])
+  } else {
+    iterator <- 1
+  }
+
+  for(ii in iterator){
 
     ## x^+_(j,k) - x^-_(j,k) + B_(j_k) - x_(j,k) = 0
     # only
