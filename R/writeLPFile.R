@@ -31,10 +31,8 @@ writeLPFile <- function(data = data, pknList = pknList, inputs = inputs,
   c3 <- write_constraints_3_all(variables = variables)
   c4 <- write_constraints_4_all(variables = variables)
   c5 <- write_constraints_5_all(variables = variables)
-  c6 <- write_constraints_6(variables = variables, dataMatrix = dataMatrix,
-                            inputs = inputs)
-  c7 <- write_constraints_7(variables = variables, dataMatrix = dataMatrix,
-                            inputs = inputs)
+  c6 <- write_constraints_6(variables = variables, dataMatrix = dataMatrix)
+  c7 <- write_constraints_7(variables = variables, dataMatrix = dataMatrix)
   c8 <- write_constraints_8(variables = variables, inputs = inputs,
                             pknList = pknList)
   c9 <- write_loop_constraints(variables = variables, pknList = pknList,
