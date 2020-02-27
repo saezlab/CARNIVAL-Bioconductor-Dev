@@ -437,7 +437,7 @@ network. To run CARNIVAL-mulT, the additional time points are added as
 new rows into \emph{measObj}. The first row corresponds to the first time
 point.
 
-<<eval=TRUE, pgf=TRUE, echo=TRUE>>=
+<<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 
 load(file = system.file("toy_measurements_ex3.RData",
