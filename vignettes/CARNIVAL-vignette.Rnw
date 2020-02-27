@@ -110,7 +110,7 @@ in the objective function.
 \end{figure}
 \end{center}
 
-\subsection{ILP solvers}
+\subsection{ILP solvers}\label{sec:solvers}
 \emph{CARNIVAL} is an extension of the previously implemented Causal Reasoning
 method from Melas et al.~\cite{Melas}.The network inference process is swiftly
 performed with an Integer Linear Programming (ILP) formulation of causal
@@ -437,6 +437,8 @@ network. To run CARNIVAL-mulT, the additional time points are added as
 new rows into \emph{measObj}. The first row corresponds to the first time
 point.
 
+At the moment, CARNIVAL-mulT requires \emph{cplex} to run, see
+section~\ref{sec:solvers} for more information on how to run \emph{cplex}.
 <<eval=FALSE, pgf=TRUE, echo=TRUE>>=
 library(CARNIVAL) # load CARNIVAL library
 
@@ -447,6 +449,7 @@ load(file = system.file("toy_network_ex3.RData",
 load(file = system.file("toy_input_ex3.RData",
                         package="CARNIVAL"))
 
+# Change to the location of your cplex executable
 solver_path <-
   "C:/Program Files/IBM/ILOG/CPLEX_Studio1210/cplex/bin/x64_win64/cplex.exe"
 
@@ -461,6 +464,17 @@ result = runCARNIVAL(inputObj = toy_input_ex3,
 
 print(result$weightedSIF)
 @
+
+The current implementation of CARNIVAL-mulT deals with the time points in
+a qualitative way, meaning that it works on the information that time has
+passed between the measurements but does not take into account how much
+time has passed.
+
+Please take this into consideration when looking at processes
+that work on different time scales. There it might be better to run CARNIVAL
+individually for single measurements and compare the resulting networks
+afterwards.
+
 \begin{figure*}
 \centerline{\includegraphics[width=0.35\textwidth]{mulT.png}}
 \caption{Solution for the multiple time point test case.}
