@@ -24,8 +24,6 @@ write_constraints_3_all <- function(variables=variables) {
 
   }
 
-  # }
-
   return(constraints3)
 
 }
