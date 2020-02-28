@@ -8,25 +8,13 @@
 #'
 #'Enio Gjerga, 2020
 
-write_constraints_3_all <- function(variables=variables,
-                                    mulT = FALSE) {
+write_constraints_3_all <- function(variables=variables) {
 
   ## ======================================= ##
   ## ====== Load write_constraints_3.R ===== ##
   ## ======================================= ##
 
-
-
   constraints3 <- c()
-  # mulT <- FALSE
-
-  # Add this constraint only in the first timepoint in case mulT
-  # if (mulT) {
-  #
-  #   constraints3 <- c(constraints3,
-  #                     write_constraints_3(variables = variables[[1]]))
-  #
-  # } else {
 
   for(i in 1:length(variables)){
 

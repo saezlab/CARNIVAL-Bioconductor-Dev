@@ -58,8 +58,7 @@ writeLPFileMulT <- function(data = data,
   c2 <-
     write_constraints_2_all(variables = variables[1:(length(variables) - 1)])
   c3 <-
-    write_constraints_3_all(variables = variables[1:(length(variables) - 1)],
-                            mulT = mulT)
+    write_constraints_3_all(variables = variables[1:(length(variables) - 1)])
   c4 <-
     write_constraints_4_all(variables = variables[1:(length(variables) - 1)],
                             mulT = mulT)
