@@ -40,9 +40,9 @@ checkSolver <- function(solverPath = solverPath, solver = solver,
     }
   }
 
-  if(solver == "cbc" && mulT){
-    stop("CARNIVAL-mulT is not yet implemented with the cbc solver.
-         Use CPLEX instead.")
+  if(solver != "cplex" && mulT){
+    stop("CARNIVAL-mulT is currently an CPLEX exclusive feature,
+          use solver = 'cplex' in runCARNIVAL!")
   }
 
   if(!is.null(dir_name)){
