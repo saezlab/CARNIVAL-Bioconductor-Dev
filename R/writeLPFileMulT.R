@@ -74,7 +74,6 @@ writeLPFileMulT <- function(data = data,
     write_constraints_8(variables = variables,
                         inputs = inputs,
                         pknList = pknList,
-                        measurements = measWeights,
                         mulT = mulT)
   c9 <-
     write_loop_constraints(variables = variables[1:(length(variables) - 1)],
