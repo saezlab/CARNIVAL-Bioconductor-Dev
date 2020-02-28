@@ -48,7 +48,7 @@ checkInputObj <- function(inputObj = inputObj,
     }
 
     if (mulT) {
-      if (length(inputObj) != length(measObj)) {
+      if (nrow(inputObj) != nrow(measObj)) {
         stop("Lenghts of the input and measurement object have to be
               identical for CARNIVAL-mulT")
       }
