@@ -5,14 +5,32 @@
 #'
 #'Enio Gjerga, 2020
 
+# write_constraints_3 <- function(variables=variables) {
+#
+#   constraints3 <- paste0(
+#     variables$variables[variables$idxEdgesUp],
+#     " + ",
+#     variables$variables[variables$idxEdgesDown],
+#     " <= 1")
+#
+#   return(constraints3)
+#
+# }
+
 write_constraints_3 <- function(variables=variables) {
-  
+
   constraints3 <- paste0(
-    variables$variables[variables$idxEdgesUp], 
-    " + ", 
-    variables$variables[variables$idxEdgesDown], 
+
+    # u^+_(i,k)
+    variables$variables[variables$idxEdgesUp],
+
+    " + ",
+
+    # u^-_(i,k)
+    variables$variables[variables$idxEdgesDown],
+
     " <= 1")
-  
+
   return(constraints3)
-  
+
 }

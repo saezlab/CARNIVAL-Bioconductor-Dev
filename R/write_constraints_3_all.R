@@ -15,44 +15,28 @@ write_constraints_3_all <- function(variables=variables,
   ## ====== Load write_constraints_3.R ===== ##
   ## ======================================= ##
 
-  write_constraints_3 <- function(variables=variables) {
 
-    constraints3 <- paste0(
-
-      # u^+_(i,k)
-      variables$variables[variables$idxEdgesUp],
-
-      " + ",
-
-      # u^-_(i,k)
-      variables$variables[variables$idxEdgesDown],
-
-      " <= 1")
-
-    return(constraints3)
-
-  }
 
   constraints3 <- c()
-  mulT <- FALSE
+  # mulT <- FALSE
 
   # Add this constraint only in the first timepoint in case mulT
-  if (mulT) {
+  # if (mulT) {
+  #
+  #   constraints3 <- c(constraints3,
+  #                     write_constraints_3(variables = variables[[1]]))
+  #
+  # } else {
 
-    constraints3 <- c(constraints3,
-                      write_constraints_3(variables = variables[[1]]))
+  for(i in 1:length(variables)){
 
-  } else {
+    var <- variables[[i]]
 
-    for(i in 1:length(variables)){
-
-      var <- variables[[i]]
-
-      constraints3 <- c(constraints3, write_constraints_3(variables = var))
-
-    }
+    constraints3 <- c(constraints3, write_constraints_3(variables = var))
 
   }
+
+  # }
 
   return(constraints3)
 
