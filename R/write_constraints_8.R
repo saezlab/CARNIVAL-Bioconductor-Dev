@@ -14,7 +14,6 @@
 write_constraints_8 <- function(variables = variables,
                                 inputs = inputs,
                                 pknList = pknList,
-                                measurements,
                                 mulT = FALSE){
 
   constraints8 <- c()
@@ -63,8 +62,8 @@ write_constraints_8 <- function(variables = variables,
 
       # get input species (perturbation nodes)
       kk <- paste0("Species ", colnames(inputs), " in experiment ", ii)
-      # get measurement species (measured nodes)
-      mm <- paste0("Species ", colnames(measurements), " in experiment ", ii)
+      # # get measurement species (measured nodes)
+      # mm <- paste0("Species ", colnames(measurements), " in experiment ", ii)
 
       # Getting indices of nodes that are neither in inputs nor measurements
       # nodes not %in% input - nodes %in% measurements
