@@ -8,7 +8,10 @@
 #'
 #'Enio Gjerga, 2020
 
-checkInputObj <- function(inputObj = inputObj, netObj = netObj){
+checkInputObj <- function(inputObj = inputObj,
+                          measObj = measObj,
+                          mulT = mulT,
+                          netObj = netObj){
 
   nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]),
                       as.character(as.matrix(netObj)[, 3])))
@@ -20,10 +23,6 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
     MappedPertNode <- AddPerturbationNode(network = as.matrix(netObj))
     returnList = MappedPertNode
   } else {
-    # if(nrow(inputObj) > 1 && mulT){
-    #   stop("You are using CARNIVAL-mulT and added multiple input lines.
-    #        CARNIVAL-mulT with multiple conditions is not implemented yet.")
-    # }
     if(ncol(inputObj)>0){
       
       colnames(inputObj) <- gsub(pattern = "-", replacement = "_", 
@@ -46,6 +45,13 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
       mSpecies = colnames(inputObj)
     } else {
       stop("Something wrong with your measurements object. Please check.")
+    }
+
+    if (mulT) {
+      if (length(inputObj) != length(measObj)) {
+        stop("Lenghts of the input and measurement object have to be
+              identical for CARNIVAL-mulT")
+      }
     }
 
     idx = which(mSpecies%in%nSpecies)

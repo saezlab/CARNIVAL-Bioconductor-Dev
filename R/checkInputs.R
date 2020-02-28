@@ -31,7 +31,8 @@ checkInputs <- function(solverPath=NULL,
               dir_name = dir_name, mulT = mulT)
   netObj = checkNetwork(netObj = netObj)
   measObj = checkMeasObj(measObj = measObj, netObj = netObj, mulT = mulT)
-  inputObj = checkInputObj(inputObj = inputObj, netObj = netObj)
+  inputObj = checkInputObj(inputObj = inputObj, measObj = measObj,
+                           mulT = mulT, netObj = netObj)
   weightObj = checkWeightObj(weightObj = weightObj, netObj = netObj)
   pp = checkSolverParam(DOTfig=DOTfig,
                         timelimit=timelimit,

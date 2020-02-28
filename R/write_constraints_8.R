@@ -116,15 +116,15 @@ write_constraints_8 <- function(variables = variables,
 
     for(jj in 1:length(kk)){
 
-      # in case mulT there are no perturbations over time in the inputs
-      # thus, always take the first first row in the input
-      if (mulT) {
-        input_row <- 1
-      } else {
-        input_row <- ii
-      }
+      # # in case mulT there are no perturbations over time in the inputs
+      # # thus, always take the first first row in the input
+      # if (mulT) {
+      #   input_row <- 1
+      # } else {
+      #   input_row <- ii
+      # }
 
-      # input_row <- ii
+      input_row <- ii
 
       # get species name
       cName = strsplit(x = kk[jj], split = " ")[[1]][2]
