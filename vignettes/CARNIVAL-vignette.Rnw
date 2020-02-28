@@ -430,12 +430,14 @@ The solution network of this small real-case application is as shown in
 \label{fig:real_case}
 \end{figure*}
 
-\subsection{Toy Example - 3}
+\subsection{Multiple time point toy example}
 In case data with measurements of node activities at multiple time points is
 available, CARNIVAL-mulT can use the additional information to refine the
 network. To run CARNIVAL-mulT, the additional time points are added as
 new rows into \emph{measObj}. The first row corresponds to the first time
-point.
+point. The \emph{inputObj} needs to have the same number of rows as the
+\emph{measObj} since the time points in the \emph{measObj} are mapped 1:1
+to the time points in the \emph{inputObj}.
 
 At the moment, CARNIVAL-mulT requires \emph{cplex} to run, see
 section~\ref{sec:solvers} for more information on how to run \emph{cplex}.
