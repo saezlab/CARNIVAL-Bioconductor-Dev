@@ -4,7 +4,8 @@
 \alias{generateTFList}
 \title{\code{generateTFList}}
 \usage{
-generateTFList(regulon_table = regulon_table)
+generateTFList(df = TF_activities, top = 50, 
+                            access_idx = 1)
 }
 \arguments{
 \item{df}{the inferred TF activities from \code{viper} function}
