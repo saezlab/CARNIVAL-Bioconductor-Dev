@@ -14,7 +14,8 @@ checkSolverParam <- function(DOTfig=DOTfig,
                              poolReplace=poolReplace,
                              threads=threads,
                              alphaWeight=alphaWeight,
-                             betaWeight=betaWeight){
+                             betaWeight=betaWeight,
+                             parIdx=parIdx){
   
   returnList = NULL
   parallelIdx1=1
@@ -24,7 +25,16 @@ checkSolverParam <- function(DOTfig=DOTfig,
          for running CARNIVAL in parallelisation ")
   } else {
     if(parallelIdx1==1 & parallelIdx2==1) { # default case
-      repIndex=1;condition=1
+      if(is.null(parIdx)){
+        repIndex=1
+      } else {
+        if(!is.numeric(parIdx)){
+          stop("parIdx parameter if not NULL should be numeric")
+        } else {
+          repIndex=parIdx
+        }
+      }
+      condition=1
     } else {
       condition=parallelIdx1;repIndex=parallelIdx2
     }

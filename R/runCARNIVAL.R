@@ -54,6 +54,7 @@
 #'@param dir_name Name of the directory where to store the DOT figure (by
 #'default it will be stored in the /DOTfigures folder generated in the current
 #'working directory).
+#'@param parIdx Parallelization index (default set to NULL)
 #'
 #'@return The networks and predicted node activities from the CARNIVAL pipeline
 #'as a variable which are also saved in the destined result folder
@@ -85,7 +86,8 @@ runCARNIVAL <- function(inputObj=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         threads=0,
-                        dir_name=paste0(getwd(), "/DOTfigures"))
+                        dir_name=paste0(getwd(), "/DOTfigures"),
+                        parIdx=NULL)
 {
 
   res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj, 
@@ -95,7 +97,7 @@ runCARNIVAL <- function(inputObj=NULL,
                     poolCap = poolCap, poolIntensity = poolIntensity, 
                     poolReplace = poolReplace, alphaWeight = alphaWeight, 
                     betaWeight = betaWeight, dir_name = dir_name, 
-                    solver = solver, threads = threads)
+                    solver = solver, threads = threads, parIdx = parIdx)
   
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
 

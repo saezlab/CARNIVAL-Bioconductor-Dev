@@ -23,7 +23,8 @@ checkInputs <- function(solverPath=NULL,
                         betaWeight=0.2,
                         threads=0,
                         dir_name=paste0(getwd(), "/DOTfigures"),
-                        solver="cbc"){
+                        solver="cbc",
+                        parIdx=NULL){
   
   returnList = list()
   checkSolver(solverPath = solverPath, solver = solver, dir_name = dir_name)
@@ -35,7 +36,8 @@ checkInputs <- function(solverPath=NULL,
                         poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
                         poolIntensity=poolIntensity, poolReplace=poolReplace,
                         threads=threads,
-                        alphaWeight=alphaWeight, betaWeight=betaWeight)
+                        alphaWeight=alphaWeight, betaWeight=betaWeight,
+                        parIdx=parIdx)
 
   if(weightObj[1]!="NULL"){
     if(nrow(weightObj)!=nrow(measObj)){
