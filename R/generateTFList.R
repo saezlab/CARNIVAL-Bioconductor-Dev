@@ -10,7 +10,7 @@
 #'
 #'Enio Gjerga, 2020
 
-generateTFList <- function(df = df, top = 50, access_idx = 1:ncol(df)){
+generateTFList <- function(df = df, top = 50, access_idx = 1){
   
   if(top=="all"){
     top <- nrow(df)
