@@ -5,9 +5,9 @@
 
 write_constraints_6 <- function(variables=variables, 
                                 dataMatrix=dataMatrix, 
-                                inputs = inputs) {
+                                inputs = inputs, 
+                                pknList = pknList) {
   
-  library(igraph)
   constraints6 <- c()
   
   for(ii in 1:length(variables)){
