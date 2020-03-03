@@ -4,24 +4,28 @@
 #'
 #'Enio Gjerga, 2020
 
-solveCARNIVALSingle <- function(data = data, pknList = pknList, inputs = inputs,
+solveCARNIVALSingle <- function(data = data, pknList = pknList,
+                                inputs = inputs, alphaWeight = alphaWeight,
                                 betaWeight = betaWeight, scores = scores,
                                 mipGAP = mipGAP, poolrelGAP = poolrelGAP,
                                 limitPop = limitPop, poolCap = poolCap,
                                 poolIntensity = poolIntensity, DOTfig = DOTfig,
                                 poolReplace = poolReplace,
                                 timelimit = timelimit,
+                                threads = threads,
                                 measWeights = measWeights, repIndex = repIndex,
                                 condition = condition, solver = solver, 
                                 solverPath = solverPath, variables = variables,
                                 measObj = measObj, inputObj = inputObj, 
                                 dir_name = dir_name){
   
-  variables <- writeLPFile(data = data, pknList = pknList, inputs = inputs,
+  variables <- writeLPFile(data = data, pknList = pknList,
+                           inputs = inputs, alphaWeight = alphaWeight,
                            betaWeight = betaWeight, scores = scores,
                            mipGAP = mipGAP, poolrelGAP = poolrelGAP,
                            limitPop = limitPop, poolCap = poolCap,
                            poolIntensity = poolIntensity,
+                           threads = threads,
                            poolReplace = poolReplace, timelimit = timelimit,
                            measWeights = measWeights, repIndex = repIndex,
                            condition = condition)
@@ -43,7 +47,7 @@ solveCARNIVALSingle <- function(data = data, pknList = pknList, inputs = inputs,
     }
     
     ## Write result files in the results folder
-    print("Writing result files...")
+    print("Saving results...")
     resList <- list()
     if (file.exists(paste0("results_cplex_",condition,"_",repIndex,".txt"))) {
       for(i in 1:length(variables)){

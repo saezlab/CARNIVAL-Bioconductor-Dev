@@ -21,6 +21,24 @@ checkInputObj <- function(inputObj = inputObj, netObj = netObj){
     returnList = MappedPertNode
   } else {
     if(ncol(inputObj)>0){
+      
+      colnames(inputObj) <- gsub(pattern = "-", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = "+", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = "*", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = "/", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = "<", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = ">", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = "=", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      colnames(inputObj) <- gsub(pattern = " ", replacement = "_", 
+                                x = colnames(inputObj), fixed = TRUE)
+      
       mSpecies = colnames(inputObj)
     } else {
       stop("Something wrong with your measurements object. Please check.")

@@ -12,6 +12,7 @@ checkSolverParam <- function(DOTfig=DOTfig,
                              poolCap=poolCap,
                              poolIntensity=poolIntensity,
                              poolReplace=poolReplace,
+                             threads=threads,
                              alphaWeight=alphaWeight,
                              betaWeight=betaWeight){
   
@@ -35,7 +36,7 @@ checkSolverParam <- function(DOTfig=DOTfig,
   }
   
   if(!is.logical(DOTfig)){stop("For plotting: please choose whether to plot DOT 
-                                figure as an output with a logical value 
+                                figure as an output with a logical value
                                 TRUE/FALSE")
   }
   
@@ -107,7 +108,14 @@ checkSolverParam <- function(DOTfig=DOTfig,
            First Out")
     }
   }
-  
+
+  if(!is.null(threads)){
+    if(!(threads >= 0)){
+      stop("CPLEX parameter: Please set the number of threads to 0 for automatic
+           detection or any value > 0 for a specific number of threads.")
+    }
+  }
+
   if(is.null(poolReplace)){
     poolReplace=0
   }
@@ -120,6 +128,6 @@ checkSolverParam <- function(DOTfig=DOTfig,
   if(!is.numeric(betaWeight)){
     stop("Objective Function: Please set a weight for node penalty")
   }
-  
+
   return(returnList)
 }

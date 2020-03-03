@@ -2,7 +2,7 @@
 #'
 #' Returning LP matrix for one condition
 #'
-#'Enio Gjerga, RWTH Aachen & Heidelberg University, 2020
+#'Enio Gjerga, 2020
 
 prepareLPMatrixSingle <- function(variables = variables, 
                                   measObj = measObj){

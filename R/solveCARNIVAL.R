@@ -20,7 +20,8 @@ solveCARNIVAL <- function(solverPath = solverPath,
                           alphaWeight = alphaWeight, 
                           betaWeight = betaWeight, 
                           dir_name = dir_name, 
-                          solver = solver, 
+                          solver = solver,
+                          threads = threads,
                           experimental_conditions = experimental_conditions,
                           condition = condition,
                           repIndex = repIndex){
@@ -29,7 +30,7 @@ solveCARNIVAL <- function(solverPath = solverPath,
   print("Writing constraints...")
   
   if(experimental_conditions[1]=="NULL"){experimental_conditions <- NULL}
-  
+
   pknList <- as.data.frame(netObj)
   colnames(pknList) <- c("Node1", "Sign", "Node2")
   pknList$Node1 = as.character(pknList$Node1)
@@ -55,19 +56,21 @@ solveCARNIVAL <- function(solverPath = solverPath,
                                   poolIntensity = poolIntensity, 
                                   poolReplace = poolReplace, 
                                   timelimit = timelimit, 
-                                  measWeights = measWeights, 
-                                  repIndex = repIndex, condition = condition, 
-                                  solver = solver, solverPath = solverPath, 
-                                  variables = variables, measObj = measObj, 
-                                  inputObj = inputObj, DOTfig = DOTfig, 
+                                  measWeights = measWeights,
+                                  alphaWeight = alphaWeight,
+                                  threads = threads,
+                                  repIndex = repIndex, condition = condition,
+                                  solver = solver, solverPath = solverPath,
+                                  variables = variables, measObj = measObj,
+                                  inputObj = inputObj, DOTfig = DOTfig,
                                   dir_name = dir_name)
-    
+
   } else {
-    
-    stop("This version of CARNIVAL does not support analysis with multiple 
-         experimental conditions. Please split your data frame input objects 
+
+    stop("This version of CARNIVAL does not support analysis with multiple
+         experimental conditions. Please split your data frame input objects
          into single experimental conditions.")
-    
+
   }
-  
+
 }
