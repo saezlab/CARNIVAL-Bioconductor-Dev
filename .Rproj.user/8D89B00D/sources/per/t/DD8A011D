@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583240880195.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2468868075",
+    "id" : "DD8A011D",
+    "lastKnownWriteTime" : 1583240778,
+    "last_content_update" : 1583240778,
+    "path" : "~/Documents/GitHub/CARNIVAL-Bioconductor-Dev/R/append_general_variables.R",
+    "project_path" : "R/append_general_variables.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

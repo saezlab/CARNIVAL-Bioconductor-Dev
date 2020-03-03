@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583240881527.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3025232579",
+    "id" : "20A8CB96",
+    "lastKnownWriteTime" : 1583240778,
+    "last_content_update" : 1583240778,
+    "path" : "~/Documents/GitHub/CARNIVAL-Bioconductor-Dev/R/checkNetwork.R",
+    "project_path" : "R/checkNetwork.R",
+    "properties" : {
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

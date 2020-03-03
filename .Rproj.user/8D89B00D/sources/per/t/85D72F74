@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583240879681.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "975151120",
+    "id" : "85D72F74",
+    "lastKnownWriteTime" : 1583240778,
+    "last_content_update" : 1583240778,
+    "path" : "~/Documents/GitHub/CARNIVAL-Bioconductor-Dev/R/all_constraints_wLoop.R",
+    "project_path" : "R/all_constraints_wLoop.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583240882451.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3096810681",
+    "id" : "E2335999",
+    "lastKnownWriteTime" : 1583240778,
+    "last_content_update" : 1583240778,
+    "path" : "~/Documents/GitHub/CARNIVAL-Bioconductor-Dev/R/controlNodeIdentifiers.R",
+    "project_path" : "R/controlNodeIdentifiers.R",
+    "properties" : {
+    },
+    "relative_order" : 17,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

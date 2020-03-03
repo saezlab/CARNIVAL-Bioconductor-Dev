@@ -1,8 +1,6 @@
-#'\code{checkSolverParam}
-#'
-#'Checking solver parameters
-#'
-#'Enio Gjerga, 2020
+## Checking solver parameters
+##
+## Enio Gjerga, 2020
 
 checkSolverParam <- function(DOTfig=DOTfig,
                              timelimit=timelimit,
