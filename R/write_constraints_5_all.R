@@ -1,11 +1,12 @@
 #'\code{write_constraints_5_all}
 #'
-#' This code writes the list of constraints (5) of the ILP problem for all the 
+#' This code writes the list of constraints (5) of the ILP problem for all the
 #' conditions.
-#' 
+#'
 #' Enio Gjerga, 2020
 
-write_constraints_5_all <- function(variables=variables) {
+write_constraints_5_all <- function(variables=variables,
+                                    mulT = FALSE) {
 
   constraints5 <- c()
 
@@ -13,8 +14,12 @@ write_constraints_5_all <- function(variables=variables) {
 
     var <- variables[[i]]
 
-    constraints5 <- c(constraints5, write_constraints_5(variables = var, 
+    constraints5 <- c(constraints5, write_constraints_5(variables = var,
                                                         conditionIDX = i))
+
+    if (mulT) {
+      break
+    }
 
   }
 

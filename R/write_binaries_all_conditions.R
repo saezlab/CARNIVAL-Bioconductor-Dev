@@ -1,44 +1,62 @@
 #'\code{write_binaries_all_conditions}
 #'
-#'@param variables Contains the list of variables as used to formulate the ILP 
+#'@param variables Contains the list of variables as used to formulate the ILP
 #'problem, explanations for each variable and a list of useful indices.
 #'
 #'@return This code writes the list of binary variables (xp, xm, up & um).
 #'
 #'Enio Gjerga, 2020
 
-write_binaries_all_conditions <- function(variables=variables){
-  
+write_binaries_all_conditions <- function(variables=variables,
+                                          mulT = FALSE){
+
   binaries <- c()
-  
+
   for(i in 1:length(variables)){
-    
+
     if(i != length(variables)){
-      
-      binaries <- 
-        c(binaries, 
+
+      # Marking CPLEX variables as binary in the lp file
+
+      # x^+_(j,k)
+      binaries <-
+        c(binaries,
           paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesUp]))
-      binaries <- 
-        c(binaries, 
+
+      # x^-_(j,k)
+      binaries <-
+        c(binaries,
           paste0("\t", variables[[i]]$variables[variables[[i]]$idxNodesDown]))
-      binaries <- 
-        c(binaries, 
+
+
+      # u^+_(i,k)
+      binaries <-
+        c(binaries,
           paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesUp]))
-      binaries <- 
-        c(binaries, 
+
+      # u^-_(i,k)
+      binaries <-
+        c(binaries,
           paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdgesDown]))
-      binaries <- 
-        c(binaries, 
-          paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdges]))
-      
+
+      if (!mulT) {
+        # additional edges in case not mulT
+        binaries <-
+          c(binaries,
+            paste0("\t", variables[[i]]$variables[variables[[i]]$idxEdges]))
+      }
+
     } else {
-      
-      binaries <- c(binaries, paste0("\t", variables[[i]]$Variables))
-      
+
+      # y_(i,t)
+      binaries <-
+        c(binaries,
+          paste0("\t", variables[[i]]$variables))
+
     }
-    
+
   }
-  
+
   return(binaries)
-  
+
 }

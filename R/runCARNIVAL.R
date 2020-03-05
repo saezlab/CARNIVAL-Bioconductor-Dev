@@ -51,6 +51,7 @@
 #'@param betaWeight Objective function: weight for node penalty (defaul: 0.2)
 #'@param threads CPLEX parameter: Number of threads to use
 #'default: 0 for maximum number possible threads on system
+#'@param mulT Run the multiple timepoint CARNIVAL implementation
 #'@param dir_name Name of the directory where to store the DOT figure (by
 #'default it will be stored in the /DOTfigures folder generated in the current
 #'working directory).
@@ -85,34 +86,44 @@ runCARNIVAL <- function(inputObj=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         threads=0,
+                        mulT=FALSE,
                         dir_name=paste0(getwd(), "/DOTfigures"))
 {
 
-  res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj, 
+  res = checkInputs(solverPath = solverPath, netObj = netObj, measObj = measObj,
                     inputObj = inputObj, weightObj = weightObj, DOTfig = DOTfig,
-                    timelimit = timelimit, mipGAP = mipGAP, 
-                    poolrelGAP = poolrelGAP, limitPop = limitPop, 
-                    poolCap = poolCap, poolIntensity = poolIntensity, 
-                    poolReplace = poolReplace, alphaWeight = alphaWeight, 
-                    betaWeight = betaWeight, dir_name = dir_name, 
-                    solver = solver, threads = threads)
-  
+                    timelimit = timelimit, mipGAP = mipGAP,
+                    poolrelGAP = poolrelGAP, limitPop = limitPop,
+                    poolCap = poolCap, poolIntensity = poolIntensity,
+                    poolReplace = poolReplace, alphaWeight = alphaWeight,
+                    betaWeight = betaWeight, dir_name = dir_name,
+                    solver = solver, mulT = mulT, threads = threads)
+
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
 
-  result = solveCARNIVAL(solverPath = solverPath, netObj = res$inputs$network, 
-                         measObj = res$measurements, 
-                         inputObj = res$inputs$inputs, 
-                         weightObj = res$weights, DOTfig = DOTfig,
-                         timelimit = timelimit, mipGAP = mipGAP,
-                         poolrelGAP = poolrelGAP, limitPop = limitPop,
-                         poolCap = poolCap, poolIntensity = poolIntensity,
-                         poolReplace = poolReplace, alphaWeight = alphaWeight, 
-                         betaWeight = betaWeight, dir_name = dir_name, 
+  result = solveCARNIVAL(solverPath = solverPath,
+                         netObj = res$inputs$network,
+                         measObj = res$measurements,
+                         inputObj = res$inputs$inputs,
+                         weightObj = res$weights,
+                         DOTfig = DOTfig,
+                         timelimit = timelimit,
+                         mipGAP = mipGAP,
+                         poolrelGAP = poolrelGAP,
+                         limitPop = limitPop,
+                         poolCap = poolCap,
+                         poolIntensity = poolIntensity,
+                         poolReplace = poolReplace,
+                         alphaWeight = alphaWeight,
+                         betaWeight = betaWeight,
+                         dir_name = dir_name,
                          solver = solver,
+                         mulT = mulT,
                          threads = threads,
                          experimental_conditions = res$exp,
-                         condition = res$condition, repIndex = res$repIndex)
-  
+                         condition = res$condition,
+                         repIndex = res$repIndex)
+
   cleanupCARNIVAL(condition = res$condition, repIndex = res$repIndex)
 
   return(result)

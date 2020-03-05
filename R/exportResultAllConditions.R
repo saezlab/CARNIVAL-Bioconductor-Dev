@@ -11,39 +11,39 @@ exportResultAllConditions <- function(cplexSolutionFileName =
                                       pknList = pknList, 
                                       inputs=inputs, 
                                       measurements=measurements, 
-                                      solver=solver, 
-                                      lpSolution=NULL, 
+                                      solver=solver,
+                                      lpSolution=NULL,
                                       mt=NULL){
   
   if(solver=="cplex"){
     
-    RES <- exportResultAllConditionsCPLEX(cplexSolutionFileName = 
-                                              cplexSolutionFileName, 
-                                          variables = variables, 
-                                          pknList = pknList, 
-                                          inputs = inputs, 
-                                          measurements = measurements, 
+    RES <- exportResultAllConditionsCPLEX(cplexSolutionFileName =
+                                              cplexSolutionFileName,
+                                          variables = variables,
+                                          pknList = pknList,
+                                          inputs = inputs,
+                                          measurements = measurements,
                                           solver = "cplex")
-    
+
     return(RES)
-    
+
   } else {
     
     if(solver=="cbc"){
-      
-      RES <- exportResultAllConditionsCBC(cplexSolutionFileName = 
-                                             cplexSolutionFileName, 
-                                           variables = variables, 
-                                           pknList = pknList, 
-                                           inputs = inputs, 
-                                           measurements = measurements, 
+
+      RES <- exportResultAllConditionsCBC(cplexSolutionFileName =
+                                             cplexSolutionFileName,
+                                           variables = variables,
+                                           pknList = pknList,
+                                           inputs = inputs,
+                                           measurements = measurements,
                                            solver = "cbc")
-      
+
       return(RES)
-      
+
     } else {
-      
-      
+
+
     }
   }
   

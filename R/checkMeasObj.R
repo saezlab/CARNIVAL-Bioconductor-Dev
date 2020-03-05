@@ -8,11 +8,11 @@
 #'
 #'Enio Gjerga. 2020
 
-checkMeasObj <- function(measObj = measObj, netObj = netObj){
-  
-  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]), 
+checkMeasObj <- function(measObj = measObj, netObj = netObj, mulT = mulT){
+
+  nSpecies = unique(c(as.character(as.matrix(netObj)[, 1]),
                       as.character(as.matrix(netObj)[, 3])))
-  
+
   if (is.null(measObj)) {
     stop("Please provide a valid measurement object.")
   } else {
@@ -20,14 +20,19 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
     if((!is(measObj, "matrix")) && (!is(measObj, "data.frame"))){
       stop("Measurement object should either be of matrix or data.frame class")
     } else {
+      if(nrow(measObj) == 1 && mulT){
+        stop("You are using CARNIVAL-mulT but only specified one timepoint in
+             measObject. Add a line per timepoint to measObject.")
+      }
+
       if(ncol(measObj)>0){
         mSpecies = colnames(measObj)
-        
+
         idx = which(mSpecies%in%nSpecies)
         idx2rem = setdiff(1:length(mSpecies), idx)
-        
+
         if(length(idx2rem)==length(mSpecies)){
-          stop("Something wrong with your measurements object/network object. 
+          stop("Something wrong with your measurements object/network object.
                No measurements is present in the network")
         } else {
           if(length(idx2rem)>0){
@@ -44,24 +49,24 @@ checkMeasObj <- function(measObj = measObj, netObj = netObj){
       }
     }
   }
-  
-  colnames(measObj) <- gsub(pattern = "-", replacement = "_", 
+
+  colnames(measObj) <- gsub(pattern = "-", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = "+", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = "+", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = "*", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = "*", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = "/", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = "/", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = "<", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = "<", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = ">", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = ">", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = "=", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = "=", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  colnames(measObj) <- gsub(pattern = " ", replacement = "_", 
+  colnames(measObj) <- gsub(pattern = " ", replacement = "_",
                             x = colnames(measObj), fixed = TRUE)
-  
+
   return(measObj)
-  
+
 }

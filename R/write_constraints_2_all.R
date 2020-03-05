@@ -1,19 +1,23 @@
 #'\code{write_constraints_2_all}
 #'
-#' This code writes the list of constraints (2) of the ILP problem for all the 
+#' This code writes the list of constraints (2) of the ILP problem for all the
 #' conditions.
-#' 
+#'
+#' u^-_(i,k) >= sigma_i * x_(j,k)
+#'
 #' Enio Gjerga, 2020
 
 write_constraints_2_all <- function(variables=variables){
 
   constraints2 <- c()
 
+  # for each experiment / time
   for(i in 1:length(variables)){
 
     var <- variables[[i]]
 
-    constraints2 <- c(constraints2, write_constraints_2(variables = var, 
+    # create constraint 2
+    constraints2 <- c(constraints2, write_constraints_2(variables = var,
                                                         conditionIDX = i))
 
   }

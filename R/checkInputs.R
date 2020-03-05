@@ -22,20 +22,29 @@ checkInputs <- function(solverPath=NULL,
                         alphaWeight=1,
                         betaWeight=0.2,
                         threads=0,
+                        mulT = FALSE,
                         dir_name=paste0(getwd(), "/DOTfigures"),
                         solver="cbc"){
-  
+
   returnList = list()
-  checkSolver(solverPath = solverPath, solver = solver, dir_name = dir_name)
+  checkSolver(solverPath = solverPath, solver = solver,
+              dir_name = dir_name, mulT = mulT)
   netObj = checkNetwork(netObj = netObj)
-  measObj = checkMeasObj(measObj = measObj, netObj = netObj)
-  inputObj = checkInputObj(inputObj = inputObj, netObj = netObj)
+  measObj = checkMeasObj(measObj = measObj, netObj = netObj, mulT = mulT)
+  inputObj = checkInputObj(inputObj = inputObj, measObj = measObj,
+                           mulT = mulT, netObj = netObj)
   weightObj = checkWeightObj(weightObj = weightObj, netObj = netObj)
-  pp = checkSolverParam(DOTfig=DOTfig, timelimit=timelimit, mipGAP=mipGAP,
-                        poolrelGAP=poolrelGAP, limitPop=limitPop, poolCap=poolCap,
-                        poolIntensity=poolIntensity, poolReplace=poolReplace,
-                        threads=threads,
-                        alphaWeight=alphaWeight, betaWeight=betaWeight)
+  pp = checkSolverParam(DOTfig=DOTfig,
+                        timelimit=timelimit,
+                        mipGAP=mipGAP,
+                        poolrelGAP=poolrelGAP,
+                        limitPop=limitPop,
+                        poolCap=poolCap,
+                        poolIntensity=poolIntensity,
+                        poolReplace=poolReplace,
+                        alphaWeight=alphaWeight,
+                        betaWeight=betaWeight,
+                        threads = threads)
 
   if(weightObj[1]!="NULL"){
     if(nrow(weightObj)!=nrow(measObj)){
@@ -56,7 +65,7 @@ checkInputs <- function(solverPath=NULL,
   } else {
     experimental_conditions = 1:nrow(measObj)
   }
-  
+
   returnList[[length(returnList)+1]] = inputObj$network
   returnList[[length(returnList)+1]] = measObj
   returnList[[length(returnList)+1]] = inputObj
@@ -66,7 +75,7 @@ checkInputs <- function(solverPath=NULL,
   returnList[[length(returnList)+1]] = experimental_conditions
   names(returnList) = c("network", "measurements", "inputs",
                         "weights", "condition", "repIndex", "exp")
-  
+
   return(returnList)
-  
+
 }
