@@ -64,6 +64,10 @@
 #'@import readr
 #'@import readxl
 #'@import lpSolve
+#'@import progress
+#'@import parallel
+#'@import foreach
+#'@import future
 #'
 #'@export
 #'

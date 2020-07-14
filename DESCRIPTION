@@ -20,7 +20,9 @@ Imports:
     tidyr,    
     ggplot2,
     UniProt.ws,
-    lpSolve
+    lpSolve,
+    progress,
+    future
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

@@ -3,6 +3,11 @@
 #' Returning result object after solving with CARNIVAL
 #'
 
+
+library(progress)
+# library(doParallel)
+library(future)
+
 solveCARNIVALmulT <- function(data = measurements,
                               pknList = pknList,
                               inputs = inputObj,
