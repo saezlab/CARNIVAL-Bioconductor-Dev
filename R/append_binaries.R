@@ -10,8 +10,8 @@ append_binaries = function(binaries = binaries, variables = variables){
   n_nodes <- length(variables$reaction_variables$explanation)
   n_measurements <- length(variables)-1
 
-  pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_nodes)
-  pb$message("append_binaries")
+  # pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_nodes)
+  # pb$message("append_binaries")
 
   temp_binaries = matrix(nrow = n_nodes, ncol = n_measurements)
 
@@ -41,7 +41,7 @@ append_binaries = function(binaries = binaries, variables = variables){
       temp_binaries[ii, jj] <- paste0("\tandM_", ss, "_", tt, "_", jj)
 
     }
-    pb$tick()
+    # pb$tick()
 
   }
 

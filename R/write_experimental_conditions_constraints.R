@@ -19,11 +19,11 @@ write_experimental_conditions_constraints <- function(variables = variables,
 
     cc1 <- matrix(nrow = n_up_nodes, ncol = 9)
 
-    pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_up_nodes)
-    pb$message(paste("experimental_conditions: up_edges", ii, "of", n_measurements))
+    # pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_up_nodes)
+    # pb$message(paste("experimental_conditions: up_edges", ii, "of", n_measurements))
 
     for(jj in 1:n_up_nodes){
-      pb$tick()
+      # pb$tick()
 
       # current_exp <- variables$reaction_variables$explanation[[jj]]
       # ii <- strsplit(x = current_exp,

@@ -11,8 +11,8 @@ append_bounds = function(bounds = bounds, variables = variables){
   n_nodes <- length(variables$reaction_variables$explanation)
   n_measurements <- length(variables)-1
 
-  pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_nodes)
-  pb$message("append_bounds")
+  # pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_nodes)
+  # pb$message("append_bounds")
 
   temp_bounds = matrix(nrow = n_nodes, ncol = n_measurements)
 
@@ -41,7 +41,7 @@ append_bounds = function(bounds = bounds, variables = variables){
       temp_bounds[ii, jj] <- paste0("\t", "0 <= andM_", ss, "_", tt, "_", jj, " <= 1")
 
     }
-    pb$tick()
+    # pb$tick()
 
   }
 
