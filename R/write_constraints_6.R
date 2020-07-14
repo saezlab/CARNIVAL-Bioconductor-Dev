@@ -9,10 +9,12 @@
 #'
 #' Enio Gjerga, 2020
 
-write_constraints_6 <- function(variables=variables, threads=threads) {
+write_constraints_6 <- function(variables=variables,
+                                # threads=threads,
+                                pknList=pknList){
 
   library(igraph)
-  library(progress)
+  # library(progress)
   constraints6 <- c()
 
   gg <- graph_from_data_frame(d = pknList[, c(3, 1)])
@@ -22,8 +24,8 @@ write_constraints_6 <- function(variables=variables, threads=threads) {
   idx1 <- which(rowSums(adj)==0)
   idx2 <- setdiff(1:nrow(adj), idx1)
 
-  pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = length(variables) * length(idx2))
-  pb$message("constraint6")
+  # pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = length(variables) * length(idx2))
+  # pb$message("constraint6")
 
   # if (threads == 0) {
   #   cluster_threads <- parallel::detectCores()
@@ -90,10 +92,10 @@ write_constraints_6 <- function(variables=variables, threads=threads) {
         " <= 0")
 
       # constraints6 <- c(constraints6, cc)
-      pb$tick()
+      # pb$tick()
 
     }
-    constraints6 <- c(constraints6, as.character(cc_par))
+    constraints6 <- c(constraints6, as.character(cc_all))
 
   }
 

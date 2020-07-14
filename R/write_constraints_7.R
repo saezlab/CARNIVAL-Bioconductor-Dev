@@ -9,7 +9,8 @@
 #'
 #' Enio Gjerga, 2020
 
-write_constraints_7 <- function(variables=variables) {
+write_constraints_7 <- function(variables=variables,
+                                pknList=pknList) {
 
   library(igraph)
   constraints7 <- c()

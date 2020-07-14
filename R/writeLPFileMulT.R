@@ -25,7 +25,10 @@ writeLPFileMulT <- function(data = data,
                             mulT = mulT,
                             threads = threads) {
 
-  plan(multisession, workers = threads)
+  # library(progress)
+  library(future)
+
+  plan(multisession, workers = min(4, availableCores()))
   # plan(transparent)
 
   dataMatrix <- buildDataMatrix(data = data,
@@ -77,19 +80,21 @@ writeLPFileMulT <- function(data = data,
                             mulT = mulT)
   }
   c6 %<-% {
-    write_constraints_6(variables = variables[1:(n_measurements)])
+    write_constraints_6(variables = variables[1:(n_measurements)],
+                        pknList = pknList)
   }
   c7 %<-% {
-    write_constraints_7(variables = variables[1:(n_measurements)])
+    write_constraints_7(variables = variables[1:(n_measurements)],
+                        pknList = pknList)
   }
-  c8 %<-% { pknList;
+  c8 %<-% {
     write_constraints_8(variables = variables,
                         inputs = inputs,
                         pknList = pknList,
                         mulT = mulT)
   }
 
-  c9 %<-% { pknList;
+  c9 %<-% {
     write_loop_constraints(variables = variables[1:(n_measurements)],
                            pknList = pknList,
                            inputs = inputs,
@@ -117,7 +122,9 @@ writeLPFileMulT <- function(data = data,
                                 c8 = c8,
                                 c9 = c(c9, c10))
 
+  # allC <- c(c1, c2, c3, c4, c5, c6, c7, c8, c9)
   # allC <- c(c8, c9)
+  print(allC)
 
   writeSolverFiles(condition = condition,
                    repIndex = repIndex,
