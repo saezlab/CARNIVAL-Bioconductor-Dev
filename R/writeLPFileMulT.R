@@ -5,6 +5,7 @@
 #'
 
 
+
 writeLPFileMulT <- function(data = data,
                             pknList = pknList,
                             inputs = inputs,
@@ -24,6 +25,9 @@ writeLPFileMulT <- function(data = data,
                             mulT = mulT,
                             threads = threads) {
 
+  plan(multisession, workers = threads)
+  # plan(transparent)
+
   dataMatrix <- buildDataMatrix(data = data,
                                 pknList = pknList,
                                 inputs = inputs)
@@ -35,53 +39,68 @@ writeLPFileMulT <- function(data = data,
   variables <- create_variables_all(pknList = pknList, dataMatrix = dataMatrix)
   variables <- append_general_variables(variables = variables, mulT = mulT)
 
+  n_measurements <- length(variables) - 1
+
   oF <- write_objective_function_all(dataMatrix = dataMatrix,
                                      variables =
-                                       variables[1:(length(variables) - 1)],
+                                       variables[1:(n_measurements)],
                                      alphaWeight = alphaWeight,
                                      betaWeight = betaWeight,
                                      scores = scores,
                                      measWeights = measWeights)
 
   bounds <- write_boundaries_all_conditions(variables = variables, oF = oF)
-  bounds <- append_bounds(bounds = bounds, variables = variables)
+  bounds %<-% {append_bounds(bounds = bounds, variables = variables)}
   binaries <- write_binaries_all_conditions(variables = variables, mulT = mulT)
-  binaries <- append_binaries(binaries = binaries, variables = variables)
-  generals <- write_generals_all_conditions(variables = variables, oF = oF)
+  binaries %<-% {append_binaries(binaries = binaries, variables = variables)}
+  generals %<-% {write_generals_all_conditions(variables = variables, oF = oF)}
 
-  c0 <-
-    write_constraints_objFunction_all(variables =
-                                        variables[1:(length(variables) - 1)],
+  c0 %<-% {
+    write_constraints_objFunction_all(variables = variables[1:(n_measurements)],
                                       dataMatrix = dataMatrix)
-  c1 <-
-    write_constraints_1_all(variables = variables[1:(length(variables) - 1)])
-  c2 <-
-    write_constraints_2_all(variables = variables[1:(length(variables) - 1)])
-  c3 <-
-    write_constraints_3_all(variables = variables[1:(length(variables) - 1)])
-  c4 <-
-    write_constraints_4_all(variables = variables[1:(length(variables) - 1)],
+  }
+  c1 %<-% {
+    write_constraints_1_all(variables = variables[1:(n_measurements)])
+  }
+  c2 %<-% {
+    write_constraints_2_all(variables = variables[1:(n_measurements)])
+  }
+  c3 %<-% {
+    write_constraints_3_all(variables = variables[1:(n_measurements)])
+  }
+  c4 %<-% {
+    write_constraints_4_all(variables = variables[1:(n_measurements)],
                             mulT = mulT)
-  c5 <-
-    write_constraints_5_all(variables = variables[1:(length(variables) - 1)],
+  }
+  c5 %<-% {
+    write_constraints_5_all(variables = variables[1:(n_measurements)],
                             mulT = mulT)
-  c6 <-
-    write_constraints_6(variables = variables[1:(length(variables) - 1)])
-  c7 <-
-    write_constraints_7(variables = variables[1:(length(variables) - 1)])
-  c8 <-
+  }
+  c6 %<-% {
+    write_constraints_6(variables = variables[1:(n_measurements)])
+  }
+  c7 %<-% {
+    write_constraints_7(variables = variables[1:(n_measurements)])
+  }
+  c8 %<-% { pknList;
     write_constraints_8(variables = variables,
                         inputs = inputs,
                         pknList = pknList,
                         mulT = mulT)
-  c9 <-
-    write_loop_constraints(variables = variables[1:(length(variables) - 1)],
+  }
+
+  c9 %<-% { pknList;
+    write_loop_constraints(variables = variables[1:(n_measurements)],
                            pknList = pknList,
                            inputs = inputs,
                            mulT = mulT)
+  }
 
-  c10 <- write_experimental_conditions_constraints(variables = variables,
-                                                   mulT = mulT)
+
+  c10 %<-% {
+    write_experimental_conditions_constraints(variables = variables,
+                                              mulT = mulT)
+  }
 
   # c3 <- NULL
   # c8 <- NULL
@@ -97,6 +116,8 @@ writeLPFileMulT <- function(data = data,
                                 c7 = c7,
                                 c8 = c8,
                                 c9 = c(c9, c10))
+
+  # allC <- c(c8, c9)
 
   writeSolverFiles(condition = condition,
                    repIndex = repIndex,
