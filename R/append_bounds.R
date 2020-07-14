@@ -4,9 +4,19 @@
 #'
 #' Enio Gjerga, 2020
 
+
 append_bounds = function(bounds = bounds, variables = variables){
 
-  for(ii in 1:length(variables$reaction_variables$explanation)){
+
+  n_nodes <- length(variables$reaction_variables$explanation)
+  n_measurements <- length(variables)-1
+
+  pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = n_nodes)
+  pb$message("append_bounds")
+
+  temp_bounds = matrix(nrow = n_nodes, ncol = n_measurements)
+
+  for(ii in 1:n_nodes){
 
     # get source node for y variable
     ss <- strsplit(x =
@@ -22,20 +32,20 @@ append_bounds = function(bounds = bounds, variables = variables){
                        split = " ", fixed = TRUE)[[1]][2],
                    split = "=", fixed = TRUE)[[1]][2]
 
-    for(jj in 1:(length(variables)-1)){
+    for(jj in 1:(n_measurements)){
 
       # 0 <= delta^+_(i,t) <= 1
-      bounds <- c(bounds,
-                  paste0("\t", "0 <= andP_", ss, "_", tt, "_", jj, " <= 1"))
+      temp_bounds[ii, jj] <- paste0("\t", "0 <= andP_", ss, "_", tt, "_", jj, " <= 1")
 
       # 0 <= delta^-_(i,t) <= 1
-      bounds <- c(bounds,
-                  paste0("\t", "0 <= andM_", ss, "_", tt, "_", jj, " <= 1"))
+      temp_bounds[ii, jj] <- paste0("\t", "0 <= andM_", ss, "_", tt, "_", jj, " <= 1")
 
     }
+    pb$tick()
 
   }
 
+  bounds <- c(bounds, as.character(temp_bounds))
   return(bounds)
 
 }

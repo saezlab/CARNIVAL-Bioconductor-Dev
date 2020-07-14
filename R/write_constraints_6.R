@@ -9,23 +9,36 @@
 #'
 #' Enio Gjerga, 2020
 
-write_constraints_6 <- function(variables=variables) {
+write_constraints_6 <- function(variables=variables, threads=threads) {
 
   library(igraph)
+  library(progress)
   constraints6 <- c()
+
+  gg <- graph_from_data_frame(d = pknList[, c(3, 1)])
+  adj <- get.adjacency(gg)
+  adj <- as.matrix(adj)
+
+  idx1 <- which(rowSums(adj)==0)
+  idx2 <- setdiff(1:nrow(adj), idx1)
+
+  pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = length(variables) * length(idx2))
+  pb$message("constraint6")
+
+  # if (threads == 0) {
+  #   cluster_threads <- parallel::detectCores()
+  # } else {
+  #   cluster_threads <- threads
+  # }
+
+  # cluster <- parallel::makePSOCKcluster(cluster_threads)
+  # doParallel::registerDoParallel(cluster)
 
   for(ii in 1:length(variables)){
 
     # Redundant
     # source <- unique(variables[[ii]]$reactionSource)
     # target <- unique(variables[[ii]]$reactionTarget)
-
-    gg <- graph_from_data_frame(d = pknList[, c(3, 1)])
-    adj <- get.adjacency(gg)
-    adj <- as.matrix(adj)
-
-    idx1 <- which(rowSums(adj)==0)
-    idx2 <- setdiff(1:nrow(adj), idx1)
 
     if (length(idx1)>0){
 
@@ -40,10 +53,15 @@ write_constraints_6 <- function(variables=variables) {
                           " <= 0"))
     }
 
+    cc_all <- character(length = length(idx2))
+
     # x^+_(j,k) - (sum_all_incoming(u^+_(i,k))) <= 0
     for(i in 1:length(idx2)){
+    # cc_par <- foreach::foreach(i=seq_along(idx2)) %dopar% {
 
-      cc <- paste0(
+      cc_all[i] <- paste0(
+      # cc <- paste0(
+      # paste0(
 
         # x^+_(j,k)
         variables[[ii]]$variables[which(variables[[ii]]$exp ==
@@ -71,9 +89,11 @@ write_constraints_6 <- function(variables=variables) {
 
         " <= 0")
 
-      constraints6 <- c(constraints6, cc)
+      # constraints6 <- c(constraints6, cc)
+      pb$tick()
 
     }
+    constraints6 <- c(constraints6, as.character(cc_par))
 
   }
 
