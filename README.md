@@ -1,3 +1,5 @@
+This repository is outdated and kept mostly for dt and mult_cond functionalities. Merging them to the main CARNIVAL repository might not be as straightforward since code organization in CARNIVAL-Bioconductor-Dev differs from the main CARNIVAL repository.
+
 # CARNIVAL
 
 CARNIVAL is an R-package providing a framework to perform causal reasoning to infer a subset of signalling network from transcriptomics data. This work was originally based on [Melas et al.](https://pubs.rsc.org/en/content/articlehtml/2015/ib/c4ib00294f) with a number improved functionalities comparing to the original version.
